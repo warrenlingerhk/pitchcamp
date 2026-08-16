@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PitchCamp MVP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* THE STRIKE-THROUGH: Only applies to the title when checked */
+        .item-completed .item-title {
+            text-decoration: line-through;
+            text-decoration-color: #10b981; /* green-500 */
+            color: #9ca3af; /* gray-400 */
+        }
+        .item-completed .check-input {
+            accent-color: #10b981;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen font-sans">
+
+    <!-- AUTH VIEW -->
+    <div id="view-auth" class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-6 text-center">PitchCamp Portal</h1>
+            <div id="auth-form">
+                <input type="email" id="email" placeholder="Email" class="w-full p-2 border rounded mb-3">
+                <input type="password" id="password" placeholder="Password" class="w-full p-2 border rounded mb-4">
+                <button onclick="login()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-2">Log In</button>
+                <button onclick="signup()" class="w-full bg-gray-200 text-gray-800 py-2 rounded hover:bg-gray-300">Sign Up</button>
+                <p id="auth-error" class="text-red-500 text-sm mt-3 text-center"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATALOG VIEW -->
+    <div id="view-catalog" class="hidden container mx-auto p-6">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">My Courses</h1>
+            <button onclick="logout()" class="text-red-500 hover:underline text-sm">Logout</button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Active Course -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-2 border-green-500 flex flex-col">
+                <h2 class="text-2xl font-bold text-green-700">PitchCamp</h2>
+                <p class="text-gray-600 mt-2 mb-4 flex-grow">Master the art of the pitch.</p>
+                <button onclick="showModule()" class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 font-semibold">Start Module 1: Day-1AM</button>
+            </div>
+
+            <!-- Placeholder Courses -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
+                <h2 class="text-xl font-bold text-gray-800">Big Ticket Sales</h2>
+                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow">
+                    <li>Close high-value deals</li><li>Negotiation tactics</li>
+                </ul>
+                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
+                <h2 class="text-xl font-bold text-gray-800">Offers for Success</h2>
+                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Craft irresistible offers</li></ul>
+                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
+                <h2 class="text-xl font-bold text-gray-800">Get More-Better Leads</h2>
+                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Lead generation engines</li></ul>
+                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
+                <h2 class="text-xl font-bold text-gray-800">Multiply Cash Models</h2>
+                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Revenue multiplication</li></ul>
+                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE VIEW -->
+    <div id="view-module" class="hidden container mx-auto p-6 max-w-3xl">
+        <div class="flex justify-between items-center mb-6 border-b pb-4 sticky top-0 bg-gray-50 z-10">
+            <div>
+                <button onclick="showCatalog()" class="text-blue-600 hover:underline text-sm">&larr; Back to Courses</button>
+                <h1 class="text-2xl font-bold">PitchCamp</h1>
+                <h2 class="text-lg text-gray-600">Module 1: Day-1AM</h2>
+            </div>
+            <div class="text-right">
+                <span id="save-status" class="text-sm text-green-600 font-medium">All changes saved.</span>
+            </div>
+        </div>
+
+        <div id="module-content" class="space-y-6">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        // REPLACE THIS with your actual Cloudflare Worker URL
+        const API_URL = 'https://your-worker-name.your-subdomain.workers.dev'; 
+        
+        let saveTimeout;
+
+        // --- MODULE DATA ---
+        const modules = [
+            { id: 'welcome', title: 'Welcome - Introduce your self', hasInput: false, content: '' },
+            { id: 'objectives', title: 'Learning Objectives', hasInput: false, content: '<ol class="list-decimal ml-5 mt-2 space-y-1"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
+            { id: 'benchmark', title: 'Benchmark Your Pitch', hasInput: false, content: '<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p class="mt-2">All participants pitch for five minutes.</p><p class="mt-2">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" class="text-blue-600 underline">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p class="mt-2">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p class="mt-2 italic text-gray-500">Other than the Google form feedback, there is no other feedback.</p>' },
+            { id: 'pitch_improve', title: 'One part of your pitch you want to improve', hasInput: true, content: '' },
+            { id: 'storytelling', title: 'The Storytelling Advantage', hasInput: false, content: '<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p class="mt-2 font-semibold">Explain the market forces story structure from slides:</p><ul class="list-disc ml-5 space-y-1"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p class="mt-2 italic">Feedback</p>' },
+            { id: 'dyad', title: 'Dyad discussions and practice', hasInput: false, content: '<p>When you did/said…<br>The strength I saw was…<br>EBI: It would be Even Better If you…</p>' },
+            { id: 'story_improve', title: 'Story feature you want to improve', hasInput: true, content: '' },
+            { id: 'reflection', title: 'Day-1AM Reflection', hasInput: true, content: '<p class="mb-2">What is one idea / skill you learned that was valuable for you?</p>' }
+        ];
+
+        // --- ROUTING & UI ---
+        function showAuth() { toggleViews('view-auth'); }
+        function showCatalog() { toggleViews('view-catalog'); }
+        function showModule() { 
+            toggleViews('view-module'); 
+            loadProgress();
+        }
+        function toggleViews(activeId) {
+            ['view-auth', 'view-catalog', 'view-module'].forEach(id => {
+                document.getElementById(id).classList.toggle('hidden', id !== activeId);
+            });
+        }
+
+        // --- AUTHENTICATION ---
+        async function login() { await handleAuth('/api/login'); }
+        async function signup() { await handleAuth('/api/signup'); }
+        
+        async function handleAuth(endpoint) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+                const res = await fetch(API_URL + endpoint, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    showCatalog();
+                } else {
+                    document.getElementById('auth-error').innerText = data.error || 'Failed';
+                }
+            } catch (e) {
+                document.getElementById('auth-error').innerText = 'Network error';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            showAuth();
+        }
+
+        // --- MODULE RENDERING ---
+        function renderModule(savedData = []) {
+            const container = document.getElementById('module-content');
+            container.innerHTML = '';
+            
+            modules.forEach(mod => {
+                const saved = savedData.find(s => s.item_id === mod.id) || { completed: 0, note: '' };
+                const isCompleted = saved.completed === 1;
+                
+                const div = document.createElement('div');
+                div.className = `module-item bg-white p-6 rounded-lg shadow-sm border border-gray-200 transition-all ${isCompleted ? 'item-completed' : ''}`;
+                div.dataset.id = mod.id;
+                
+                let inputHtml = '';
+                if (mod.hasInput) {
+                    inputHtml = `<textarea class="note-input w-full mt-3 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none" rows="3" placeholder="Type your answer here...">${saved.note}</textarea>`;
+                }
+
+                div.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <input type="checkbox" class="check-input mt-1.5 w-5 h-5 rounded cursor-pointer" ${isCompleted ? 'checked' : ''}>
+                        <div class="flex-grow">
+                            <h3 class="item-title text-lg font-bold text-gray-900">${mod.title}</h3>
+                            <div class="text-gray-700 mt-1 text-sm leading-relaxed">${mod.content}</div>
+                            ${inputHtml}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+
+            // Attach event listeners for autosave
+            document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
+            document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
+        }
+
+        // --- AUTOSAVE LOGIC ---
+        function triggerAutoSave() {
+            // Update UI immediately for strike-through
+            document.querySelectorAll('.module-item').forEach(item => {
+                const checked = item.querySelector('.check-input').checked;
+                item.classList.toggle('item-completed', checked);
+            });
+
+            document.getElementById('save-status').innerText = 'Unsaved changes...';
+            document.getElementById('save-status').className = 'text-sm text-yellow-600 font-medium';
+            
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(saveProgress, 1500); // Wait 1.5s after typing stops
+        }
+
+        async function saveProgress() {
+            document.getElementById('save-status').innerText = 'Saving...';
+            const progress = [];
+            
+            document.querySelectorAll('.module-item').forEach(item => {
+                const id = item.dataset.id;
+                const checked = item.querySelector('.check-input').checked;
+                const noteEl = item.querySelector('.note-input');
+                progress.push({
+                    item_id: id,
+                    completed: checked ? 1 : 0,
+                    note: noteEl ? noteEl.value : ''
+                });
+            });
+
+            try {
+                await fetch(API_URL + '/api/progress', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ progress })
+                });
+                document.getElementById('save-status').innerText = 'All changes saved.';
+                document.getElementById('save-status').className = 'text-sm text-green-600 font-medium';
+            } catch (err) {
+                document.getElementById('save-status').innerText = 'Error saving!';
+                document.getElementById('save-status').className = 'text-sm text-red-600 font-medium';
+            }
+        }
+
+        async function loadProgress() {
+            try {
+                const res = await fetch(API_URL + '/api/progress', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderModule(data);
+                } else {
+                    logout(); // Token expired
+                }
+            } catch (e) {
+                renderModule([]);
+            }
+        }
+
+        // --- INIT ---
+        if (localStorage.getItem('token')) {
+            showCatalog();
+        } else {
+            showAuth();
+        }
+    </script>
+</body>
+</html>
