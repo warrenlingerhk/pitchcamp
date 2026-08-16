@@ -11,3 +11,6 @@ binding = "ASSETS"
 binding = "DB"
 database_name = "pitchcamp-db"
 database_id = "83a2a916-1973-43dc-b7f9-250df9a77e5c"
+
+[vars]
+GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyFrxXjx17MfUkoe4DiCCQ9S04HVv-6C0zwBAyHFdxzbJoxfjCvJaWyA8yJDLzUbEcc/exec"
