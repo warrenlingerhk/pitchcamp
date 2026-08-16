@@ -1,5 +1,12 @@
 name = "pitchcamp"
 compatibility_date = "2026-01-01"
+main = "worker.js"
 
 [assets]
 directory = "./"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pitchcamp-db"
+database_id = "83a2a916-1973-43dc-b7f9-250df9a77e5c"
