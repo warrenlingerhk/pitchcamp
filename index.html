@@ -409,7 +409,8 @@ function handleCourseClick(name, active){
 }
 function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
-async function login() {
+
+  async function login() {
   const errEl = document.getElementById('login-error');
   errEl.innerText = '';
   const email = document.getElementById('login-email').value.trim();
@@ -422,8 +423,10 @@ async function login() {
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
-      // If name isn't saved in browser, use email prefix as fallback
-      if (!localStorage.getItem('pc_name')) {
+      // Save the real name from the database!
+      if (data.name) {
+        localStorage.setItem('pc_name', data.name);
+      } else {
         localStorage.setItem('pc_name', email.split('@')[0]);
       }
       showHome();
