@@ -1,3 +1,5 @@
+
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -5,7 +7,7 @@ export default {
       try { return await handleApi(request, env, ctx, url); }
       catch (e) { return json({ error: e.message }, 500); }
     }
-    return env.ASSETS.fetch(request); // everything else = your static site
+    return env.ASSETS.fetch(request);
   },
 };
 
@@ -13,29 +15,32 @@ async function handleApi(request, env, ctx, url) {
   const path = url.pathname;
 
   if (path === '/api/signup' && request.method === 'POST') {
-    const { email, password } = await request.json();
+    const { name, email, password } = await request.json();
     if (!email || !password || String(password).length < 6)
       return json({ error: 'Email and a password of 6+ characters required.' }, 400);
     const hash = await hashPassword(password);
     try {
-      await env.DB.prepare('INSERT INTO users (email, password) VALUES (?, ?)').bind(email.toLowerCase(), hash).run();
+      // Now we save the name too!
+      await env.DB.prepare('INSERT INTO users (email, password, name) VALUES (?, ?, ?)').bind(email.toLowerCase(), hash, name).run();
     } catch (e) {
       return json({ error: 'That email is already registered.' }, 409);
     }
-    const user = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email.toLowerCase()).first();
+    const user = await env.DB.prepare('SELECT id, name FROM users WHERE email = ?').bind(email.toLowerCase()).first();
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token });
+    return json({ token, name: user.name });
   }
 
   if (path === '/api/login' && request.method === 'POST') {
     const { email, password } = await request.json();
-    const user = await env.DB.prepare('SELECT id, password FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
+    // Now we fetch the name too!
+    const user = await env.DB.prepare('SELECT id, password, name FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
     if (!user || user.password !== await hashPassword(password || ''))
       return json({ error: 'Invalid email or password.' }, 401);
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token });
+    // Send the name back to the browser
+    return json({ token, name: user.name });
   }
 
   if (path === '/api/progress') {
@@ -54,7 +59,7 @@ async function handleApi(request, env, ctx, url) {
           "INSERT OR REPLACE INTO progress (user_id, item_id, completed, note, updated_at) VALUES (?, ?, ?, ?, datetime('now'))"
         ).bind(userId, item.item_id, item.completed ? 1 : 0, item.note || '').run();
       }
-      if (env.GOOGLE_WEBHOOK_URL) { // optional, we add this later
+      if (env.GOOGLE_WEBHOOK_URL) {
         const user = await env.DB.prepare('SELECT email FROM users WHERE id = ?').bind(userId).first();
         ctx.waitUntil(syncSheet(env.GOOGLE_WEBHOOK_URL, user.email, progress));
       }
