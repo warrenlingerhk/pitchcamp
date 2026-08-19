@@ -22,7 +22,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0}
+body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0; font-size:16px}
 h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hidden{display:none!important}
 .wrap{width:min(1150px,94%);margin-inline:auto}
@@ -47,27 +47,27 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hero{overflow:hidden;display:grid;grid-template-columns:1fr .95fr}
 @media(max-width:700px){.hero{grid-template-columns:1fr}}
 .hero-copy{padding:34px 30px}
-.hero h1{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:800;line-height:1.15;margin:0}
+.hero h1{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;line-height:1.15;margin:0}
 .hl-orange{color:var(--orange)}
-.hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700}
+.hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700; font-size:1.1rem}
 .hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
 .trust{padding:28px 4px 8px}
-.trust-label{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--slate);font-weight:800}
-.logo-bar{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:14px 0 20px;color:var(--slate);font-weight:800;font-size:.9rem;opacity:.9}
+.trust-label{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;color:var(--slate);font-weight:800}
+.logo-bar{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:14px 0 20px;color:var(--slate);font-weight:800;font-size:.95rem;opacity:.9}
 .stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
 .stat{text-align:center}
-.stat strong{display:block;font-size:2.1rem;font-weight:800}
-.stat span{color:var(--slate);font-weight:700}
+.stat strong{display:block;font-size:2.4rem;font-weight:800}
+.stat span{color:var(--slate);font-weight:700; font-size:1rem}
 
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
 @media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
 .testi-card{padding:22px;text-align:center}
 .testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
-.testi-card blockquote{font-style:italic;margin:0;font-size:.95rem}
-.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.85rem}
+.testi-card blockquote{font-style:italic;margin:0;font-size:1rem}
+.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.9rem}
 
 .about{padding:24px 28px;border-left:6px solid var(--orange);margin-top:34px}
 .about a{color:var(--orange);font-weight:800}
@@ -75,40 +75,48 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
-.course h3{margin:0;font-size:1.15rem;font-weight:800}
-.course ul{margin:8px 0 14px;padding-left:18px;list-style:disc;font-size:.9rem;font-weight:700}
+.course h3{margin:0;font-size:1.2rem;font-weight:800}
+.course ul{margin:8px 0 14px;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
 .c1{background:var(--yellow);color:var(--navy)}
 .c2{background:#EC9A38}
 .c3{background:var(--orange)}
 .c4{background:#D65F2C}
 .c5{background:var(--red)}
-.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:.95rem}
+.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem}
 .course-btn:hover{background:#1E2F42}
 
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
 .auth-band{background:linear-gradient(90deg,var(--yellow),var(--orange));padding:18px 26px;font-weight:800;font-size:1.2rem}
 .auth-body{padding:24px 26px}
-.auth-body input{width:100%;padding:11px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;margin:6px 0 14px}
+.auth-body input{width:100%;padding:11px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;margin:6px 0 14px; font-size:1rem}
 .auth-body input:focus{outline:none;border-color:var(--orange)}
 .auth-body .btn{width:100%;padding:11px;margin-bottom:10px}
-.form-error{color:var(--red);font-weight:800;font-size:.9rem}
-
-.backlink{background:none;border:none;color:var(--orange);font-weight:800;cursor:pointer;font-size:.9rem}
+.form-error{color:var(--red);font-weight:800;font-size:1rem}
 
 /* --- COURSE PAGE STYLES --- */
 .module-menu{
   position:sticky; top:73px; z-index:30;
   background:var(--navy); color:#fff;
-  display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
-  padding:12px 0; border-bottom:3px solid var(--orange);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 20px; border-bottom:3px solid var(--orange);
 }
+.module-menu-left, .module-menu-right{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
 .module-menu a{
-  color:#fff; text-decoration:none; font-weight:800; font-size:.9rem;
+  color:#fff; text-decoration:none; font-weight:800; font-size:.95rem;
   padding:6px 14px; border-radius:999px; transition:background .2s;
 }
 .module-menu a:hover{background:rgba(255,255,255,.15)}
-@media(max-width:700px){.module-menu{top:65px; gap:4px}.module-menu a{font-size:.8rem; padding:5px 10px}}
+.back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px}
+.back-home:hover{opacity:.85}
+.save-status{color:var(--green); font-weight:800; font-size:.95rem; margin-left:12px}
+.save-warn{color:var(--orange)}
+.save-err{color:var(--red)}
+@media(max-width:700px){
+  .module-menu{top:65px; padding:8px 12px}
+  .module-menu a{font-size:.85rem; padding:5px 10px}
+  .save-status{display:none}
+}
 
 .module-section{padding:60px 0; border-bottom:4px solid var(--navy)}
 .bg-mod-1{background:var(--yellow); color:var(--navy)}
@@ -119,25 +127,20 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .bg-mod-6{background:var(--tan); color:var(--navy)}
 
 .module-header{text-align:center; margin-bottom:40px}
-.module-header h2{font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; margin:0 0 10px}
-.module-header p{font-size:1.1rem; font-weight:700; opacity:.9; max-width:700px; margin:0 auto}
+.module-header h2{font-size:clamp(2rem,5vw,3rem); font-weight:800; margin:0 0 12px}
+.module-header p{font-size:1.2rem; font-weight:700; opacity:.95; max-width:700px; margin:0 auto}
 
-.mod-item{background:#fff; color:var(--navy); border-radius:14px; padding:20px 22px; box-shadow:0 5px 0 rgba(46,65,86,.12); margin-bottom:14px; display:flex; gap:16px; align-items:flex-start}
-.check-input{width:22px;height:22px;accent-color:var(--orange);margin-top:3px;cursor:pointer;flex:0 0 auto}
-.item-title{font-size:1.1rem;font-weight:800;margin:0 0 4px}
+.mod-item{background:#fff; color:var(--navy); border-radius:14px; padding:24px 26px; box-shadow:0 5px 0 rgba(46,65,86,.12); margin-bottom:16px; display:flex; gap:18px; align-items:flex-start}
+.check-input{width:24px;height:24px;accent-color:var(--orange);margin-top:4px;cursor:pointer;flex:0 0 auto}
+.item-title{font-size:1.25rem;font-weight:800;margin:0 0 6px}
 .item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
-.mod-content{font-size:.93rem;line-height:1.6}
-.note-input{width:100%;margin-top:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:80px}
+.mod-content{font-size:1.05rem;line-height:1.7}
+.note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem}
 .note-input:focus{outline:none;border-color:var(--orange)}
-
-.save-bar{position:fixed; bottom:20px; right:20px; background:var(--navy); color:#fff; padding:10px 20px; border-radius:999px; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,.2); z-index:50}
-.save-ok{color:var(--green)}
-.save-warn{color:var(--orange)}
-.save-err{color:var(--red)}
 
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
 .modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
-.modal-box h3{margin:0 0 12px;font-size:1.3rem}
+.modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
 </style>
@@ -173,14 +176,14 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         <div class="logo-bar"><span>HKBU · School of Business</span><span>Entrepreneurship &amp; Innovation Centre</span><span>Certified Innovation</span></div>
         <div class="stats"><div class="stat"><strong>30,000+</strong><span>Learners</span></div><div class="stat"><strong>4,000+</strong><span>Public speaking learners</span></div></div>
       </section>
-      <h2 style="margin:34px 0 0;font-size:1.3rem;font-weight:800">What learners say</h2>
+      <h2 style="margin:34px 0 0;font-size:1.4rem;font-weight:800">What learners say</h2>
       <div class="testi-grid">
         <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
         <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
         <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
       </div>
       <section class="about card">
-        <h2 style="margin:0 0 10px;font-size:1.3rem;font-weight:800">About</h2>
+        <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">About</h2>
         <p style="margin:0 0 6px"><strong>PitchCamp.Live</strong> by Certified Innovation</p>
         <p style="margin:0">Dr Warren Linger · <a href="mailto:drwarren@cict.co">drwarren@cict.co</a></p>
       </section>
@@ -204,7 +207,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         <button class="btn ghost" onclick="signup()">Sign Up</button>
         <button class="btn cta" onclick="login()">Log In</button>
         <p class="form-error" id="auth-error"></p>
-        <p style="margin:6px 0 0"><button class="backlink" onclick="showHome()">&larr; Back to home</button></p>
+        <p style="margin:6px 0 0"><a href="#" class="backlink" onclick="showHome();return false" style="color:var(--orange);font-weight:800;text-decoration:none">&larr; Back to home</a></p>
       </div>
     </div>
   </div>
@@ -213,21 +216,21 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 <!-- COURSE VIEW (Long scrolling page) -->
 <div id="view-course" class="hidden">
   <nav class="module-menu">
-    <a href="#mod-1">Module 1</a>
-    <a href="#mod-2">Module 2</a>
-    <a href="#mod-3">Module 3</a>
-    <a href="#mod-4">Module 4</a>
-    <a href="#mod-5">Module 5</a>
-    <a href="#mod-6">Module 6</a>
+    <div class="module-menu-left">
+      <a href="#" class="back-home" onclick="showHome();return false">&larr; Back to Home</a>
+      <a href="#mod-1">Module 1</a>
+      <a href="#mod-2">Module 2</a>
+      <a href="#mod-3">Module 3</a>
+      <a href="#mod-4">Module 4</a>
+      <a href="#mod-5">Module 5</a>
+      <a href="#mod-6">Module 6</a>
+    </div>
+    <div class="module-menu-right">
+      <span id="save-status" class="save-status">All changes saved.</span>
+    </div>
   </nav>
 
-  <div style="text-align:center; padding:20px 0 0">
-    <button class="backlink" onclick="showHome()" style="font-size:1rem">&larr; Back to Courses</button>
-  </div>
-
   <div id="course-content"></div>
-
-  <div id="save-bar" class="save-bar save-ok">All changes saved.</div>
 </div>
 
 <!-- ACCESS MODAL -->
@@ -251,65 +254,65 @@ const COURSES = [
   { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams'] }
 ];
 
-// Full course data based on the PDF outline
 const COURSE_DATA = [
   {
     id: 'mod-1', title: 'Module 1: Awaken Your Inner Storyteller', bg: 'bg-mod-1',
     sub: 'Day 1 AM — Kickoff, Benchmark, and The Storytelling Advantage',
     items: [
-      { id:'welcome', title:'Kickoff & Connect', hasInput:false, content:'<p>Forge connections with fellow founders and ignite your creative spark.</p><p style="margin-top:8px"><strong>Ground rules:</strong> Be on time, do your best, follow my lead.</p>' },
-      { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ul style="margin:8px 0 0 18px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck, 5 minutes</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ul>' },
-      { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best.</p><p style="margin-top:8px">All participants pitch for five minutes.</p><p style="margin-top:8px">Voting scale (1 to 6): <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">Google Form</a></p><p style="margin-top:8px;color:var(--slate);font-style:italic">LB-EBI (Like Best, Even Better If) feedback for every speaker.</p>' },
+      { id:'welcome', title:'Kickoff & Connect', hasInput:false, content:'<p>Forge connections with fellow founders and ignite your creative spark.</p><p style="margin-top:10px"><strong>Ground rules:</strong> Be on time, do your best, follow my lead.</p>' },
+      { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ul style="margin:10px 0 0 20px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck, 5 minutes</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ul>' },
+      { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best.</p><p style="margin-top:10px">All participants pitch for five minutes.</p><p style="margin-top:10px">Voting scale (1 to 6): <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">Google Form</a></p><p style="margin-top:10px;color:var(--slate);font-style:italic">LB-EBI (Like Best, Even Better If) feedback for every speaker.</p>' },
       { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
-      { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:8px;font-weight:800">Market forces story structure:</p><ul style="margin:8px 0 0 18px"><li>Economic — Nuclear Winter</li><li>Social — Double the benefits/outcomes</li><li>Technological — Why us</li><li>Opportunity</li><li>Problem</li></ul>' },
-      { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p><strong>Practice format:</strong></p><ul style="margin:8px 0 0 18px"><li>When you did/said…</li><li>The strength I saw was…</li><li>EBI: It would be Even Better If you…</li></ul>' },
+      { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:10px;font-weight:800">Market forces story structure:</p><ul style="margin:10px 0 0 20px"><li>Economic — Nuclear Winter</li><li>Social — Double the benefits/outcomes</li><li>Technological — Why us</li><li>Opportunity</li><li>Problem</li></ul>' },
+      { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p><strong>Practice format:</strong></p><ul style="margin:10px 0 0 20px"><li>When you did/said…</li><li>The strength I saw was…</li><li>EBI: It would be Even Better If you…</li></ul>' },
       { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
-      { id:'reflection', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is one idea / skill you learned that was valuable for you?</p>' }
+      { id:'reflection1', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   },
   {
     id: 'mod-2', title: 'Module 2: Unleash Your Inner Storyteller', bg: 'bg-mod-2',
     sub: 'Day 1 PM — Core Message, Audience Mastery, and Narrative Architecture',
     items: [
-      { id:'m2_core', title:'Re-Craft Your Core Message', hasInput:false, content:'<p>Distill your "why" into a powerful message that resonates with every audience.</p><p style="margin-top:8px">Sharing in Dyads, then in groups of 4.</p>' },
+      { id:'m2_core', title:'Re-Craft Your Core Message', hasInput:false, content:'<p>Distill your "why" into a powerful message that resonates with every audience.</p><p style="margin-top:10px">Sharing in Dyads, then in groups of 4.</p>' },
       { id:'m2_core_input', title:'Your one-sentence killer message', hasInput:true, content:'' },
-      { id:'m2_audience', title:'Audience Mastery', hasInput:false, content:'<p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p><p style="margin-top:8px"><strong>Exercise:</strong> Intro to 4 styles of communication. Group into each style and follow the 4-styles exercise.</p>' },
-      { id:'m2_narrative', title:'Narrative Architect', hasInput:false, content:'<p>Build a compelling story arc that captivates and inspires action.</p><p style="margin-top:8px;font-weight:800">The need for:</p><ul style="margin:8px 0 0 18px"><li>Curiosity and intrigue</li><li>Tension and conflict</li><li>FOMO</li><li>Desire and wanting</li><li>Fun</li><li>Push-pull & Prizing</li></ul>' },
+      { id:'m2_audience', title:'Audience Mastery', hasInput:false, content:'<p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p><p style="margin-top:10px"><strong>Exercise:</strong> Intro to 4 styles of communication. Group into each style and follow the 4-styles exercise.</p>' },
+      { id:'m2_narrative', title:'Narrative Architect', hasInput:false, content:'<p>Build a compelling story arc that captivates and inspires action.</p><p style="margin-top:10px;font-weight:800">The need for:</p><ul style="margin:10px 0 0 20px"><li>Curiosity and intrigue</li><li>Tension and conflict</li><li>FOMO</li><li>Desire and wanting</li><li>Fun</li><li>Push-pull & Prizing</li></ul>' },
       { id:'m2_revision', title:'Revision Magic', hasInput:false, content:'<p>Revise and craft your pitch. Connect your solution to the opportunity (Pitch Slide 2) and your secret sauce to the problem.</p>' },
-      { id:'m2_reflection', title:'Day-1PM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is your biggest insight from this afternoon?</p>' }
+      { id:'reflection2', title:'Day-1PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   },
   {
     id: 'mod-3', title: 'Module 3: Refine & Conquer', bg: 'bg-mod-3',
     sub: 'Day 2 AM — Pitch Perfection, Frame Control, and Social Dynamics',
     items: [
-      { id:'m3_perfection', title:'Pitch Perfection', hasInput:false, content:'<p>Sharpen your message and delivery through expert feedback and peer collaboration.</p><p style="margin-top:8px"><strong>Group exercise:</strong> Present first 4 slides. Get feedback using LB (Like Best) and EBI (Even Better If).</p>' },
-      { id:'m3_frame', title:'Frame Control', hasInput:false, content:'<p>Learn to handle disruptions by controlling the frame of reference.</p><p style="margin-top:8px;font-weight:800">Types of frames:</p><ul style="margin:8px 0 0 18px"><li>Power frame → Power-busting frame</li><li>Time frame → Time constraining frame</li><li>Analyst frame → Intrigue frame / Prize frame</li></ul>' },
+      { id:'m3_perfection', title:'Pitch Perfection', hasInput:false, content:'<p>Sharpen your message and delivery through expert feedback and peer collaboration.</p><p style="margin-top:10px"><strong>Group exercise:</strong> Present first 4 slides. Get feedback using LB (Like Best) and EBI (Even Better If).</p>' },
+      { id:'m3_frame', title:'Frame Control', hasInput:false, content:'<p>Learn to handle disruptions by controlling the frame of reference.</p><p style="margin-top:10px;font-weight:800">Types of frames:</p><ul style="margin:10px 0 0 20px"><li>Power frame → Power-busting frame</li><li>Time frame → Time constraining frame</li><li>Analyst frame → Intrigue frame / Prize frame</li></ul>' },
       { id:'m3_frame_input', title:'Which frame do you struggle with most?', hasInput:true, content:'' },
-      { id:'m3_social', title:'Social Dynamics Mastery', hasInput:false, content:'<p>Keep your listeners in FLOW by showing your situational status.</p><p style="margin-top:8px">Learn how to use the 4 styles to keep attention. Tease with push-pulls.</p>' },
-      { id:'m3_reflection', title:'Day-2AM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What frame or dynamic will you practice today?</p>' }
+      { id:'m3_social', title:'Social Dynamics Mastery', hasInput:false, content:'<p>Keep your listeners in FLOW by showing your situational status.</p><p style="margin-top:10px">Learn how to use the 4 styles to keep attention. Tease with push-pulls.</p>' },
+      { id:'reflection3', title:'Day-2AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   },
   {
     id: 'mod-4', title: 'Module 4: Refine & Conquer', bg: 'bg-mod-4',
     sub: 'Day 2 PM — Visual Storytelling, Q&A Mastery, and Pitch Polish',
     items: [
-      { id:'m4_visual', title:'Visual Storytelling', hasInput:false, content:'<p>Master the art of creating impactful stories that amplify your narrative.</p><p style="margin-top:8px">Create a portfolio of 3-5 credibility stories. Introduce hot cognitions, stacking frames, intrigue pings, and metaphors.</p>' },
+      { id:'m4_visual', title:'Visual Storytelling', hasInput:false, content:'<p>Master the art of creating impactful stories that amplify your narrative.</p><p style="margin-top:10px">Create a portfolio of 3-5 credibility stories. Introduce hot cognitions, stacking frames, intrigue pings, and metaphors.</p>' },
       { id:'m4_practice', title:'Pitch Practice Powerhouse', hasInput:false, content:'<p>Step into the spotlight and practice your pitch in a supportive environment. (Pitch Slide 8: Traction)</p>' },
-      { id:'m4_qa', title:'Q&A Mastery', hasInput:false, content:'<p>Learn how to handle tough questions with confidence and finesse.</p><p style="margin-top:8px;font-weight:800">Answer strategies:</p><ul style="margin:8px 0 0 18px"><li>Relationship redirect</li><li>Refer back to the 3 market forces</li><li>Partial answer bridge</li><li>Clarify pause</li></ul>' },
+      { id:'m4_qa', title:'Q&A Mastery', hasInput:false, content:'<p>Learn how to handle tough questions with confidence and finesse.</p><p style="margin-top:10px;font-weight:800">Answer strategies:</p><ul style="margin:10px 0 0 20px"><li>Relationship redirect</li><li>Refer back to the 3 market forces</li><li>Partial answer bridge</li><li>Clarify pause</li></ul>' },
       { id:'m4_qa_input', title:'Your strategy for handling hostile questions', hasInput:true, content:'' },
       { id:'m4_polish', title:'Pitch Polish', hasInput:false, content:'<p>Refine your pitch to perfection. Add fun and challenge. (Pitch Slide 10: Call-to-Action)</p>' },
-      { id:'m4_reflection', title:'Day-2PM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is your strongest Q&A strategy now?</p>' }
+      { id:'reflection4', title:'Day-2PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   },
   {
     id: 'mod-5', title: 'Module 5: Launch & Lead', bg: 'bg-mod-5',
     sub: 'Day 3 AM — Action Plan, Final Prep, and Preliminary Rounds',
     items: [
-      { id:'m5_action', title:'Action Plan Ignition', hasInput:false, content:'<p>Create a personalized action plan to implement your learnings.</p><p style="margin-top:8px"><strong>Key principles:</strong> Relationships, Fun, Oversubscribe and apologize (exclusive clubs make you wait).</p>' },
+      { id:'m5_action', title:'Action Plan Ignition', hasInput:false, content:'<p>Create a personalized action plan to implement your learnings.</p><p style="margin-top:10px"><strong>Key principles:</strong> Relationships, Fun, Oversubscribe and apologize (exclusive clubs make you wait).</p>' },
       { id:'m5_action_input', title:'Your personalized action plan', hasInput:true, content:'' },
       { id:'m5_prep', title:'Final Pitch Prep & Preliminary Rounds', hasInput:false, content:'<p>Get ready to deliver your most compelling pitch yet. Groups will hear pitches and nominate candidates for the final round judged by investors.</p>' },
-      { id:'m5_adjust_input', title:'One adjustment you made after the preliminary round', hasInput:true, content:'' }
+      { id:'m5_adjust_input', title:'One adjustment you made after the preliminary round', hasInput:true, content:'' },
+      { id:'reflection5', title:'Day-3AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   },
   {
@@ -319,7 +322,7 @@ const COURSE_DATA = [
       { id:'m6_showcase', title:'Pitch Showcase', hasInput:false, content:'<p>Take the stage and deliver your refined pitch to a supportive audience and get judged by real investors.</p>' },
       { id:'m6_celebrate', title:'Celebrate & Connect', hasInput:false, content:'<p>Celebrate your accomplishments, connect with fellow founders, and leave feeling empowered.</p>' },
       { id:'m6_takeaways', title:'Key Takeaways & Next Steps', hasInput:false, content:'<p>Recap your learnings, receive valuable resources, and embark on your journey to success.</p>' },
-      { id:'m6_final_input', title:'Your biggest takeaway from the 3 days', hasInput:true, content:'' }
+      { id:'reflection6', title:'Day-3PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
     ]
   }
 ];
@@ -329,9 +332,18 @@ function toggle(id){
     document.getElementById(v).classList.toggle('hidden', v !== id));
   window.scrollTo(0,0);
 }
-function showHome(){ toggle('view-home'); renderHeader(); renderCourses('home'); }
+function showHome(){ 
+  toggle('view-home'); 
+  renderHeader(); 
+  renderCourses('home'); 
+  history.pushState(null, '', '/');
+}
 function showAuth(){ toggle('view-auth'); }
-function showCourse(){ toggle('view-course'); renderCourse(); }
+function showCourse(){ 
+  toggle('view-course'); 
+  renderCourse(); 
+  history.pushState(null, '', '/pitchcamp');
+}
 function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
 
 function renderHeader(){
@@ -430,8 +442,9 @@ function triggerAutoSave(){
   saveTimeout = setTimeout(saveProgress, 1500);
 }
 function setStatus(text, cls){
-  const el = document.getElementById('save-bar');
-  el.innerText = text; el.className = 'save-bar ' + cls;
+  const el = document.getElementById('save-status');
+  el.innerText = text; 
+  el.className = 'save-status ' + (cls || '');
 }
 async function saveProgress(){
   setStatus('Saving…', 'save-warn');
@@ -473,6 +486,19 @@ async function loadProgress(){
     setStatus('All changes saved.', 'save-ok');
   } catch (e) { setStatus('Error loading!', 'save-err'); }
 }
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function() {
+  if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) {
+    if (!document.getElementById('view-course').classList.contains('hidden')) {
+      // Stay on course page
+    } else {
+      showCourse();
+    }
+  } else {
+    showHome();
+  }
+});
 
 renderCourses('home');
 showHome();
