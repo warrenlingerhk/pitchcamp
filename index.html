@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -25,8 +25,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hidden{display:none!important}
 .wrap{width:min(1150px,94%);margin-inline:auto}
 
-/* header */
-.site-head{position:sticky;top:0;z-index:40;background:rgba(247,239,222,.96);border-bottom:3px solid var(--navy)}
+.site-head{position:sticky;top:0;z-index:40;background:rgba(247,239,222,.98);border-bottom:3px solid var(--navy)}
 .head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
 .brand-logo{width:46px;height:46px;object-fit:contain}
@@ -37,30 +36,23 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.small{padding:8px 20px;font-size:.9rem}
 .btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
-.chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 14px;font-size:.85rem;font-weight:800;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* layout */
 .layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:26px 0 70px;align-items:start}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 
-/* hero */
-.hero{overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr}
+.hero{overflow:hidden;display:grid;grid-template-columns:1fr .95fr}
 @media(max-width:700px){.hero{grid-template-columns:1fr}}
 .hero-copy{padding:34px 30px}
 .hero h1{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:800;line-height:1.15;margin:0}
 .hl-orange{color:var(--orange)}
 .hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700}
-.search input{width:100%;padding:12px 18px;border-radius:999px;border:2px solid var(--slate);font:inherit;background:#fff}
-.search input:focus{outline:none;border-color:var(--orange)}
-.cta-row{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
 .btn-cta{padding:12px 28px;font-size:1rem;background:var(--orange);color:#fff;border:none}
-.btn-cta-ghost{padding:12px 28px;font-size:1rem;background:#fff;color:var(--navy);border:2px solid var(--navy)}
 .hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
-/* trust */
 .trust{padding:28px 4px 8px}
 .trust-label{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--slate);font-weight:800}
 .logo-bar{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:14px 0 20px;color:var(--slate);font-weight:800;font-size:.9rem;opacity:.9}
@@ -69,20 +61,9 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .stat strong{display:block;font-size:2.1rem;font-weight:800}
 .stat span{color:var(--slate);font-weight:700}
 
-/* testimonials */
-.section-h{font-size:1.3rem;font-weight:800;margin:34px 0 14px}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
-.testi-card{padding:22px;text-align:center}
-.testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
-.testi-card blockquote{font-style:italic;margin:0;font-size:.95rem}
-.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.85rem}
-
-/* about */
 .about{padding:24px 28px;border-left:6px solid var(--orange);margin-top:34px}
 .about a{color:var(--orange);font-weight:800}
 
-/* course rail */
 .rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
@@ -93,14 +74,11 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .c3{background:var(--orange)}
 .c4{background:#D65F2C}
 .c5{background:var(--red)}
-.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
+.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:.95rem}
 .course-btn:hover{background:#1E2F42}
 .btn-slot{height:40px;border:2px dashed rgba(255,255,255,.65);border-radius:999px}
 .c1 .btn-slot{border-color:rgba(46,65,86,.45)}
-.rail.flash .course{animation:pulse .8s ease 2}
-@keyframes pulse{50%{transform:scale(1.03)}}
 
-/* auth */
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
 .auth-band{background:linear-gradient(90deg,var(--yellow),var(--orange));padding:18px 26px;font-weight:800;font-size:1.2rem}
@@ -110,7 +88,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .auth-body .btn{width:100%;padding:11px;margin-bottom:10px}
 .form-error{color:var(--red);font-weight:800;font-size:.9rem}
 
-/* module */
 .backlink{background:none;border:none;color:var(--orange);font-weight:800;cursor:pointer;font-size:.9rem}
 .mod-top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--navy);padding-bottom:14px;margin-bottom:20px;flex-wrap:wrap;gap:10px}
 .mod-title{margin:4px 0 0;font-size:1.7rem;font-weight:800}
@@ -129,7 +106,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 </head>
 <body>
 
-<!-- HEADER (always visible) -->
 <header class="site-head">
   <div class="wrap head-in">
     <a class="brand" href="#" onclick="showHome();return false;">
@@ -140,31 +116,23 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </header>
 
-<!-- HOME -->
 <div id="view-home">
   <div class="wrap layout">
-
-    <!-- LEFT COLUMN -->
     <div>
       <section class="hero card">
         <div class="hero-copy">
           <h1>Master New Skills From <span class="hl-orange">Expert Teachers.</span></h1>
           <p class="hero-sub">Build your Confidence. Pitch with Clarity. Act with Impact.</p>
-          <div class="search"><input id="search" type="search" placeholder="Search a topic — e.g. storytelling, Q&A, frame control…"></div>
-          <div class="cta-row">
-            <button class="btn btn-cta" id="browse-btn">Browse Courses</button>
-            <button class="btn btn-cta-ghost" id="trial-btn">Start Free Trial</button>
-          </div>
+          <button class="btn btn-cta" id="browse-btn">Browse Courses</button>
         </div>
         <div class="hero-media">
-          <img class="hero-img" src="hero.jpg" alt="Students learning together at a pitch workshop" onerror="this.remove()">
-          <img class="mascot" src="pitch-guy.png" alt="Pitch Guy, the PitchCamp mascot" onerror="this.remove()">
+          <img class="hero-img" src="hero.jpg" alt="" onerror="this.remove()">
+          <img class="mascot" src="pitch-guy.png" alt="Pitch Guy" onerror="this.remove()">
         </div>
       </section>
 
       <section class="trust">
         <p class="trust-label">Trusted by builders &amp; educators</p>
-        <!-- Swap these text placeholders for real logo files whenever you have them -->
         <div class="logo-bar">
           <span>HKBU · School of Business</span>
           <span>Entrepreneurship &amp; Innovation Centre</span>
@@ -176,39 +144,30 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         </div>
       </section>
 
-      <h2 class="section-h">What learners say</h2>
-      <div class="testi-grid">
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-      </div>
-
       <section class="about card">
-        <h2 class="section-h" style="margin:0 0 10px">About</h2>
+        <h2 style="margin:0 0 10px;font-size:1.3rem;font-weight:800">About</h2>
         <p style="margin:0 0 6px"><strong>PitchCamp.Live</strong> by Certified Innovation</p>
         <p style="margin:0">Dr Warren Linger · <a href="mailto:drwarren@cict.co">drwarren@cict.co</a></p>
       </section>
     </div>
 
-    <!-- RIGHT COLUMN: COURSES -->
-    <aside class="rail" id="rail">
+    <aside class="rail" id="rail-home">
       <h2 class="rail-title">Courses</h2>
-      <div class="course-list" id="course-list"></div>
+      <div class="course-list" id="course-list-home"></div>
     </aside>
-
   </div>
 </div>
 
-<!-- AUTH -->
 <div id="view-auth" class="hidden">
   <div class="auth-wrap">
     <div class="auth-card card">
       <div class="auth-band">PitchCamp Portal</div>
       <div class="auth-body">
+        <input type="text" id="name" placeholder="Your name" autocomplete="name">
         <input type="email" id="email" placeholder="Email" autocomplete="email">
         <input type="password" id="password" placeholder="Password (6+ characters)" autocomplete="current-password">
-        <button class="btn cta" onclick="login()">Log In</button>
         <button class="btn ghost" onclick="signup()">Sign Up</button>
+        <button class="btn cta" onclick="login()">Log In</button>
         <p class="form-error" id="auth-error"></p>
         <p style="margin:6px 0 0"><button class="backlink" onclick="showHome()">&larr; Back to home</button></p>
       </div>
@@ -216,18 +175,24 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- MODULE -->
 <div id="view-module" class="hidden">
-  <div class="wrap" style="padding:26px 0 70px;max-width:860px">
-    <div class="mod-top">
-      <div>
-        <button class="backlink" onclick="showHome()">&larr; Back to Home</button>
-        <h1 class="mod-title">PitchCamp</h1>
-        <p class="mod-sub">Module 1: Day-1AM</p>
+  <div class="wrap layout">
+    <div style="padding:26px 0 70px;max-width:860px">
+      <div class="mod-top">
+        <div>
+          <button class="backlink" onclick="showHome()">&larr; Back to Home</button>
+          <h1 class="mod-title">PitchCamp</h1>
+          <p class="mod-sub">Module 1: Day-1AM</p>
+        </div>
+        <span id="save-status" class="save-ok">All changes saved.</span>
       </div>
-      <span id="save-status" class="save-ok">All changes saved.</span>
+      <div id="module-content"></div>
     </div>
-    <div id="module-content"></div>
+
+    <aside class="rail" id="rail-module">
+      <h2 class="rail-title">Courses</h2>
+      <div class="course-list" id="course-list-module"></div>
+    </aside>
   </div>
 </div>
 
@@ -235,7 +200,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 const API_URL = '';
 let saveTimeout;
 
-/* ---------- COURSES (right rail, yellow -> red) ---------- */
 const COURSES = [
   { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room'] },
   { name:'Big Ticket Sales', tone:2, outcomes:['Close high-value deals','Negotiate with status'] },
@@ -244,86 +208,75 @@ const COURSES = [
   { name:'Multiply Cash Models', tone:5, outcomes:['Multiply revenue streams'] }
 ];
 
-/* ---------- MODULE 1: DAY-1AM (unchanged, matches your database) ---------- */
 const MODULES = [
   { id:'welcome', title:'Welcome - Introduce your self', hasInput:false, content:'' },
-  { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ol class="list-decimal ml-5 mt-2 space-y-1"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
-  { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p class="mt-2">All participants pitch for five minutes.</p><p class="mt-2">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" class="underline" style="color:var(--orange);font-weight:800">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p class="mt-2">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p class="mt-2" style="color:var(--slate);font-style:italic">Other than the Google form feedback, there is no other feedback.</p>' },
+  { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ol style="margin:8px 0 0 18px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
+  { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p style="margin-top:8px">All participants pitch for five minutes.</p><p style="margin-top:8px">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p style="margin-top:8px">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p style="margin-top:8px;color:var(--slate);font-style:italic">Other than the Google form feedback, there is no other feedback.</p>' },
   { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
-  { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p class="mt-2" style="font-weight:800">Explain the market forces story structure from slides:</p><ul class="list-disc ml-5 space-y-1"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p class="mt-2" style="font-style:italic">Feedback</p>' },
+  { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:8px;font-weight:800">Explain the market forces story structure from slides:</p><ul style="margin:8px 0 0 18px"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p style="margin-top:8px;font-style:italic">Feedback</p>' },
   { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p>When you did/said…<br>The strength I saw was…<br>EBI: It would be Even Better If you…</p>' },
   { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
   { id:'reflection', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is one idea / skill you learned that was valuable for you?</p>' }
 ];
 
-/* ---------- VIEWS ---------- */
 function toggle(id){
   ['view-home','view-auth','view-module'].forEach(v =>
     document.getElementById(v).classList.toggle('hidden', v !== id));
   window.scrollTo(0,0);
 }
-function showHome(){ toggle('view-home'); renderHeader(); }
+function showHome(){ toggle('view-home'); renderHeader(); renderCourses('home'); }
 function showAuth(){ toggle('view-auth'); }
-function showModule(){ toggle('view-module'); loadProgress(); }
-function startCourse(){ localStorage.getItem('token') ? showModule() : showAuth(); }
-function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_email'); showHome(); }
+function showModule(){ toggle('view-module'); renderCourses('module'); loadProgress(); }
+function startCourse(name){
+  if (!localStorage.getItem('token')) { showAuth(); return; }
+  if (name === 'PitchCamp') showModule();
+}
+function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
 
 function renderHeader(){
   const host = document.getElementById('head-actions');
+  const name = localStorage.getItem('pc_name');
   if (localStorage.getItem('token')) {
-    host.innerHTML = '<span class="chip">' + (localStorage.getItem('pc_email') || 'Student') + '</span>' +
+    host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + '</span>' +
       '<button class="btn small ghost" onclick="logout()">Log out</button>';
   } else {
-    host.innerHTML = '<button class="btn small ghost" onclick="showAuth()">Log in</button>' +
-      '<button class="btn small cta" onclick="showAuth()">Sign Up</button>';
+    host.innerHTML = '<button class="btn small cta" onclick="showAuth()">Sign Up</button>' +
+      '<button class="btn small ghost" onclick="showAuth()">Log in</button>';
   }
 }
 
-/* ---------- COURSE RAIL + SEARCH ---------- */
-function renderCourses(){
-  document.getElementById('course-list').innerHTML = COURSES.map(c =>
-    '<div class="course c' + c.tone + '" data-search="' + (c.name + ' ' + c.outcomes.join(' ')).toLowerCase() + '">' +
+function renderCourses(target){
+  const hostId = target === 'home' ? 'course-list-home' : 'course-list-module';
+  document.getElementById(hostId).innerHTML = COURSES.map(c =>
+    '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
       '<ul>' + c.outcomes.map(o => '<li>' + o + '</li>').join('') + '</ul>' +
-      (c.active ? '<button class="course-btn" onclick="startCourse()">Start Module 1: Day-1AM</button>'
+      (c.active ? '<button class="course-btn" onclick="startCourse(\'' + c.name + '\')">Enter ' + c.name + '</button>'
                 : '<div class="btn-slot" aria-hidden="true"></div>') +
     '</div>').join('');
 }
-document.addEventListener('input', e => {
-  if (e.target.id !== 'search') return;
-  const q = e.target.value.trim().toLowerCase();
-  document.querySelectorAll('.course').forEach(el => {
-    el.style.display = (!q || el.dataset.search.includes(q)) ? '' : 'none';
-  });
-});
+
 document.getElementById('browse-btn').onclick = () => {
-  const rail = document.getElementById('rail');
-  rail.scrollIntoView({ behavior:'smooth', block:'start' });
-  rail.classList.add('flash'); setTimeout(() => rail.classList.remove('flash'), 1700);
-};
-document.getElementById('trial-btn').onclick = () => {
-  localStorage.getItem('token')
-    ? document.getElementById('rail').scrollIntoView({ behavior:'smooth' })
-    : showAuth();
+  document.getElementById('rail-home').scrollIntoView({ behavior:'smooth', block:'start' });
 };
 
-/* ---------- AUTH ---------- */
 async function login(){ await handleAuth('/api/login'); }
 async function signup(){ await handleAuth('/api/signup'); }
 async function handleAuth(endpoint){
   const errEl = document.getElementById('auth-error');
   errEl.innerText = '';
+  const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   try {
     const res = await fetch(API_URL + endpoint, {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ name, email, password })
     });
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('pc_email', email);
+      localStorage.setItem('pc_name', name || email.split('@')[0]);
       showHome();
     } else {
       errEl.innerText = data.error || 'Something went wrong.';
@@ -331,7 +284,6 @@ async function handleAuth(endpoint){
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
 }
 
-/* ---------- MODULE RENDER + AUTOSAVE (unchanged logic) ---------- */
 function renderModule(savedData){
   const host = document.getElementById('module-content');
   host.innerHTML = '';
@@ -396,8 +348,7 @@ async function loadProgress(){
   } catch (e) { renderModule([]); }
 }
 
-/* ---------- INIT ---------- */
-renderCourses();
+renderCourses('home');
 showHome();
 </script>
 </body>
