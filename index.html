@@ -93,21 +93,42 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .form-error{color:var(--red);font-weight:800;font-size:.9rem}
 
 .backlink{background:none;border:none;color:var(--orange);font-weight:800;cursor:pointer;font-size:.9rem}
-.mod-top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--navy);padding-bottom:14px;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-.mod-title{margin:4px 0 0;font-size:1.7rem;font-weight:800}
-.mod-sub{margin:2px 0 0;color:var(--slate);font-weight:700}
-.save-ok{color:var(--green);font-weight:800;font-size:.9rem}
-.save-warn{color:var(--orange);font-weight:800;font-size:.9rem}
-.save-err{color:var(--red);font-weight:800;font-size:.9rem}
+
+/* Course page styles */
+.course-page{padding:0}
+.module-nav{position:sticky;top:70px;z-index:30;background:rgba(247,239,222,.98);border-bottom:2px solid var(--navy);padding:12px 0}
+.module-nav-inner{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.module-nav-btn{padding:8px 16px;border-radius:999px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:800;cursor:pointer;font-size:.85rem;transition:all .15s}
+.module-nav-btn:hover{background:var(--navy);color:#fff}
+.module-nav-btn.active{background:var(--orange);border-color:var(--orange);color:#fff}
+
+.module-section{padding:60px 0;min-height:100vh}
+.module-section h2{font-size:2rem;font-weight:800;margin-bottom:20px}
+.module-section h3{font-size:1.3rem;font-weight:800;margin:20px 0 10px}
+.module-section ul{margin:10px 0 20px;padding-left:24px}
+.module-section li{margin:8px 0;line-height:1.6}
+.module-section p{margin:12px 0;line-height:1.6}
+
+.mod-1{background:var(--yellow);color:var(--navy)}
+.mod-2{background:var(--orange);color:#fff}
+.mod-2 h2,.mod-2 h3{color:#fff}
+.mod-3{background:var(--red);color:#fff}
+.mod-3 h2,.mod-3 h3{color:#fff}
+.mod-4{background:var(--navy);color:#fff}
+.mod-4 h2,.mod-4 h3{color:#fff}
+.mod-5{background:var(--slate);color:#fff}
+.mod-5 h2,.mod-5 h3{color:#fff}
+.mod-6{background:var(--cream);color:var(--navy)}
+
 .mod-item{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 5px 0 rgba(46,65,86,.12);margin-bottom:14px;display:flex;gap:16px;align-items:flex-start}
+.mod-2 .mod-item,.mod-3 .mod-item,.mod-4 .mod-item,.mod-5 .mod-item{background:rgba(255,255,255,.95)}
 .check-input{width:22px;height:22px;accent-color:var(--orange);margin-top:3px;cursor:pointer;flex:0 0 auto}
-.item-title{font-size:1.1rem;font-weight:800;margin:0 0 4px}
+.item-title{font-size:1.1rem;font-weight:800;margin:0 0 4px;color:var(--navy)}
 .item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
-.mod-content{font-size:.93rem;line-height:1.6}
+.mod-content{font-size:.93rem;line-height:1.6;color:var(--navy)}
 .note-input{width:100%;margin-top:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:80px}
 .note-input:focus{outline:none;border-color:var(--orange)}
 
-/* Access warning modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
 .modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
 .modal-box h3{margin:0 0 12px;font-size:1.3rem}
@@ -192,24 +213,528 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<div id="view-module" class="hidden">
-  <div class="wrap layout">
-    <div style="padding:26px 0 70px;max-width:860px">
-      <div class="mod-top">
-        <div>
-          <button class="backlink" onclick="showHome()">&larr; Back to Home</button>
-          <h1 class="mod-title">PitchCamp</h1>
-          <p class="mod-sub">Module 1: Day-1AM</p>
-        </div>
-        <span id="save-status" class="save-ok">All changes saved.</span>
-      </div>
-      <div id="module-content"></div>
+<div id="view-course" class="hidden course-page">
+  <div class="module-nav">
+    <div class="wrap module-nav-inner">
+      <button class="module-nav-btn" onclick="scrollToModule('mod1')">Module 1</button>
+      <button class="module-nav-btn" onclick="scrollToModule('mod2')">Module 2</button>
+      <button class="module-nav-btn" onclick="scrollToModule('mod3')">Module 3</button>
+      <button class="module-nav-btn" onclick="scrollToModule('mod4')">Module 4</button>
+      <button class="module-nav-btn" onclick="scrollToModule('mod5')">Module 5</button>
+      <button class="module-nav-btn" onclick="scrollToModule('mod6')">Module 6</button>
     </div>
+  </div>
 
-    <aside class="rail" id="rail-module">
-      <h2 class="rail-title">Courses</h2>
-      <div class="course-list" id="course-list-module"></div>
-    </aside>
+  <section id="mod1" class="module-section mod-1">
+    <div class="wrap">
+      <h2>Module 1: Awaken Your Inner Storyteller</h2>
+      <p>Day 1 — Kickoff & Connect: Forge connections with fellow founders and ignite your creative spark.</p>
+      
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Intro Exercise</h3>
+          <div class="mod-content">Introduction Memory Stack — connect with your fellow founders.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Learning Objectives</h3>
+          <div class="mod-content">
+            <ul>
+              <li>Pitching is about relationship first</li>
+              <li>Relationships multiply emotions good and bad</li>
+              <li>Have fun</li>
+              <li>10 slide deck 5 minute</li>
+              <li>Compelling narratives</li>
+              <li>Frame control</li>
+              <li>Build status</li>
+              <li>Master Q&A</li>
+              <li>Impact strategies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 1: Introduction</h3>
+          <div class="mod-content">Time urgency — Relationship</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Benchmark Your Pitch</h3>
+          <div class="mod-content">
+            <p>Celebrate what your pitch connects and influences best and find ways to make it better.</p>
+            <ul>
+              <li>All participants pitch for five minutes</li>
+              <li>Google form for voting scale, love 1 to 6</li>
+              <li>LB-EBI (like best-even better if) for every speaker</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Break: DISC Survey</h3>
+          <div class="mod-content">Complete the DISC survey and remember your style.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">The Storytelling Advantage</h3>
+          <div class="mod-content">
+            <p>Discover the secrets of captivating narratives and how they fuel startup success.</p>
+            <p><strong>Market forces story structure:</strong></p>
+            <ul>
+              <li>Economic — Nuclear Winter</li>
+              <li>Social — Double the benefits/outcomes</li>
+              <li>Technological — Why us</li>
+              <li>Opportunity</li>
+              <li>Problem</li>
+              <li>Explain the time limitations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Dyad Discussions and Practice</h3>
+          <div class="mod-content">
+            <ul>
+              <li>When you did/said…</li>
+              <li>The strength I saw was…</li>
+              <li>EBI: It would be Even Better If you…</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 2: Problem</h3>
+          <div class="mod-content">
+            <ul>
+              <li>3 market forces</li>
+              <li>Problem</li>
+              <li>Opportunity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Uncover Your "Why"</h3>
+          <div class="mod-content">
+            <p>Dig deep to define your core purpose and the driving force behind your vision (Origin Story).</p>
+            <ul>
+              <li>Origin Story Form</li>
+              <li>Small group discover your WHY process</li>
+              <li>Both positive and negatives</li>
+              <li>Small group discussion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Reflection</h3>
+          <div class="mod-content">Google Form: Learned-Application-Value</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Fuel Up & Network Lunch</h3>
+          <div class="mod-content">Go out and enjoy a delicious lunch and connect with fellow founders. Think and talk about your WHY.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mod2" class="module-section mod-2">
+    <div class="wrap">
+      <h2>Module 2: Unleash Your Inner Storyteller</h2>
+      <p>Day 1 — Continue building your narrative power.</p>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Re-Craft Your Core Message</h3>
+          <div class="mod-content">
+            <p>Distill your "why" into a powerful message that resonates with every audience.</p>
+            <ul>
+              <li>Create a one sentence killer message</li>
+              <li>Sharing in Dyad then sharing in groups of 4</li>
+              <li>Use the Google Form</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Audience Mastery</h3>
+          <div class="mod-content">
+            <p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p>
+            <ul>
+              <li>Intro to 4 styles of communication</li>
+              <li>Group into each style</li>
+              <li>Follow 4-styles exercise</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Narrative Architect</h3>
+          <div class="mod-content">
+            <p>Build a compelling story arc that captivates and inspires action.</p>
+            <p><strong>The need for:</strong></p>
+            <ul>
+              <li>Curiosity and intrigue</li>
+              <li>Tension and conflict</li>
+              <li>FOMO</li>
+              <li>Desire and wanting</li>
+              <li>Fun</li>
+              <li>Push-pull & prizing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 3: Solution and Secret Sauce</h3>
+          <div class="mod-content">Connect your solution to the opportunity.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Revision Magic</h3>
+          <div class="mod-content">
+            <p>Revise and craft your pitch and bring your vision to life.</p>
+            <ul>
+              <li>Connect solution to opportunity on pitch slide 2</li>
+              <li>Connect secret sauce to problem on PS2</li>
+              <li>Make it fun</li>
+              <li>Pitch Slide 4: Competition</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Day End Review</h3>
+          <div class="mod-content">What valuable thing did you learn, where will you use it, and what's the benefit?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mod3" class="module-section mod-3">
+    <div class="wrap">
+      <h2>Module 3: Refine & Conquer</h2>
+      <p>Day 2 — Sharpen your message and delivery through expert feedback and peer collaboration.</p>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Day 1 Recap</h3>
+          <div class="mod-content">Quick memory test in pairs — each have 2 mins to write down key exercises/learning points from Day 1.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Perfection</h3>
+          <div class="mod-content">
+            <p>Sharpen your message and your delivery through expert feedback and peer collaboration.</p>
+            <ul>
+              <li>Present first 4 slides</li>
+              <li>Get feedback from group members</li>
+              <li>Like best — What did you like best?</li>
+              <li>Next time — EBI What would you like to see next time?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Frame Control</h3>
+          <div class="mod-content">
+            <p>Learn to handle disruptions by controlling the frame of reference.</p>
+            <p><strong>Types of frames you will encounter:</strong></p>
+            <ul>
+              <li>Power frame</li>
+              <li>Time frame</li>
+              <li>Analyst frame</li>
+            </ul>
+            <p><strong>Responses to the frames:</strong></p>
+            <ul>
+              <li>Power-busting frame</li>
+              <li>Time constraining frame</li>
+              <li>Intrigue frame</li>
+              <li>Prize frame</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 5: Business Model</h3>
+          <div class="mod-content">Present your business model with confidence.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Social Dynamics Mastery</h3>
+          <div class="mod-content">
+            <p>Keep your listeners in FLOW by showing your situational status.</p>
+            <ul>
+              <li>How to use the 4 styles to keep attention</li>
+              <li>Situational status: president > doctor > golf pro</li>
+              <li>Tease with push-pull's</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 6: Go-to-Market</h3>
+          <div class="mod-content">Present your go-to-market strategy.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Refuel & Recharge Lunch</h3>
+          <div class="mod-content">Go out and enjoy a delicious lunch and recharge for an afternoon of intensive practice.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mod4" class="module-section mod-4">
+    <div class="wrap">
+      <h2>Module 4: Refine & Conquer</h2>
+      <p>Day 2 — Master visual storytelling and practice your pitch.</p>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Visual Storytelling</h3>
+          <div class="mod-content">
+            <p>Master the art of creating impactful stories that amplify your narrative.</p>
+            <ul>
+              <li>Create a portfolio of 3-5 credibility stories</li>
+              <li>Introduce hot cognitions and stacking frames</li>
+              <li>Push-pull</li>
+              <li>Intrigue stories</li>
+              <li>Intrigue pings</li>
+              <li>Metaphors</li>
+              <li>Keywords: "exclusive," "limited," "early access," "don't miss out"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 7: The Ask</h3>
+          <div class="mod-content">The "ask" is the final step before you leave, but you don't ask.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Practice Powerhouse</h3>
+          <div class="mod-content">Step into the spotlight and practice your pitch in a supportive environment.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 8: Traction</h3>
+          <div class="mod-content">Show your traction and momentum.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Q&A Mastery</h3>
+          <div class="mod-content">
+            <p>Learn how to handle tough questions with confidence and finesse.</p>
+            <p><strong>Answer strategies:</strong></p>
+            <ul>
+              <li>Relationship</li>
+              <li>Refer back to the 3 market forces</li>
+              <li>Partial answer bridge</li>
+              <li>Partial answer why asked that right now</li>
+              <li>Engaging audience (even if there isn't one)</li>
+              <li>Redirect focus onto relationship frame</li>
+              <li>Hostile questions</li>
+              <li>Clarify pause</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Slide 9: Team</h3>
+          <div class="mod-content">Present your team and their strengths.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Polish</h3>
+          <div class="mod-content">
+            <p>Refine your pitch to perfection and prepare to conquer your audience.</p>
+            <ul>
+              <li>Add fun and challenge</li>
+              <li>Pitch Slide 10: Call-to-Action</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Day End Review</h3>
+          <div class="mod-content">What valuable thing did you learn, where will you use it, and what's the benefit?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mod5" class="module-section mod-5">
+    <div class="wrap">
+      <h2>Module 5: Launch & Lead</h2>
+      <p>Day 3 — Create your action plan and prepare for the final showcase.</p>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Action Plan Ignition</h3>
+          <div class="mod-content">
+            <p>Create a personalized action plan to implement your learnings and achieve your goals.</p>
+            <ul>
+              <li>Relationships</li>
+              <li>Fun</li>
+              <li>Oversubscribe and apologize. Exclusive clubs make you wait months or years before you can join.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Final Pitch Prep</h3>
+          <div class="mod-content">Get ready to deliver your most compelling pitch yet.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Preliminary Pitch Rounds</h3>
+          <div class="mod-content">Groups will hear pitches and nominate their candidates for the final round judged by investors.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Lunch & Last-Minute Prep</h3>
+          <div class="mod-content">Go out and enjoy a final lunch and make any last-minute adjustments.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mod6" class="module-section mod-6">
+    <div class="wrap">
+      <h2>Module 6: Final Showcase</h2>
+      <p>Day 3 — Take the stage and deliver your refined pitch.</p>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Pitch Showcase</h3>
+          <div class="mod-content">Take the stage and deliver your refined pitch to a supportive audience and get judged by real investors.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Celebrate & Connect</h3>
+          <div class="mod-content">Celebrate your accomplishments, connect with fellow founders, and leave feeling empowered.</div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <input type="checkbox" class="check-input">
+        <div style="flex:1">
+          <h3 class="item-title">Key Takeaways & Next Steps</h3>
+          <div class="mod-content">Recap your learnings, receive valuable resources, and embark on your journey to success.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--navy);color:#fff;padding:40px 0;text-align:center">
+    <div class="wrap">
+      <h2 style="margin:0 0 10px">Ready to transform your pitch?</h2>
+      <p style="margin:0;font-size:1.1rem">Join us for an unforgettable experience that will empower you to captivate and convert.</p>
+      <button class="btn cta" style="margin-top:20px;padding:14px 32px;font-size:1.1rem" onclick="showHome()">Back to Home</button>
+    </div>
   </div>
 </div>
 
@@ -233,25 +758,14 @@ const COURSES = [
   { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams'] }
 ];
 
-const MODULES = [
-  { id:'welcome', title:'Welcome - Introduce your self', hasInput:false, content:'' },
-  { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ol style="margin:8px 0 0 18px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
-  { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p style="margin-top:8px">All participants pitch for five minutes.</p><p style="margin-top:8px">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p style="margin-top:8px">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p style="margin-top:8px;color:var(--slate);font-style:italic">Other than the Google form feedback, there is no other feedback.</p>' },
-  { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
-  { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:8px;font-weight:800">Explain the market forces story structure from slides:</p><ul style="margin:8px 0 0 18px"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p style="margin-top:8px;font-style:italic">Feedback</p>' },
-  { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p>When you did/said…<br>The strength I saw was…<br>EBI: It would be Even Better If you…</p>' },
-  { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
-  { id:'reflection', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is one idea / skill you learned that was valuable for you?</p>' }
-];
-
 function toggle(id){
-  ['view-home','view-auth','view-module'].forEach(v =>
+  ['view-home','view-auth','view-course'].forEach(v =>
     document.getElementById(v).classList.toggle('hidden', v !== id));
   window.scrollTo(0,0);
 }
 function showHome(){ toggle('view-home'); renderHeader(); renderCourses('home'); }
 function showAuth(){ toggle('view-auth'); }
-function showModule(){ toggle('view-module'); renderCourses('module'); loadProgress(); }
+function showCourse(){ toggle('view-course'); }
 function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
 
 function renderHeader(){
@@ -268,6 +782,7 @@ function renderHeader(){
 
 function renderCourses(target){
   const hostId = target === 'home' ? 'course-list-home' : 'course-list-module';
+  if (!document.getElementById(hostId)) return;
   document.getElementById(hostId).innerHTML = COURSES.map(c =>
     '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
@@ -278,10 +793,14 @@ function renderCourses(target){
 
 function handleCourseClick(name, active){
   if (!localStorage.getItem('token')) { showAuth(); return; }
-  if (active && name === 'PitchCamp') { showModule(); return; }
+  if (active && name === 'PitchCamp') { showCourse(); return; }
   document.getElementById('access-modal').classList.remove('hidden');
 }
 function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
+
+function scrollToModule(id){
+  document.getElementById(id).scrollIntoView({ behavior:'smooth' });
+}
 
 async function login(){ await handleAuth('/api/login'); }
 async function signup(){ await handleAuth('/api/signup'); }
@@ -305,70 +824,6 @@ async function handleAuth(endpoint){
       errEl.innerText = data.error || 'Something went wrong.';
     }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
-}
-
-function renderModule(savedData){
-  const host = document.getElementById('module-content');
-  host.innerHTML = '';
-  MODULES.forEach(mod => {
-    const saved = (savedData || []).find(s => s.item_id === mod.id) || { completed:0, note:'' };
-    const done = saved.completed === 1;
-    const div = document.createElement('div');
-    div.className = 'mod-item' + (done ? ' item-completed' : '');
-    div.dataset.id = mod.id;
-    div.innerHTML =
-      '<input type="checkbox" class="check-input"' + (done ? ' checked' : '') + '>' +
-      '<div style="flex:1">' +
-        '<h3 class="item-title">' + mod.title + '</h3>' +
-        '<div class="mod-content">' + mod.content + '</div>' +
-        (mod.hasInput ? '<textarea class="note-input" placeholder="Type your answer here…">' + saved.note + '</textarea>' : '') +
-      '</div>';
-    host.appendChild(div);
-  });
-  document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
-  document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
-}
-
-function triggerAutoSave(){
-  document.querySelectorAll('.mod-item').forEach(item =>
-    item.classList.toggle('item-completed', item.querySelector('.check-input').checked));
-  setStatus('Unsaved changes…', 'save-warn');
-  clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(saveProgress, 1500);
-}
-function setStatus(text, cls){
-  const el = document.getElementById('save-status');
-  el.innerText = text; el.className = cls;
-}
-async function saveProgress(){
-  setStatus('Saving…', 'save-warn');
-  const progress = [];
-  document.querySelectorAll('.mod-item').forEach(item => {
-    const noteEl = item.querySelector('.note-input');
-    progress.push({
-      item_id: item.dataset.id,
-      completed: item.querySelector('.check-input').checked ? 1 : 0,
-      note: noteEl ? noteEl.value : ''
-    });
-  });
-  try {
-    const res = await fetch(API_URL + '/api/progress', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-      body: JSON.stringify({ progress })
-    });
-    if (!res.ok) throw new Error();
-    setStatus('All changes saved.', 'save-ok');
-  } catch (e) { setStatus('Error saving!', 'save-err'); }
-}
-async function loadProgress(){
-  try {
-    const res = await fetch(API_URL + '/api/progress', {
-      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')}
-    });
-    if (!res.ok) { logout(); return; }
-    renderModule(await res.json());
-  } catch (e) { renderModule([]); }
 }
 
 renderCourses('home');
