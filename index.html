@@ -27,8 +27,8 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hidden{display:none!important}
 .wrap{width:min(1150px,94%);margin-inline:auto}
 
-.site-head{position:sticky;top:0;z-index:40;background:rgba(247,239,222,.98);border-bottom:3px solid var(--navy)}
-.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px}
+.site-head{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:none}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
 .brand-logo{width:46px;height:46px;object-fit:contain}
 .brand-dot{color:var(--orange)}
@@ -96,7 +96,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 
 /* --- COURSE PAGE STYLES --- */
 .module-menu{
-  position:sticky; top:73px; z-index:30;
+  position:sticky; top:63px; z-index:40;
   background:var(--navy); color:#fff;
   display:flex; justify-content:space-between; align-items:center;
   padding:12px 20px; border-bottom:3px solid var(--orange);
@@ -109,11 +109,11 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .module-menu a:hover{background:rgba(255,255,255,.15)}
 .back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px}
 .back-home:hover{opacity:.85}
-.save-status{color:var(--green); font-weight:800; font-size:.95rem; margin-left:12px}
+.save-status{color:var(--yellow); font-weight:800; font-size:1rem; margin-left:12px}
 .save-warn{color:var(--orange)}
 .save-err{color:var(--red)}
 @media(max-width:700px){
-  .module-menu{top:65px; padding:8px 12px}
+  .module-menu{top:63px; padding:8px 12px}
   .module-menu a{font-size:.85rem; padding:5px 10px}
   .save-status{display:none}
 }
@@ -148,7 +148,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 <body>
 
 <header class="site-head">
-  <div class="wrap head-in">
+  <div class="head-in wrap">
     <a class="brand" href="#" onclick="showHome();return false;">
       <img class="brand-logo" src="logo.png" alt="" onerror="this.remove()">
       <span>PitchCamp<span class="brand-dot">.live</span></span>
