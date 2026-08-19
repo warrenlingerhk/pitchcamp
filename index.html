@@ -92,7 +92,9 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .auth-body input{width:100%;padding:11px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;margin:6px 0 14px; font-size:1rem}
 .auth-body input:focus{outline:none;border-color:var(--orange)}
 .auth-body .btn{width:100%;padding:11px;margin-bottom:10px}
-.form-error{color:var(--red);font-weight:800;font-size:1rem}
+.form-error{color:var(--red);font-weight:800;font-size:1rem; margin-top:8px}
+.auth-link{color:var(--orange);font-weight:800;text-decoration:none}
+.auth-link:hover{text-decoration:underline}
 
 /* --- COURSE PAGE STYLES --- */
 .module-menu{
@@ -195,19 +197,34 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- AUTH VIEW -->
-<div id="view-auth" class="hidden">
+<!-- SIGN UP VIEW -->
+<div id="view-auth-signup" class="hidden">
   <div class="auth-wrap">
     <div class="auth-card card">
-      <div class="auth-band">PitchCamp Portal</div>
+      <div class="auth-band">Join PitchCamp</div>
       <div class="auth-body">
-        <input type="text" id="name" placeholder="Your name" autocomplete="name">
-        <input type="email" id="email" placeholder="Email" autocomplete="email">
-        <input type="password" id="password" placeholder="Password (6+ characters)" autocomplete="current-password">
-        <button class="btn ghost" onclick="signup()">Sign Up</button>
+        <input type="text" id="signup-name" placeholder="Your name" autocomplete="name" required>
+        <input type="email" id="signup-email" placeholder="Email" autocomplete="email" required>
+        <input type="password" id="signup-password" placeholder="Password (6+ characters)" autocomplete="new-password" required>
+        <button class="btn cta" onclick="signup()">Create Account</button>
+        <p style="margin:12px 0 0; text-align:center; font-size:.95rem">Already have an account? <a href="#" class="auth-link" onclick="showAuth('login');return false">Log in</a></p>
+        <p class="form-error" id="signup-error"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOG IN VIEW -->
+<div id="view-auth-login" class="hidden">
+  <div class="auth-wrap">
+    <div class="auth-card card">
+      <div class="auth-band">Welcome Back</div>
+      <div class="auth-body">
+        <input type="email" id="login-email" placeholder="Email" autocomplete="email" required>
+        <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required>
         <button class="btn cta" onclick="login()">Log In</button>
-        <p class="form-error" id="auth-error"></p>
-        <p style="margin:6px 0 0"><a href="#" class="backlink" onclick="showHome();return false" style="color:var(--orange);font-weight:800;text-decoration:none">&larr; Back to home</a></p>
+        <p style="margin:12px 0 0; text-align:center; font-size:.95rem">New here? <a href="#" class="auth-link" onclick="showAuth('signup');return false">Create an account</a></p>
+        <p class="form-error" id="login-error"></p>
       </div>
     </div>
   </div>
@@ -327,23 +344,38 @@ const COURSE_DATA = [
   }
 ];
 
-function toggle(id){
-  ['view-home','view-auth','view-course'].forEach(v =>
-    document.getElementById(v).classList.toggle('hidden', v !== id));
-  window.scrollTo(0,0);
+function hideAllViews() {
+  ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v =>
+    document.getElementById(v).classList.add('hidden'));
 }
+
 function showHome(){ 
-  toggle('view-home'); 
+  hideAllViews();
+  document.getElementById('view-home').classList.remove('hidden');
   renderHeader(); 
   renderCourses('home'); 
   history.pushState(null, '', '/');
+  window.scrollTo(0,0);
 }
-function showAuth(){ toggle('view-auth'); }
+
+function showAuth(type) { 
+  hideAllViews();
+  if (type === 'signup') {
+    document.getElementById('view-auth-signup').classList.remove('hidden');
+  } else {
+    document.getElementById('view-auth-login').classList.remove('hidden');
+  }
+  window.scrollTo(0,0);
+}
+
 function showCourse(){ 
-  toggle('view-course'); 
+  hideAllViews();
+  document.getElementById('view-course').classList.remove('hidden');
   renderCourse(); 
   history.pushState(null, '', '/pitchcamp');
+  window.scrollTo(0,0);
 }
+
 function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
 
 function renderHeader(){
@@ -353,8 +385,8 @@ function renderHeader(){
     host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + '</span>' +
       '<button class="btn small ghost" onclick="logout()">Log out</button>';
   } else {
-    host.innerHTML = '<button class="btn small cta" onclick="showAuth()">Sign Up</button>' +
-      '<button class="btn small ghost" onclick="showAuth()">Log in</button>';
+    host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
+      '<button class="btn small ghost" onclick="showAuth(\'login\')">Log in</button>';
   }
 }
 
@@ -371,29 +403,54 @@ function renderCourses(target){
 }
 
 function handleCourseClick(name, active){
-  if (!localStorage.getItem('token')) { showAuth(); return; }
+  if (!localStorage.getItem('token')) { showAuth('login'); return; }
   if (active && name === 'PitchCamp') { showCourse(); return; }
   document.getElementById('access-modal').classList.remove('hidden');
 }
 function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
-async function login(){ await handleAuth('/api/login'); }
-async function signup(){ await handleAuth('/api/signup'); }
-async function handleAuth(endpoint){
-  const errEl = document.getElementById('auth-error');
+async function login() {
+  const errEl = document.getElementById('login-error');
   errEl.innerText = '';
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
   try {
-    const res = await fetch(API_URL + endpoint, {
+    const res = await fetch(API_URL + '/api/login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      // If name isn't saved in browser, use email prefix as fallback
+      if (!localStorage.getItem('pc_name')) {
+        localStorage.setItem('pc_name', email.split('@')[0]);
+      }
+      showHome();
+    } else {
+      errEl.innerText = data.error || 'Something went wrong.';
+    }
+  } catch (e) { errEl.innerText = 'Network error — try again.'; }
+}
+
+async function signup() {
+  const errEl = document.getElementById('signup-error');
+  errEl.innerText = '';
+  const name = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  
+  if (!name) { errEl.innerText = 'Please enter your name.'; return; }
+  
+  try {
+    const res = await fetch(API_URL + '/api/signup', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name, email, password })
     });
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('pc_name', name || email.split('@')[0]);
+      localStorage.setItem('pc_name', name);
       showHome();
     } else {
       errEl.innerText = data.error || 'Something went wrong.';
@@ -487,7 +544,6 @@ async function loadProgress(){
   } catch (e) { setStatus('Error loading!', 'save-err'); }
 }
 
-// Handle browser back/forward buttons
 window.addEventListener('popstate', function() {
   if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) {
     if (!document.getElementById('view-course').classList.contains('hidden')) {
