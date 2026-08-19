@@ -3,530 +3,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PitchCamp - Master Your Pitch | AI Founder Summer Camp</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PitchCamp — Master New Skills From Expert Teachers</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6;
+  --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B;
+}
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0}
+h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
+.hidden{display:none!important}
+.wrap{width:min(1150px,94%);margin-inline:auto}
 
-        :root {
-            --primary-orange: #F4A261;
-            --primary-yellow: #E9C46A;
-            --primary-blue: #2A9D8F;
-            --dark-blue: #264653;
-            --light-bg: #FFF8F0;
-            --white: #ffffff;
-        }
+/* header */
+.site-head{position:sticky;top:0;z-index:40;background:rgba(247,239,222,.96);border-bottom:3px solid var(--navy)}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
+.brand-logo{width:46px;height:46px;object-fit:contain}
+.brand-dot{color:var(--orange)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.btn{border-radius:999px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;font-family:'Nunito Sans'}
+.btn:hover{transform:translateY(-2px)}
+.btn.small{padding:8px 20px;font-size:.9rem}
+.btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
+.btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
+.chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 14px;font-size:.85rem;font-weight:800;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--dark-blue);
-        }
+/* layout */
+.layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:26px 0 70px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 
-        /* Header & Navigation */
-        .header {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+/* hero */
+.hero{overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr}
+@media(max-width:700px){.hero{grid-template-columns:1fr}}
+.hero-copy{padding:34px 30px}
+.hero h1{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:800;line-height:1.15;margin:0}
+.hl-orange{color:var(--orange)}
+.hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700}
+.search input{width:100%;padding:12px 18px;border-radius:999px;border:2px solid var(--slate);font:inherit;background:#fff}
+.search input:focus{outline:none;border-color:var(--orange)}
+.cta-row{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.btn-cta{padding:12px 28px;font-size:1rem;background:var(--orange);color:#fff;border:none}
+.btn-cta-ghost{padding:12px 28px;font-size:1rem;background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
+.hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* trust */
+.trust{padding:28px 4px 8px}
+.trust-label{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--slate);font-weight:800}
+.logo-bar{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:14px 0 20px;color:var(--slate);font-weight:800;font-size:.9rem;opacity:.9}
+.stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat strong{display:block;font-size:2.1rem;font-weight:800}
+.stat span{color:var(--slate);font-weight:700}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--dark-blue);
-            text-decoration: none;
-        }
+/* testimonials */
+.section-h{font-size:1.3rem;font-weight:800;margin:34px 0 14px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{padding:22px;text-align:center}
+.testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
+.testi-card blockquote{font-style:italic;margin:0;font-size:.95rem}
+.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.85rem}
 
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
+/* about */
+.about{padding:24px 28px;border-left:6px solid var(--orange);margin-top:34px}
+.about a{color:var(--orange);font-weight:800}
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
+/* course rail */
+.rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
+.course-list{display:flex;flex-direction:column;gap:14px}
+.course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
+.course h3{margin:0;font-size:1.15rem;font-weight:800}
+.course ul{margin:8px 0 14px;padding-left:18px;list-style:disc;font-size:.9rem;font-weight:700}
+.c1{background:var(--yellow);color:var(--navy)}
+.c2{background:#EC9A38}
+.c3{background:var(--orange)}
+.c4{background:#D65F2C}
+.c5{background:var(--red)}
+.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
+.course-btn:hover{background:#1E2F42}
+.btn-slot{height:40px;border:2px dashed rgba(255,255,255,.65);border-radius:999px}
+.c1 .btn-slot{border-color:rgba(46,65,86,.45)}
+.rail.flash .course{animation:pulse .8s ease 2}
+@keyframes pulse{50%{transform:scale(1.03)}}
 
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
+/* auth */
+.auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
+.auth-card{width:min(440px,94%);overflow:hidden}
+.auth-band{background:linear-gradient(90deg,var(--yellow),var(--orange));padding:18px 26px;font-weight:800;font-size:1.2rem}
+.auth-body{padding:24px 26px}
+.auth-body input{width:100%;padding:11px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;margin:6px 0 14px}
+.auth-body input:focus{outline:none;border-color:var(--orange)}
+.auth-body .btn{width:100%;padding:11px;margin-bottom:10px}
+.form-error{color:var(--red);font-weight:800;font-size:.9rem}
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-blue);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-orange);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn-login {
-            text-decoration: none;
-            color: var(--dark-blue);
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-        }
-
-        .btn-signup {
-            background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
-            color: var(--white);
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-signup:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.6);
-        }
-
-        /* Main Layout */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: var(--dark-blue);
-            opacity: 0.9;
-        }
-
-        .search-bar {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .search-btn {
-            background: var(--dark-blue);
-            color: var(--white);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.3s;
-        }
-
-        .search-btn:hover {
-            background: var(--primary-blue);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--dark-blue);
-            color: var(--white);
-            padding: 1.25rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 6px 20px rgba(38, 70, 83, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(38, 70, 83, 0.6);
-        }
-
-        .hero-image {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .mascot-float {
-            position: absolute;
-            bottom: -20px;
-            left: -20px;
-            width: 150px;
-            height: auto;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Trust & Stats Section */
-        .trust-section {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .logo-bar {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo-bar p {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .partner-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            opacity: 0.6;
-        }
-
-        .partner-logos img {
-            height: 40px;
-            width: auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 1.5rem;
-            background: var(--light-bg);
-            border-radius: 15px;
-            border-left: 4px solid var(--primary-orange);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-orange);
-            display: block;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Right Column - Course List */
-        .courses-sidebar {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .courses-header {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--dark-blue);
-            padding-bottom: 1rem;
-            border-bottom: 3px solid var(--primary-yellow);
-        }
-
-        .course-card {
-            background: var(--light-bg);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .course-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            border-color: var(--primary-orange);
-        }
-
-        .course-badge {
-            display: inline-block;
-            background: var(--primary-orange);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .course-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 1rem;
-            color: #666;
-            font-size: 0.85rem;
-        }
-
-        .course-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .courses-sidebar {
-                position: static;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+/* module */
+.backlink{background:none;border:none;color:var(--orange);font-weight:800;cursor:pointer;font-size:.9rem}
+.mod-top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--navy);padding-bottom:14px;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.mod-title{margin:4px 0 0;font-size:1.7rem;font-weight:800}
+.mod-sub{margin:2px 0 0;color:var(--slate);font-weight:700}
+.save-ok{color:var(--green);font-weight:800;font-size:.9rem}
+.save-warn{color:var(--orange);font-weight:800;font-size:.9rem}
+.save-err{color:var(--red);font-weight:800;font-size:.9rem}
+.mod-item{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 5px 0 rgba(46,65,86,.12);margin-bottom:14px;display:flex;gap:16px;align-items:flex-start}
+.check-input{width:22px;height:22px;accent-color:var(--orange);margin-top:3px;cursor:pointer;flex:0 0 auto}
+.item-title{font-size:1.1rem;font-weight:800;margin:0 0 4px}
+.item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
+.mod-content{font-size:.93rem;line-height:1.6}
+.note-input{width:100%;margin-top:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:80px}
+.note-input:focus{outline:none;border-color:var(--orange)}
+</style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="/" class="logo">
-                <img src="pitchcamp-logo.png" alt="PitchCamp Logo">
-                <span>PitchCamp</span>
-            </a>
-            
-            <div class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                </ul>
-                
-                <div class="auth-buttons">
-                    <a href="/login" class="btn-login">Login</a>
-                    <a href="/signup" class="btn-signup">Sign Up</a>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Left Column -->
-        <div class="left-column">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>Master New Skills From Expert Teachers</h1>
-                        <p>Join thousands of learners mastering public speaking, pitching, and presentation skills with AI Founder Summer Camp</p>
-                        
-                        <div class="search-bar">
-                            <input type="text" class="search-input" placeholder="What do you want to learn today?">
-                            <button class="search-btn">Search</button>
-                        </div>
-                        
-                        <a href="#courses" class="cta-button">Browse Courses</a>
-                    </div>
-                    
-                    <div class="hero-image">
-                        <img src="students-learning.jpg" alt="Students learning at PitchCamp">
-                        <img src="pitch-guy.png" alt="Pitch Guy Mascot" class="mascot-float">
-                    </div>
-                </div>
-            </section>
+<!-- HEADER (always visible) -->
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#" onclick="showHome();return false;">
+      <img class="brand-logo" src="logo.png" alt="" onerror="this.remove()">
+      <span>PitchCamp<span class="brand-dot">.live</span></span>
+    </a>
+    <div class="head-actions" id="head-actions"></div>
+  </div>
+</header>
 
-            <!-- Trust & Stats Section -->
-            <section class="trust-section">
-                <div class="logo-bar">
-                    <p>Trusted by leading institutions</p>
-                    <div class="partner-logos">
-                        <img src="hkbu-logo.png" alt="Hong Kong Baptist University">
-                        <img src="entrepreneurship-center.png" alt="Entrepreneurship Center">
-                        <img src="silicon-valley.png" alt="Silicon Valley Partners">
-                        <img src="tech-startup.png" alt="Tech Startups">
-                    </div>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">30,000+</span>
-                        <div class="stat-label">Active Learners</div>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">4,000+</span>
-                        <div class="stat-label">Public Speaking Learners</div>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">95%</span>
-                        <div class="stat-label">Success Rate</div>
-                    </div>
-                </div>
-            </section>
+<!-- HOME -->
+<div id="view-home">
+  <div class="wrap layout">
+
+    <!-- LEFT COLUMN -->
+    <div>
+      <section class="hero card">
+        <div class="hero-copy">
+          <h1>Master New Skills From <span class="hl-orange">Expert Teachers.</span></h1>
+          <p class="hero-sub">Build your Confidence. Pitch with Clarity. Act with Impact.</p>
+          <div class="search"><input id="search" type="search" placeholder="Search a topic — e.g. storytelling, Q&A, frame control…"></div>
+          <div class="cta-row">
+            <button class="btn btn-cta" id="browse-btn">Browse Courses</button>
+            <button class="btn btn-cta-ghost" id="trial-btn">Start Free Trial</button>
+          </div>
         </div>
+        <div class="hero-media">
+          <img class="hero-img" src="hero.jpg" alt="Students learning together at a pitch workshop" onerror="this.remove()">
+          <img class="mascot" src="pitch-guy.png" alt="Pitch Guy, the PitchCamp mascot" onerror="this.remove()">
+        </div>
+      </section>
 
-        <!-- Right Column - Course List -->
-        <aside class="courses-sidebar">
-            <h2 class="courses-header"> Available Courses</h2>
-            
-            <div class="course-card">
-                <span class="course-badge">POPULAR</span>
-                <h3 class="course-title">AI Founder Summer Camp</h3>
-                <div class="course-meta">
-                    <span> 3 Days</span>
-                    <span>⏰ 9AM-6PM</span>
-                </div>
-            </div>
-            
-            <div class="course-card">
-                <span class="course-badge">BEGINNER</span>
-                <h3 class="course-title">Pitching & Social Dynamics</h3>
-                <div class="course-meta">
-                    <span>📅 1 Day</span>
-                    <span> 50 Students</span>
-                </div>
-            </div>
-            
-            <div class="course-card">
-                <span class="course-badge">INTERMEDIATE</span>
-                <h3 class="course-title">Guiding Listeners & Questions</h3>
-                <div class="course-meta">
-                    <span> 1 Day</span>
-                    <span>👥 45 Students</span>
-                </div>
-            </div>
-            
-            <div class="course-card">
-                <span class="course-badge">ADVANCED</span>
-                <h3 class="course-title">Fine Tuning & Final Competition</h3>
-                <div class="course-meta">
-                    <span> 1 Day</span>
-                    <span>🏆 Judged by Investors</span>
-                </div>
-            </div>
-            
-            <div class="course-card">
-                <span class="course-badge">NEW</span>
-                <h3 class="course-title">Silicon Valley Pitch Skills</h3>
-                <div class="course-meta">
-                    <span>📅 2 Weeks</span>
-                    <span>💼 Career Ready</span>
-                </div>
-            </div>
-            
-            <div class="course-card">
-                <span class="course-badge">WORKSHOP</span>
-                <h3 class="course-title">Control the Room with Confidence</h3>
-                <div class="course-meta">
-                    <span>📅 Half Day</span>
-                    <span>🎯 Practical Skills</span>
-                </div>
-            </div>
-        </aside>
+      <section class="trust">
+        <p class="trust-label">Trusted by builders &amp; educators</p>
+        <!-- Swap these text placeholders for real logo files whenever you have them -->
+        <div class="logo-bar">
+          <span>HKBU · School of Business</span>
+          <span>Entrepreneurship &amp; Innovation Centre</span>
+          <span>Certified Innovation</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>30,000+</strong><span>Learners</span></div>
+          <div class="stat"><strong>4,000+</strong><span>Public speaking learners</span></div>
+        </div>
+      </section>
+
+      <h2 class="section-h">What learners say</h2>
+      <div class="testi-grid">
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>“Student quote coming soon.”</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+      </div>
+
+      <section class="about card">
+        <h2 class="section-h" style="margin:0 0 10px">About</h2>
+        <p style="margin:0 0 6px"><strong>PitchCamp.Live</strong> by Certified Innovation</p>
+        <p style="margin:0">Dr Warren Linger · <a href="mailto:drwarren@cict.co">drwarren@cict.co</a></p>
+      </section>
     </div>
+
+    <!-- RIGHT COLUMN: COURSES -->
+    <aside class="rail" id="rail">
+      <h2 class="rail-title">Courses</h2>
+      <div class="course-list" id="course-list"></div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- AUTH -->
+<div id="view-auth" class="hidden">
+  <div class="auth-wrap">
+    <div class="auth-card card">
+      <div class="auth-band">PitchCamp Portal</div>
+      <div class="auth-body">
+        <input type="email" id="email" placeholder="Email" autocomplete="email">
+        <input type="password" id="password" placeholder="Password (6+ characters)" autocomplete="current-password">
+        <button class="btn cta" onclick="login()">Log In</button>
+        <button class="btn ghost" onclick="signup()">Sign Up</button>
+        <p class="form-error" id="auth-error"></p>
+        <p style="margin:6px 0 0"><button class="backlink" onclick="showHome()">&larr; Back to home</button></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE -->
+<div id="view-module" class="hidden">
+  <div class="wrap" style="padding:26px 0 70px;max-width:860px">
+    <div class="mod-top">
+      <div>
+        <button class="backlink" onclick="showHome()">&larr; Back to Home</button>
+        <h1 class="mod-title">PitchCamp</h1>
+        <p class="mod-sub">Module 1: Day-1AM</p>
+      </div>
+      <span id="save-status" class="save-ok">All changes saved.</span>
+    </div>
+    <div id="module-content"></div>
+  </div>
+</div>
+
+<script>
+const API_URL = '';
+let saveTimeout;
+
+/* ---------- COURSES (right rail, yellow -> red) ---------- */
+const COURSES = [
+  { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room'] },
+  { name:'Big Ticket Sales', tone:2, outcomes:['Close high-value deals','Negotiate with status'] },
+  { name:'Offers for Success', tone:3, outcomes:['Craft irresistible offers'] },
+  { name:'Get More-Better Leads', tone:4, outcomes:['Build reliable lead engines'] },
+  { name:'Multiply Cash Models', tone:5, outcomes:['Multiply revenue streams'] }
+];
+
+/* ---------- MODULE 1: DAY-1AM (unchanged, matches your database) ---------- */
+const MODULES = [
+  { id:'welcome', title:'Welcome - Introduce your self', hasInput:false, content:'' },
+  { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ol class="list-decimal ml-5 mt-2 space-y-1"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
+  { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p class="mt-2">All participants pitch for five minutes.</p><p class="mt-2">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" class="underline" style="color:var(--orange);font-weight:800">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p class="mt-2">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p class="mt-2" style="color:var(--slate);font-style:italic">Other than the Google form feedback, there is no other feedback.</p>' },
+  { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
+  { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p class="mt-2" style="font-weight:800">Explain the market forces story structure from slides:</p><ul class="list-disc ml-5 space-y-1"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p class="mt-2" style="font-style:italic">Feedback</p>' },
+  { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p>When you did/said…<br>The strength I saw was…<br>EBI: It would be Even Better If you…</p>' },
+  { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
+  { id:'reflection', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:2px">What is one idea / skill you learned that was valuable for you?</p>' }
+];
+
+/* ---------- VIEWS ---------- */
+function toggle(id){
+  ['view-home','view-auth','view-module'].forEach(v =>
+    document.getElementById(v).classList.toggle('hidden', v !== id));
+  window.scrollTo(0,0);
+}
+function showHome(){ toggle('view-home'); renderHeader(); }
+function showAuth(){ toggle('view-auth'); }
+function showModule(){ toggle('view-module'); loadProgress(); }
+function startCourse(){ localStorage.getItem('token') ? showModule() : showAuth(); }
+function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_email'); showHome(); }
+
+function renderHeader(){
+  const host = document.getElementById('head-actions');
+  if (localStorage.getItem('token')) {
+    host.innerHTML = '<span class="chip">' + (localStorage.getItem('pc_email') || 'Student') + '</span>' +
+      '<button class="btn small ghost" onclick="logout()">Log out</button>';
+  } else {
+    host.innerHTML = '<button class="btn small ghost" onclick="showAuth()">Log in</button>' +
+      '<button class="btn small cta" onclick="showAuth()">Sign Up</button>';
+  }
+}
+
+/* ---------- COURSE RAIL + SEARCH ---------- */
+function renderCourses(){
+  document.getElementById('course-list').innerHTML = COURSES.map(c =>
+    '<div class="course c' + c.tone + '" data-search="' + (c.name + ' ' + c.outcomes.join(' ')).toLowerCase() + '">' +
+      '<h3>' + c.name + '</h3>' +
+      '<ul>' + c.outcomes.map(o => '<li>' + o + '</li>').join('') + '</ul>' +
+      (c.active ? '<button class="course-btn" onclick="startCourse()">Start Module 1: Day-1AM</button>'
+                : '<div class="btn-slot" aria-hidden="true"></div>') +
+    '</div>').join('');
+}
+document.addEventListener('input', e => {
+  if (e.target.id !== 'search') return;
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.course').forEach(el => {
+    el.style.display = (!q || el.dataset.search.includes(q)) ? '' : 'none';
+  });
+});
+document.getElementById('browse-btn').onclick = () => {
+  const rail = document.getElementById('rail');
+  rail.scrollIntoView({ behavior:'smooth', block:'start' });
+  rail.classList.add('flash'); setTimeout(() => rail.classList.remove('flash'), 1700);
+};
+document.getElementById('trial-btn').onclick = () => {
+  localStorage.getItem('token')
+    ? document.getElementById('rail').scrollIntoView({ behavior:'smooth' })
+    : showAuth();
+};
+
+/* ---------- AUTH ---------- */
+async function login(){ await handleAuth('/api/login'); }
+async function signup(){ await handleAuth('/api/signup'); }
+async function handleAuth(endpoint){
+  const errEl = document.getElementById('auth-error');
+  errEl.innerText = '';
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  try {
+    const res = await fetch(API_URL + endpoint, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('pc_email', email);
+      showHome();
+    } else {
+      errEl.innerText = data.error || 'Something went wrong.';
+    }
+  } catch (e) { errEl.innerText = 'Network error — try again.'; }
+}
+
+/* ---------- MODULE RENDER + AUTOSAVE (unchanged logic) ---------- */
+function renderModule(savedData){
+  const host = document.getElementById('module-content');
+  host.innerHTML = '';
+  MODULES.forEach(mod => {
+    const saved = (savedData || []).find(s => s.item_id === mod.id) || { completed:0, note:'' };
+    const done = saved.completed === 1;
+    const div = document.createElement('div');
+    div.className = 'mod-item' + (done ? ' item-completed' : '');
+    div.dataset.id = mod.id;
+    div.innerHTML =
+      '<input type="checkbox" class="check-input"' + (done ? ' checked' : '') + '>' +
+      '<div style="flex:1">' +
+        '<h3 class="item-title">' + mod.title + '</h3>' +
+        '<div class="mod-content">' + mod.content + '</div>' +
+        (mod.hasInput ? '<textarea class="note-input" placeholder="Type your answer here…">' + saved.note + '</textarea>' : '') +
+      '</div>';
+    host.appendChild(div);
+  });
+  document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
+  document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
+}
+
+function triggerAutoSave(){
+  document.querySelectorAll('.mod-item').forEach(item =>
+    item.classList.toggle('item-completed', item.querySelector('.check-input').checked));
+  setStatus('Unsaved changes…', 'save-warn');
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(saveProgress, 1500);
+}
+function setStatus(text, cls){
+  const el = document.getElementById('save-status');
+  el.innerText = text; el.className = cls;
+}
+async function saveProgress(){
+  setStatus('Saving…', 'save-warn');
+  const progress = [];
+  document.querySelectorAll('.mod-item').forEach(item => {
+    const noteEl = item.querySelector('.note-input');
+    progress.push({
+      item_id: item.dataset.id,
+      completed: item.querySelector('.check-input').checked ? 1 : 0,
+      note: noteEl ? noteEl.value : ''
+    });
+  });
+  try {
+    const res = await fetch(API_URL + '/api/progress', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+      body: JSON.stringify({ progress })
+    });
+    if (!res.ok) throw new Error();
+    setStatus('All changes saved.', 'save-ok');
+  } catch (e) { setStatus('Error saving!', 'save-err'); }
+}
+async function loadProgress(){
+  try {
+    const res = await fetch(API_URL + '/api/progress', {
+      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')}
+    });
+    if (!res.ok) { logout(); return; }
+    renderModule(await res.json());
+  } catch (e) { renderModule([]); }
+}
+
+/* ---------- INIT ---------- */
+renderCourses();
+showHome();
+</script>
 </body>
 </html>
