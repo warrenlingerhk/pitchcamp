@@ -48,7 +48,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hero h1{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:800;line-height:1.15;margin:0}
 .hl-orange{color:var(--orange)}
 .hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700}
-.btn-cta{padding:12px 28px;font-size:1rem;background:var(--orange);color:#fff;border:none}
 .hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
@@ -60,6 +59,13 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .stat{text-align:center}
 .stat strong{display:block;font-size:2.1rem;font-weight:800}
 .stat span{color:var(--slate);font-weight:700}
+
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{padding:22px;text-align:center}
+.testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
+.testi-card blockquote{font-style:italic;margin:0;font-size:.95rem}
+.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.85rem}
 
 .about{padding:24px 28px;border-left:6px solid var(--orange);margin-top:34px}
 .about a{color:var(--orange);font-weight:800}
@@ -76,8 +82,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .c5{background:var(--red)}
 .course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:.95rem}
 .course-btn:hover{background:#1E2F42}
-.btn-slot{height:40px;border:2px dashed rgba(255,255,255,.65);border-radius:999px}
-.c1 .btn-slot{border-color:rgba(46,65,86,.45)}
 
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
@@ -102,6 +106,13 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .mod-content{font-size:.93rem;line-height:1.6}
 .note-input{width:100%;margin-top:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:80px}
 .note-input:focus{outline:none;border-color:var(--orange)}
+
+/* Access warning modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
+.modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.modal-box h3{margin:0 0 12px;font-size:1.3rem}
+.modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
+.modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
@@ -123,7 +134,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         <div class="hero-copy">
           <h1>Master New Skills From <span class="hl-orange">Expert Teachers.</span></h1>
           <p class="hero-sub">Build your Confidence. Pitch with Clarity. Act with Impact.</p>
-          <button class="btn btn-cta" id="browse-btn">Browse Courses</button>
         </div>
         <div class="hero-media">
           <img class="hero-img" src="hero.jpg" alt="" onerror="this.remove()">
@@ -143,6 +153,13 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
           <div class="stat"><strong>4,000+</strong><span>Public speaking learners</span></div>
         </div>
       </section>
+
+      <h2 style="margin:34px 0 0;font-size:1.3rem;font-weight:800">What learners say</h2>
+      <div class="testi-grid">
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
+      </div>
 
       <section class="about card">
         <h2 style="margin:0 0 10px;font-size:1.3rem;font-weight:800">About</h2>
@@ -196,16 +213,24 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
+<div id="access-modal" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal-box">
+    <h3>Course Access Required</h3>
+    <p>Talk to DrWarren's team to get access to this course.</p>
+    <button class="modal-close" onclick="document.getElementById('access-modal').classList.add('hidden')">Got it</button>
+  </div>
+</div>
+
 <script>
 const API_URL = '';
 let saveTimeout;
 
 const COURSES = [
   { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room'] },
-  { name:'Big Ticket Sales', tone:2, outcomes:['Close high-value deals','Negotiate with status'] },
-  { name:'Offers for Success', tone:3, outcomes:['Craft irresistible offers'] },
-  { name:'Get More-Better Leads', tone:4, outcomes:['Build reliable lead engines'] },
-  { name:'Multiply Cash Models', tone:5, outcomes:['Multiply revenue streams'] }
+  { name:'Big Ticket Sales', tone:2, active:false, outcomes:['Close high-value deals','Negotiate with status'] },
+  { name:'Offers for Success', tone:3, active:false, outcomes:['Craft irresistible offers'] },
+  { name:'Get More-Better Leads', tone:4, active:false, outcomes:['Build reliable lead engines'] },
+  { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams'] }
 ];
 
 const MODULES = [
@@ -227,10 +252,6 @@ function toggle(id){
 function showHome(){ toggle('view-home'); renderHeader(); renderCourses('home'); }
 function showAuth(){ toggle('view-auth'); }
 function showModule(){ toggle('view-module'); renderCourses('module'); loadProgress(); }
-function startCourse(name){
-  if (!localStorage.getItem('token')) { showAuth(); return; }
-  if (name === 'PitchCamp') showModule();
-}
 function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
 
 function renderHeader(){
@@ -251,14 +272,16 @@ function renderCourses(target){
     '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
       '<ul>' + c.outcomes.map(o => '<li>' + o + '</li>').join('') + '</ul>' +
-      (c.active ? '<button class="course-btn" onclick="startCourse(\'' + c.name + '\')">Enter ' + c.name + '</button>'
-                : '<div class="btn-slot" aria-hidden="true"></div>') +
+      '<button class="course-btn" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>' +
     '</div>').join('');
 }
 
-document.getElementById('browse-btn').onclick = () => {
-  document.getElementById('rail-home').scrollIntoView({ behavior:'smooth', block:'start' });
-};
+function handleCourseClick(name, active){
+  if (!localStorage.getItem('token')) { showAuth(); return; }
+  if (active && name === 'PitchCamp') { showModule(); return; }
+  document.getElementById('access-modal').classList.remove('hidden');
+}
+function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
 async function login(){ await handleAuth('/api/login'); }
 async function signup(){ await handleAuth('/api/signup'); }
