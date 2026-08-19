@@ -1,269 +1,532 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PitchCamp MVP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PitchCamp - Master Your Pitch | AI Founder Summer Camp</title>
     <style>
-        /* THE STRIKE-THROUGH: Only applies to the title when checked */
-        .item-completed .item-title {
-            text-decoration: line-through;
-            text-decoration-color: #10b981; /* green-500 */
-            color: #9ca3af; /* gray-400 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .item-completed .check-input {
-            accent-color: #10b981;
+
+        :root {
+            --primary-orange: #F4A261;
+            --primary-yellow: #E9C46A;
+            --primary-blue: #2A9D8F;
+            --dark-blue: #264653;
+            --light-bg: #FFF8F0;
+            --white: #ffffff;
         }
-        .hidden { display: none; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-blue);
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.6);
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--dark-blue);
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-btn {
+            background: var(--dark-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-blue);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(38, 70, 83, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(38, 70, 83, 0.6);
+        }
+
+        .hero-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .mascot-float {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 150px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Trust & Stats Section */
+        .trust-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo-bar {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-bar p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+
+        .partner-logos img {
+            height: 40px;
+            width: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Right Column - Course List */
+        .courses-sidebar {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .courses-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark-blue);
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-yellow);
+        }
+
+        .course-card {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .course-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-orange);
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: var(--primary-orange);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .courses-sidebar {
+                position: static;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen font-sans">
-
-    <!-- AUTH VIEW -->
-    <div id="view-auth" class="flex items-center justify-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h1 class="text-2xl font-bold mb-6 text-center">PitchCamp Portal</h1>
-            <div id="auth-form">
-                <input type="email" id="email" placeholder="Email" class="w-full p-2 border rounded mb-3">
-                <input type="password" id="password" placeholder="Password" class="w-full p-2 border rounded mb-4">
-                <button onclick="login()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-2">Log In</button>
-                <button onclick="signup()" class="w-full bg-gray-200 text-gray-800 py-2 rounded hover:bg-gray-300">Sign Up</button>
-                <p id="auth-error" class="text-red-500 text-sm mt-3 text-center"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- CATALOG VIEW -->
-    <div id="view-catalog" class="hidden container mx-auto p-6">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold">My Courses</h1>
-            <button onclick="logout()" class="text-red-500 hover:underline text-sm">Logout</button>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Active Course -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-2 border-green-500 flex flex-col">
-                <h2 class="text-2xl font-bold text-green-700">PitchCamp</h2>
-                <p class="text-gray-600 mt-2 mb-4 flex-grow">Master the art of the pitch.</p>
-                <button onclick="showModule()" class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 font-semibold">Start Module 1: Day-1AM</button>
-            </div>
-
-            <!-- Placeholder Courses -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
-                <h2 class="text-xl font-bold text-gray-800">Big Ticket Sales</h2>
-                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow">
-                    <li>Close high-value deals</li><li>Negotiation tactics</li>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">
+                <img src="pitchcamp-logo.png" alt="PitchCamp Logo">
+                <span>PitchCamp</span>
+            </a>
+            
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                 </ul>
-                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
-            </div>
-
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
-                <h2 class="text-xl font-bold text-gray-800">Offers for Success</h2>
-                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Craft irresistible offers</li></ul>
-                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
-            </div>
-
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
-                <h2 class="text-xl font-bold text-gray-800">Get More-Better Leads</h2>
-                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Lead generation engines</li></ul>
-                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
-            </div>
-
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200 flex flex-col">
-                <h2 class="text-xl font-bold text-gray-800">Multiply Cash Models</h2>
-                <ul class="list-disc ml-5 text-gray-600 mt-2 mb-4 text-sm flex-grow"><li>Revenue multiplication</li></ul>
-                <div class="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded text-center cursor-not-allowed">Enrollment Opening Soon</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODULE VIEW -->
-    <div id="view-module" class="hidden container mx-auto p-6 max-w-3xl">
-        <div class="flex justify-between items-center mb-6 border-b pb-4 sticky top-0 bg-gray-50 z-10">
-            <div>
-                <button onclick="showCatalog()" class="text-blue-600 hover:underline text-sm">&larr; Back to Courses</button>
-                <h1 class="text-2xl font-bold">PitchCamp</h1>
-                <h2 class="text-lg text-gray-600">Module 1: Day-1AM</h2>
-            </div>
-            <div class="text-right">
-                <span id="save-status" class="text-sm text-green-600 font-medium">All changes saved.</span>
-            </div>
-        </div>
-
-        <div id="module-content" class="space-y-6">
-            <!-- Injected by JS -->
-        </div>
-    </div>
-
-    <script>
-        // --- CONFIGURATION ---
-        // REPLACE THIS with your actual Cloudflare Worker URL
-        const API_URL = '';
-        
-        let saveTimeout;
-
-        // --- MODULE DATA ---
-        const modules = [
-            { id: 'welcome', title: 'Welcome - Introduce your self', hasInput: false, content: '' },
-            { id: 'objectives', title: 'Learning Objectives', hasInput: false, content: '<ol class="list-decimal ml-5 mt-2 space-y-1"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck 5 minute</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ol>' },
-            { id: 'benchmark', title: 'Benchmark Your Pitch', hasInput: false, content: '<p>Celebrate what your pitch connects and influences best and find ways to make it better.</p><p class="mt-2">All participants pitch for five minutes.</p><p class="mt-2">I will create a Google form for voting scale, 1 to 6: <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" class="text-blue-600 underline">https://forms.gle/yYVTCdXU98MkttZ76</a></p><p class="mt-2">Also LB-EBI (like best-even better if) for every speaker (Guidance on how to give feedback?).</p><p class="mt-2 italic text-gray-500">Other than the Google form feedback, there is no other feedback.</p>' },
-            { id: 'pitch_improve', title: 'One part of your pitch you want to improve', hasInput: true, content: '' },
-            { id: 'storytelling', title: 'The Storytelling Advantage', hasInput: false, content: '<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p class="mt-2 font-semibold">Explain the market forces story structure from slides:</p><ul class="list-disc ml-5 space-y-1"><li>Economic-Nuclear Winter</li><li>Social-Double the benefits/outcomes</li><li>Technological-Why us</li><li>Opportunity</li><li>Problem</li><li>Explain the time limitations</li></ul><p class="mt-2 italic">Feedback</p>' },
-            { id: 'dyad', title: 'Dyad discussions and practice', hasInput: false, content: '<p>When you did/said…<br>The strength I saw was…<br>EBI: It would be Even Better If you…</p>' },
-            { id: 'story_improve', title: 'Story feature you want to improve', hasInput: true, content: '' },
-            { id: 'reflection', title: 'Day-1AM Reflection', hasInput: true, content: '<p class="mb-2">What is one idea / skill you learned that was valuable for you?</p>' }
-        ];
-
-        // --- ROUTING & UI ---
-        function showAuth() { toggleViews('view-auth'); }
-        function showCatalog() { toggleViews('view-catalog'); }
-        function showModule() { 
-            toggleViews('view-module'); 
-            loadProgress();
-        }
-        function toggleViews(activeId) {
-            ['view-auth', 'view-catalog', 'view-module'].forEach(id => {
-                document.getElementById(id).classList.toggle('hidden', id !== activeId);
-            });
-        }
-
-        // --- AUTHENTICATION ---
-        async function login() { await handleAuth('/api/login'); }
-        async function signup() { await handleAuth('/api/signup'); }
-        
-        async function handleAuth(endpoint) {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            try {
-                const res = await fetch(API_URL + endpoint, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ email, password })
-                });
-                const data = await res.json();
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
-                    showCatalog();
-                } else {
-                    document.getElementById('auth-error').innerText = data.error || 'Failed';
-                }
-            } catch (e) {
-                document.getElementById('auth-error').innerText = 'Network error';
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('token');
-            showAuth();
-        }
-
-        // --- MODULE RENDERING ---
-        function renderModule(savedData = []) {
-            const container = document.getElementById('module-content');
-            container.innerHTML = '';
-            
-            modules.forEach(mod => {
-                const saved = savedData.find(s => s.item_id === mod.id) || { completed: 0, note: '' };
-                const isCompleted = saved.completed === 1;
                 
-                const div = document.createElement('div');
-                div.className = `module-item bg-white p-6 rounded-lg shadow-sm border border-gray-200 transition-all ${isCompleted ? 'item-completed' : ''}`;
-                div.dataset.id = mod.id;
-                
-                let inputHtml = '';
-                if (mod.hasInput) {
-                    inputHtml = `<textarea class="note-input w-full mt-3 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none" rows="3" placeholder="Type your answer here...">${saved.note}</textarea>`;
-                }
+                <div class="auth-buttons">
+                    <a href="/login" class="btn-login">Login</a>
+                    <a href="/signup" class="btn-signup">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-                div.innerHTML = `
-                    <div class="flex items-start gap-4">
-                        <input type="checkbox" class="check-input mt-1.5 w-5 h-5 rounded cursor-pointer" ${isCompleted ? 'checked' : ''}>
-                        <div class="flex-grow">
-                            <h3 class="item-title text-lg font-bold text-gray-900">${mod.title}</h3>
-                            <div class="text-gray-700 mt-1 text-sm leading-relaxed">${mod.content}</div>
-                            ${inputHtml}
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Column -->
+        <div class="left-column">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Master New Skills From Expert Teachers</h1>
+                        <p>Join thousands of learners mastering public speaking, pitching, and presentation skills with AI Founder Summer Camp</p>
+                        
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="What do you want to learn today?">
+                            <button class="search-btn">Search</button>
                         </div>
+                        
+                        <a href="#courses" class="cta-button">Browse Courses</a>
                     </div>
-                `;
+                    
+                    <div class="hero-image">
+                        <img src="students-learning.jpg" alt="Students learning at PitchCamp">
+                        <img src="pitch-guy.png" alt="Pitch Guy Mascot" class="mascot-float">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust & Stats Section -->
+            <section class="trust-section">
+                <div class="logo-bar">
+                    <p>Trusted by leading institutions</p>
+                    <div class="partner-logos">
+                        <img src="hkbu-logo.png" alt="Hong Kong Baptist University">
+                        <img src="entrepreneurship-center.png" alt="Entrepreneurship Center">
+                        <img src="silicon-valley.png" alt="Silicon Valley Partners">
+                        <img src="tech-startup.png" alt="Tech Startups">
+                    </div>
+                </div>
                 
-                container.appendChild(div);
-            });
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">30,000+</span>
+                        <div class="stat-label">Active Learners</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4,000+</span>
+                        <div class="stat-label">Public Speaking Learners</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-            // Attach event listeners for autosave
-            document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
-            document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
-        }
-
-        // --- AUTOSAVE LOGIC ---
-        function triggerAutoSave() {
-            // Update UI immediately for strike-through
-            document.querySelectorAll('.module-item').forEach(item => {
-                const checked = item.querySelector('.check-input').checked;
-                item.classList.toggle('item-completed', checked);
-            });
-
-            document.getElementById('save-status').innerText = 'Unsaved changes...';
-            document.getElementById('save-status').className = 'text-sm text-yellow-600 font-medium';
+        <!-- Right Column - Course List -->
+        <aside class="courses-sidebar">
+            <h2 class="courses-header"> Available Courses</h2>
             
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(saveProgress, 1500); // Wait 1.5s after typing stops
-        }
-
-        async function saveProgress() {
-            document.getElementById('save-status').innerText = 'Saving...';
-            const progress = [];
+            <div class="course-card">
+                <span class="course-badge">POPULAR</span>
+                <h3 class="course-title">AI Founder Summer Camp</h3>
+                <div class="course-meta">
+                    <span> 3 Days</span>
+                    <span>⏰ 9AM-6PM</span>
+                </div>
+            </div>
             
-            document.querySelectorAll('.module-item').forEach(item => {
-                const id = item.dataset.id;
-                const checked = item.querySelector('.check-input').checked;
-                const noteEl = item.querySelector('.note-input');
-                progress.push({
-                    item_id: id,
-                    completed: checked ? 1 : 0,
-                    note: noteEl ? noteEl.value : ''
-                });
-            });
-
-            try {
-                await fetch(API_URL + '/api/progress', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({ progress })
-                });
-                document.getElementById('save-status').innerText = 'All changes saved.';
-                document.getElementById('save-status').className = 'text-sm text-green-600 font-medium';
-            } catch (err) {
-                document.getElementById('save-status').innerText = 'Error saving!';
-                document.getElementById('save-status').className = 'text-sm text-red-600 font-medium';
-            }
-        }
-
-        async function loadProgress() {
-            try {
-                const res = await fetch(API_URL + '/api/progress', {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    renderModule(data);
-                } else {
-                    logout(); // Token expired
-                }
-            } catch (e) {
-                renderModule([]);
-            }
-        }
-
-        // --- INIT ---
-        if (localStorage.getItem('token')) {
-            showCatalog();
-        } else {
-            showAuth();
-        }
-    </script>
+            <div class="course-card">
+                <span class="course-badge">BEGINNER</span>
+                <h3 class="course-title">Pitching & Social Dynamics</h3>
+                <div class="course-meta">
+                    <span>📅 1 Day</span>
+                    <span> 50 Students</span>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-badge">INTERMEDIATE</span>
+                <h3 class="course-title">Guiding Listeners & Questions</h3>
+                <div class="course-meta">
+                    <span> 1 Day</span>
+                    <span>👥 45 Students</span>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-badge">ADVANCED</span>
+                <h3 class="course-title">Fine Tuning & Final Competition</h3>
+                <div class="course-meta">
+                    <span> 1 Day</span>
+                    <span>🏆 Judged by Investors</span>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-badge">NEW</span>
+                <h3 class="course-title">Silicon Valley Pitch Skills</h3>
+                <div class="course-meta">
+                    <span>📅 2 Weeks</span>
+                    <span>💼 Career Ready</span>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-badge">WORKSHOP</span>
+                <h3 class="course-title">Control the Room with Confidence</h3>
+                <div class="course-meta">
+                    <span>📅 Half Day</span>
+                    <span>🎯 Practical Skills</span>
+                </div>
+            </div>
+        </aside>
+    </div>
 </body>
 </html>
