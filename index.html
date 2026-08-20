@@ -54,24 +54,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
-.trust{padding:28px 4px 8px}
-.trust-label{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;color:var(--slate);font-weight:800}
-.logo-bar{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:14px 0 20px;color:var(--slate);font-weight:800;font-size:.95rem;opacity:.9}
-.stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
-.stat{text-align:center}
-.stat strong{display:block;font-size:2.4rem;font-weight:800}
-.stat span{color:var(--slate);font-weight:700; font-size:1rem}
-
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
-.testi-card{padding:22px;text-align:center}
-.testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
-.testi-card blockquote{font-style:italic;margin:0;font-size:1rem}
-.testi-card figcaption{margin-top:10px;color:var(--slate);font-weight:800;font-size:.9rem}
-
-.about{padding:24px 28px;border-left:6px solid var(--orange);margin-top:34px}
-.about a{color:var(--orange);font-weight:800}
-
 .rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
@@ -95,6 +77,20 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .form-error{color:var(--red);font-weight:800;font-size:1rem; margin-top:8px}
 .auth-link{color:var(--orange);font-weight:800;text-decoration:none}
 .auth-link:hover{text-decoration:underline}
+
+/* --- COMMUNITY STYLES --- */
+.post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1)}
+.post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.post-author{font-weight:800;color:var(--navy)}
+.post-time{font-size:.85rem;color:var(--slate)}
+.post-content{font-size:1rem;line-height:1.6;margin-bottom:12px;white-space:pre-wrap}
+.post-actions{display:flex;gap:16px}
+.action-btn{background:none;border:none;cursor:pointer;font-weight:800;color:var(--slate);font-size:.9rem;display:flex;align-items:center;gap:4px}
+.action-btn:hover{color:var(--orange)}
+.action-btn.liked{color:var(--orange)}
+.reply-box{margin-top:12px;padding-top:12px;border-top:1px solid rgba(46,65,86,.1)}
+.reply{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--orange)}
+.reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
 
 /* --- COURSE PAGE STYLES --- */
 .module-menu{
@@ -145,18 +141,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
-.post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1)}
-.post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.post-author{font-weight:800;color:var(--navy)}
-.post-time{font-size:.85rem;color:var(--slate)}
-.post-content{font-size:1rem;line-height:1.6;margin-bottom:12px;white-space:pre-wrap}
-.post-actions{display:flex;gap:16px}
-.action-btn{background:none;border:none;cursor:pointer;font-weight:800;color:var(--slate);font-size:.9rem;display:flex;align-items:center;gap:4px}
-.action-btn:hover{color:var(--orange)}
-.action-btn.liked{color:var(--orange)}
-.reply-box{margin-top:12px;padding-top:12px;border-top:1px solid rgba(46,65,86,.1)}
-.reply{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--orange)}
-.reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
 </style>
 </head>
 <body>
@@ -185,44 +169,29 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
           <img class="mascot" src="pitch-guy.png" alt="Pitch Guy" onerror="this.remove()">
         </div>
       </section>
-      <section class="trust">
-        <p class="trust-label">Trusted by builders &amp; educators</p>
-        <div class="logo-bar"><span>HKBU · School of Business</span><span>Entrepreneurship &amp; Innovation Centre</span><span>Certified Innovation</span></div>
-        <div class="stats"><div class="stat"><strong>30,000+</strong><span>Learners</span></div><div class="stat"><strong>4,000+</strong><span>Public speaking learners</span></div></div>
+
+      <!-- COMMUNITY SECTION (MOVED UP) -->
+      <section id="community-section" class="hidden" style="margin-top:34px">
+        <div class="card" style="padding:24px 28px">
+          <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
+          <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Ask questions, share wins, and connect with fellow founders.</p>
+          <div style="margin-bottom:24px">
+            <textarea id="new-post-input" class="note-input" placeholder="Share a thought, question, or win..." style="min-height:60px"></textarea>
+            <button class="btn cta" style="margin-top:10px" onclick="createPost()">Post</button>
+          </div>
+          <div id="posts-feed"></div>
+        </div>
       </section>
-      <h2 style="margin:34px 0 0;font-size:1.4rem;font-weight:800">What learners say</h2>
-      <div class="testi-grid">
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-        <figure class="testi-card card"><div class="testi-photo">?</div><blockquote>"Student quote coming soon."</blockquote><figcaption>— Name, Cohort</figcaption></figure>
-      </div>
-         <section id="community-section" class="hidden" style="margin-top:34px">
-     <div class="card" style="padding:24px 28px">
-       <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
-       <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Ask questions, share wins, and connect with fellow founders.</p>
-       
-       <div style="margin-bottom:24px">
-         <textarea id="new-post-input" class="note-input" placeholder="Share a thought, question, or win..." style="min-height:60px"></textarea>
-         <button class="btn cta" style="margin-top:10px" onclick="createPost()">Post</button>
-       </div>
 
-       <div id="posts-feed"></div>
-     </div>
-   </section>
-
-   <section id="community-login-prompt" class="hidden" style="margin-top:34px">
-     <div class="card" style="padding:24px 28px; text-align:center">
-       <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
-       <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Log in to join the conversation, ask questions, and connect with fellow founders.</p>
-       <button class="btn cta" onclick="showAuth('login')">Log In to Join</button>
-     </div>
-   </section>
-      <section class="about card">
-        <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">About</h2>
-        <p style="margin:0 0 6px"><strong>PitchCamp.Live</strong> by Certified Innovation</p>
-        <p style="margin:0">Dr Warren Linger · <a href="mailto:drwarren@cict.co">drwarren@cict.co</a></p>
+      <section id="community-login-prompt" class="hidden" style="margin-top:34px">
+        <div class="card" style="padding:24px 28px; text-align:center">
+          <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
+          <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Log in to join the conversation, ask questions, and connect with fellow founders.</p>
+          <button class="btn cta" onclick="showAuth('login')">Log In to Join</button>
+        </div>
       </section>
     </div>
+
     <aside class="rail" id="rail-home">
       <h2 class="rail-title">Courses</h2>
       <div class="course-list" id="course-list-home"></div>
@@ -263,7 +232,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- COURSE VIEW (Long scrolling page) -->
+<!-- COURSE VIEW -->
 <div id="view-course" class="hidden">
   <nav class="module-menu">
     <div class="module-menu-left">
@@ -279,7 +248,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
       <span id="save-status" class="save-status">All changes saved.</span>
     </div>
   </nav>
-
   <div id="course-content"></div>
 </div>
 
@@ -291,6 +259,20 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
     <button class="modal-close" onclick="document.getElementById('access-modal').classList.add('hidden')">Got it</button>
   </div>
 </div>
+
+<!-- FOOTER -->
+<footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
+  <div class="wrap">
+    <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700;">
+      <a href="/about.html" style="color:#fff; text-decoration:none;">About</a>
+      <a href="/privacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
+      <a href="/data-protection.html" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
+      <a href="/earnings-disclaimer.html" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
+    </div>
+  </div>
+</footer>
 
 <script>
 const API_URL = '';
@@ -387,7 +369,7 @@ function showHome(){
   document.getElementById('view-home').classList.remove('hidden');
   renderHeader(); 
   renderCourses('home'); 
-  toggleCommunityView(); 
+  toggleCommunityView();
   history.pushState(null, '', '/');
   window.scrollTo(0,0);
 }
@@ -410,7 +392,7 @@ function showCourse(){
   window.scrollTo(0,0);
 }
 
-function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); showHome(); }
+function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); localStorage.removeItem('pc_is_paid'); showHome(); }
 
 function renderHeader(){
   const host = document.getElementById('head-actions');
@@ -443,8 +425,7 @@ function handleCourseClick(name, active){
 }
 function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
-
-  async function login() {
+async function login() {
   const errEl = document.getElementById('login-error');
   errEl.innerText = '';
   const email = document.getElementById('login-email').value.trim();
@@ -458,7 +439,6 @@ function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.a
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
-      // Save the real name from the database!
       if (data.name) {
         localStorage.setItem('pc_name', data.name);
       } else {
@@ -477,9 +457,7 @@ async function signup() {
   const name = document.getElementById('signup-name').value.trim();
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
-  
   if (!name) { errEl.innerText = 'Please enter your name.'; return; }
-  
   try {
     const res = await fetch(API_URL + '/api/signup', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -495,6 +473,105 @@ async function signup() {
       errEl.innerText = data.error || 'Something went wrong.';
     }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
+}
+
+// --- COMMUNITY LOGIC ---
+function toggleCommunityView() {
+  const isLoggedIn = !!localStorage.getItem('token');
+  const isPaid = localStorage.getItem('pc_is_paid') === '1';
+  const section = document.getElementById('community-section');
+  const prompt = document.getElementById('community-login-prompt');
+  
+  if (isLoggedIn && isPaid) {
+    section.classList.remove('hidden');
+    prompt.classList.add('hidden');
+    loadPosts();
+  } else {
+    section.classList.add('hidden');
+    prompt.classList.remove('hidden');
+  }
+}
+
+async function loadPosts() {
+  try {
+    const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+    if (!res.ok) return;
+    const posts = await res.json();
+    const feed = document.getElementById('posts-feed');
+    feed.innerHTML = posts.map(p => `
+      <div class="post-card">
+        <div class="post-header">
+          <span class="post-author">${p.user_name}</span>
+          <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
+        </div>
+        <div class="post-content">${p.content}</div>
+        <div class="post-actions">
+          <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
+            👍 ${p.like_count}
+          </button>
+          <button class="action-btn" onclick="toggleReplyBox(${p.id})">
+             Reply (${p.replies.results.length})
+          </button>
+        </div>
+        <div id="replies-${p.id}">
+          ${p.replies.results.map(r => `
+            <div class="reply">
+              <div class="post-header">
+                <span class="post-author">${r.user_name}</span>
+                <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
+              </div>
+              <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
+              <div class="post-actions" style="margin-top:8px">
+                <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)">
+                  👍 ${r.like_count}
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div id="reply-input-${p.id}" class="reply-box hidden">
+          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
+        </div>
+      </div>
+    `).join('');
+  } catch (e) { console.error(e); }
+}
+
+async function createPost() {
+  const input = document.getElementById('new-post-input');
+  const content = input.value.trim();
+  if (!content) return;
+  await fetch(API_URL + '/api/posts', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ content })
+  });
+  input.value = '';
+  loadPosts();
+}
+
+function toggleReplyBox(postId) {
+  document.getElementById(`reply-input-${postId}`).classList.toggle('hidden');
+}
+
+async function submitReply(postId, input) {
+  const content = input.value.trim();
+  if (!content) return;
+  await fetch(API_URL + '/api/posts', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ content, parent_id: postId })
+  });
+  input.value = '';
+  loadPosts();
+}
+
+async function toggleLike(postId, btn) {
+  const res = await fetch(API_URL + '/api/likes', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  const data = await res.json();
+  btn.classList.toggle('liked', data.liked);
+  loadPosts();
 }
 
 function renderCourse(){
@@ -596,104 +673,6 @@ window.addEventListener('popstate', function() {
 });
 
 renderCourses('home');
-     // --- COMMUNITY LOGIC ---
-   function toggleCommunityView() {
-     const isLoggedIn = !!localStorage.getItem('token');
-     const isPaid = localStorage.getItem('pc_is_paid') === '1';
-     const section = document.getElementById('community-section');
-     const prompt = document.getElementById('community-login-prompt');
-     
-     if (isLoggedIn && isPaid) {
-       section.classList.remove('hidden');
-       prompt.classList.add('hidden');
-       loadPosts();
-     } else {
-       section.classList.add('hidden');
-       prompt.classList.remove('hidden');
-     }
-   }
-
-   async function loadPosts() {
-     try {
-       const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
-       if (!res.ok) return;
-       const posts = await res.json();
-       const feed = document.getElementById('posts-feed');
-       feed.innerHTML = posts.map(p => `
-         <div class="post-card">
-           <div class="post-header">
-             <span class="post-author">${p.user_name}</span>
-             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
-           </div>
-           <div class="post-content">${p.content}</div>
-           <div class="post-actions">
-             <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
-               👍 ${p.like_count}
-             </button>
-             <button class="action-btn" onclick="toggleReplyBox(${p.id})">
-                Reply (${p.replies.results.length})
-             </button>
-           </div>
-           <div id="replies-${p.id}">
-             ${p.replies.results.map(r => `
-               <div class="reply">
-                 <div class="post-header">
-                   <span class="post-author">${r.user_name}</span>
-                   <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
-                 </div>
-                 <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
-                 <div class="post-actions" style="margin-top:8px">
-                   <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)">
-                     👍 ${r.like_count}
-                   </button>
-                 </div>
-               </div>
-             `).join('')}
-           </div>
-           <div id="reply-input-${p.id}" class="reply-box hidden">
-             <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
-           </div>
-         </div>
-       `).join('');
-     } catch (e) { console.error(e); }
-   }
-
-   async function createPost() {
-     const input = document.getElementById('new-post-input');
-     const content = input.value.trim();
-     if (!content) return;
-     await fetch(API_URL + '/api/posts', {
-       method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-       body: JSON.stringify({ content })
-     });
-     input.value = '';
-     loadPosts();
-   }
-
-   function toggleReplyBox(postId) {
-     document.getElementById(`reply-input-${postId}`).classList.toggle('hidden');
-   }
-
-   async function submitReply(postId, input) {
-     const content = input.value.trim();
-     if (!content) return;
-     await fetch(API_URL + '/api/posts', {
-       method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-       body: JSON.stringify({ content, parent_id: postId })
-     });
-     input.value = '';
-     loadPosts();
-   }
-
-   async function toggleLike(postId, btn) {
-     const res = await fetch(API_URL + '/api/likes', {
-       method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-       body: JSON.stringify({ post_id: postId })
-     });
-     const data = await res.json();
-     btn.classList.toggle('liked', data.liked);
-     loadPosts(); // Refresh counts
-   }
 showHome();
 </script>
 </body>
