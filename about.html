@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - PitchCamp</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; --tan:#E8DCC4; }
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0; font-size:16px}
+h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
+.wrap{width:min(1150px,94%);margin-inline:auto}
+.site-head{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:none}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
+.brand-logo{width:46px;height:46px;object-fit:contain}
+.brand-dot{color:var(--orange)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.btn{border-radius:999px;font-weight:800;cursor:pointer;font-family:'Nunito Sans'}
+.btn.small{padding:8px 20px;font-size:.9rem}
+.btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
+.btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff}
+.name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800}
+.page-content{padding:60px 0; min-height:60vh}
+.page-content h1{font-size:2.5rem; margin-bottom:20px; color:var(--navy);}
+.page-content h2{font-size:1.8rem; margin-top:40px; margin-bottom:15px; color:var(--orange);}
+.page-content p, .page-content li{font-size:1.1rem; line-height:1.7; margin-bottom:15px;}
+.page-content ul, .page-content ol{margin-left:20px; margin-bottom:20px;}
+.stat strong{display:block;font-size:2.4rem;font-weight:800}
+.stat span{color:var(--slate);font-weight:700; font-size:1rem}
+.stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap; margin: 40px 0;}
+.stat{text-align:center}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:#fff; padding:22px; text-align:center; border-radius:18px; box-shadow:0 8px 24px rgba(46,65,86,.10);}
+.testi-photo{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--slate),var(--navy));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.5rem}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="head-in wrap">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="logo.png" alt="" onerror="this.remove()">
+      <span>PitchCamp<span class="brand-dot">.live</span></span>
+    </a>
+    <div class="head-actions">
+      <button class="btn small cta" onclick="window.location.href='/?action=signup'">Sign Up</button>
+      <button class="btn small ghost" onclick="window.location.href='/?action=login'">Log in</button>
+    </div>
+  </div>
+</header>
+
+<div class="page-content wrap">
+  
+  <!-- PASTE YOUR PAGE CONTENT HERE -->
+  <h1>About PitchCamp & DrWarren</h1>
+  <p>You have the skills to transform lives, but your certification didn't teach you how to fill your practice. You want a thriving business, but you're still building it in isolation.</p>
+  <p>I help coaches, SME owners and startups master the "Get Clients Now" method while equipping them to learn, implement, and thrive using GenAI.</p>
+  
+  <h2>The GenAI Edge: Learn, Implement & Thrive</h2>
+  <p>Over the past several years, I've developed and validated a suite of AI-literacy courses for leaders, entrepreneurs, and coaches. Learn to leverage AI tools to optimize workflows and scale without traditional coding.</p>
+  <ul>
+    <li><strong>"Vibe Coding" & Multi-Agent Architecture:</strong> Learn to build custom, autonomous AI agents using natural language to run core business verticals (Marketing, Sales, Operations, Finance).</li>
+    <li><strong>AI-Driven Operations & Leadership:</strong> Train to manage autonomous, human-in-the-loop agents and structure your business to be fully "AI-ready."</li>
+    <li><strong>AI in Work & Life:</strong> Use advanced prompt engineering for critical thinking, scenario analysis, and strategic planning.</li>
+  </ul>
+
+  <h2>Client Acquisition: The "Get Clients Now" Method</h2>
+  <p>Acquiring clients shouldn't be a chore. Using the psychology of Flow: Optimal Experience (the focus of my Doctorate in Adult Education), I teach you to experience optimal engagement while building your business.</p>
+  <ul>
+    <li><strong>Autonomous Sales Pipelines:</strong> Build lead-gen funnels and streamline sales workflows using smart, AI-driven outreach.</li>
+    <li><strong>The Certification Gap:</strong> Bridge the gap between being a great coach and a great business owner.</li>
+    <li><strong>Flow-State Business Development:</strong> Turn client acquisition into an extension of your creative excellence, not a chore.</li>
+  </ul>
+
+  <h2>The Experience Behind the Method</h2>
+  <ul>
+    <li>CEO & Head of AI Learning at Certified Innovation Coaching & Training (2016–Present).</li>
+    <li>4 Decades of Expertise in training, including 8 years training coach certification programs.</li>
+    <li>1,300+ Testimonials of successful business and personal transformations.</li>
+  </ul>
+  <p>Ready to bridge the gap between high-level coaching and high-tech execution? Let’s connect.</p>
+
+  <hr style="margin: 60px 0; border: 0; border-top: 2px solid var(--navy);">
+
+  <h2 style="text-align:center;">Trusted by Builders & Educators</h2>
+  <div class="stats">
+    <div class="stat"><strong>30,000+</strong><span>Learners</span></div>
+    <div class="stat"><strong>4,000+</strong><span>Public speaking learners</span></div>
+  </div>
+
+  <h2 style="text-align:center; margin-top:60px;">What Learners Say</h2>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-photo">?</div><p style="font-style:italic;">"Student quote coming soon."</p><p style="color:var(--slate);font-weight:800;font-size:.9rem;">— Name, Cohort</p></div>
+    <div class="testi-card"><div class="testi-photo">?</div><p style="font-style:italic;">"Student quote coming soon."</p><p style="color:var(--slate);font-weight:800;font-size:.9rem;">— Name, Cohort</p></div>
+    <div class="testi-card"><div class="testi-photo">?</div><p style="font-style:italic;">"Student quote coming soon."</p><p style="color:var(--slate);font-weight:800;font-size:.9rem;">— Name, Cohort</p></div>
+  </div>
+
+</div>
+
+<footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
+  <div class="wrap">
+    <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700;">
+      <a href="/about.html" style="color:#fff; text-decoration:none;">About</a>
+      <a href="/privacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
+      <a href="/data-protection.html" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
+      <a href="/earnings-disclaimer.html" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
