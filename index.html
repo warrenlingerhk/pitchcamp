@@ -488,6 +488,7 @@ async function signup() {
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
+      localStorage.setItem('pc_is_paid', data.is_paid);
       localStorage.setItem('pc_name', name);
       showHome();
     } else {
