@@ -27,7 +27,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hidden{display:none!important}
 .wrap{width:min(1150px,94%);margin-inline:auto}
 
-/* HEADER */
 .site-head{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:none}
 .head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
@@ -41,12 +40,10 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* LAYOUT */
 .layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:26px 0 70px;align-items:start}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 
-/* HERO */
 .hero{overflow:hidden;display:grid;grid-template-columns:1fr .95fr}
 @media(max-width:700px){.hero{grid-template-columns:1fr}}
 .hero-copy{padding:34px 30px}
@@ -57,7 +54,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
-/* COURSE RAIL */
 .rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
@@ -71,7 +67,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem}
 .course-btn:hover{background:#1E2F42}
 
-/* AUTH */
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
 .auth-band{background:linear-gradient(90deg,var(--yellow),var(--orange));padding:18px 26px;font-weight:800;font-size:1.2rem}
@@ -83,24 +78,21 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .auth-link{color:var(--orange);font-weight:800;text-decoration:none}
 .auth-link:hover{text-decoration:underline}
 
-/* COMMUNITY */
-.community-section{margin-top:26px}
-.community-section h2{margin:0 0 10px;font-size:1.4rem;font-weight:800}
-.community-section .sub{margin:0 0 20px;color:var(--slate);font-weight:700}
+/* --- COMMUNITY STYLES --- */
 .post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1)}
 .post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .post-author{font-weight:800;color:var(--navy)}
 .post-time{font-size:.85rem;color:var(--slate)}
 .post-content{font-size:1rem;line-height:1.6;margin-bottom:12px;white-space:pre-wrap}
 .post-actions{display:flex;gap:16px}
-.action-btn{background:none;border:none;cursor:pointer;font-weight:800;color:var(--slate);font-size:.9rem;display:flex;align-items:center;gap:4px;font-family:'Nunito Sans'}
+.action-btn{background:none;border:none;cursor:pointer;font-weight:800;color:var(--slate);font-size:.9rem;display:flex;align-items:center;gap:4px}
 .action-btn:hover{color:var(--orange)}
 .action-btn.liked{color:var(--orange)}
 .reply-box{margin-top:12px;padding-top:12px;border-top:1px solid rgba(46,65,86,.1)}
 .reply{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--orange)}
 .reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
 
-/* COURSE PAGE */
+/* --- COURSE PAGE STYLES --- */
 .module-menu{
   position:sticky; top:63px; z-index:40;
   background:var(--navy); color:#fff;
@@ -144,24 +136,15 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem}
 .note-input:focus{outline:none;border-color:var(--orange)}
 
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
 .modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
 .modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
-
-/* FOOTER */
-.site-footer{background:var(--navy); color:#fff; padding:40px 0 20px; text-align:center}
-.site-footer p{margin:0 0 20px; font-size:.9rem; opacity:.8}
-.footer-links{display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700}
-.footer-links a{color:#fff; text-decoration:none}
-.footer-links a:hover{color:var(--yellow)}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="site-head">
   <div class="head-in wrap">
     <a class="brand" href="#" onclick="showHome();return false;">
@@ -176,7 +159,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 <div id="view-home">
   <div class="wrap layout">
     <div>
-      <!-- HERO -->
       <section class="hero card">
         <div class="hero-copy">
           <h1>Master New Skills From <span class="hl-orange">Expert Teachers.</span></h1>
@@ -188,25 +170,28 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         </div>
       </section>
 
-      <!-- COMMUNITY (moved up, right after hero) -->
-      <section id="community-section" class="community-section card hidden" style="padding:24px 28px">
-        <h2>Community Discussion</h2>
-        <p class="sub">Ask questions, share wins, and connect with fellow founders.</p>
-        <div style="margin-bottom:24px">
-          <textarea id="new-post-input" class="note-input" placeholder="Share a thought, question, or win..." style="min-height:60px"></textarea>
-          <button class="btn cta" style="margin-top:10px" onclick="createPost()">Post</button>
+      <!-- COMMUNITY SECTION (MOVED UP) -->
+      <section id="community-section" class="hidden" style="margin-top:34px">
+        <div class="card" style="padding:24px 28px">
+          <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
+          <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Ask questions, share wins, and connect with fellow founders.</p>
+          <div style="margin-bottom:24px">
+            <textarea id="new-post-input" class="note-input" placeholder="Share a thought, question, or win..." style="min-height:60px"></textarea>
+            <button class="btn cta" style="margin-top:10px" onclick="createPost()">Post</button>
+          </div>
+          <div id="posts-feed"></div>
         </div>
-        <div id="posts-feed"></div>
       </section>
 
-      <section id="community-login-prompt" class="community-section card hidden" style="padding:24px 28px; text-align:center">
-        <h2>Community Discussion</h2>
-        <p class="sub">Log in to join the conversation, ask questions, and connect with fellow founders.</p>
-        <button class="btn cta" onclick="showAuth('login')">Log In to Join</button>
+      <section id="community-login-prompt" class="hidden" style="margin-top:34px">
+        <div class="card" style="padding:24px 28px; text-align:center">
+          <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
+          <p style="margin:0 0 20px;color:var(--slate);font-weight:700">Log in to join the conversation, ask questions, and connect with fellow founders.</p>
+          <button class="btn cta" onclick="showAuth('login')">Log In to Join</button>
+        </div>
       </section>
     </div>
 
-    <!-- COURSE RAIL -->
     <aside class="rail" id="rail-home">
       <h2 class="rail-title">Courses</h2>
       <div class="course-list" id="course-list-home"></div>
@@ -276,15 +261,15 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 </div>
 
 <!-- FOOTER -->
-<footer class="site-footer">
+<footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
   <div class="wrap">
-    <p>©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms & Conditions</a>
-      <a href="/data-protection.html">Data Protection Policy</a>
-      <a href="/earnings-disclaimer.html">Earnings Disclaimer</a>
+    <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700;">
+      <a href="/about.html" style="color:#fff; text-decoration:none;">About</a>
+      <a href="/privacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
+      <a href="/data-protection.html" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
+      <a href="/earnings-disclaimer.html" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
     </div>
   </div>
 </footer>
@@ -293,7 +278,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 const API_URL = '';
 let saveTimeout;
 
-/* ---------- COURSES ---------- */
 const COURSES = [
   { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room'] },
   { name:'Big Ticket Sales', tone:2, active:false, outcomes:['Close high-value deals','Negotiate with status'] },
@@ -302,7 +286,6 @@ const COURSES = [
   { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams'] }
 ];
 
-/* ---------- COURSE DATA (6 MODULES) ---------- */
 const COURSE_DATA = [
   {
     id: 'mod-1', title: 'Module 1: Awaken Your Inner Storyteller', bg: 'bg-mod-1',
@@ -376,7 +359,6 @@ const COURSE_DATA = [
   }
 ];
 
-/* ---------- VIEW SWITCHING ---------- */
 function hideAllViews() {
   ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v =>
     document.getElementById(v).classList.add('hidden'));
@@ -412,7 +394,6 @@ function showCourse(){
 
 function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); localStorage.removeItem('pc_is_paid'); showHome(); }
 
-/* ---------- HEADER ---------- */
 function renderHeader(){
   const host = document.getElementById('head-actions');
   const name = localStorage.getItem('pc_name');
@@ -425,7 +406,6 @@ function renderHeader(){
   }
 }
 
-/* ---------- COURSE RAIL ---------- */
 function renderCourses(target){
   const hostId = target === 'home' ? 'course-list-home' : 'course-list-module';
   const host = document.getElementById(hostId);
@@ -445,7 +425,6 @@ function handleCourseClick(name, active){
 }
 function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
-/* ---------- AUTH ---------- */
 async function login() {
   const errEl = document.getElementById('login-error');
   errEl.innerText = '';
@@ -496,7 +475,105 @@ async function signup() {
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
 }
 
-/* ---------- COURSE RENDER + AUTOSAVE ---------- */
+// --- COMMUNITY LOGIC ---
+function toggleCommunityView() {
+  const isLoggedIn = !!localStorage.getItem('token');
+  const isPaid = localStorage.getItem('pc_is_paid') === '1';
+  const section = document.getElementById('community-section');
+  const prompt = document.getElementById('community-login-prompt');
+  
+  if (isLoggedIn && isPaid) {
+    section.classList.remove('hidden');
+    prompt.classList.add('hidden');
+    loadPosts();
+  } else {
+    section.classList.add('hidden');
+    prompt.classList.remove('hidden');
+  }
+}
+
+async function loadPosts() {
+  try {
+    const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+    if (!res.ok) return;
+    const posts = await res.json();
+    const feed = document.getElementById('posts-feed');
+    feed.innerHTML = posts.map(p => `
+      <div class="post-card">
+        <div class="post-header">
+          <span class="post-author">${p.user_name}</span>
+          <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
+        </div>
+        <div class="post-content">${p.content}</div>
+        <div class="post-actions">
+          <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
+            👍 ${p.like_count}
+          </button>
+          <button class="action-btn" onclick="toggleReplyBox(${p.id})">
+             Reply (${p.replies.results.length})
+          </button>
+        </div>
+        <div id="replies-${p.id}">
+          ${p.replies.results.map(r => `
+            <div class="reply">
+              <div class="post-header">
+                <span class="post-author">${r.user_name}</span>
+                <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
+              </div>
+              <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
+              <div class="post-actions" style="margin-top:8px">
+                <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)">
+                  👍 ${r.like_count}
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div id="reply-input-${p.id}" class="reply-box hidden">
+          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
+        </div>
+      </div>
+    `).join('');
+  } catch (e) { console.error(e); }
+}
+
+async function createPost() {
+  const input = document.getElementById('new-post-input');
+  const content = input.value.trim();
+  if (!content) return;
+  await fetch(API_URL + '/api/posts', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ content })
+  });
+  input.value = '';
+  loadPosts();
+}
+
+function toggleReplyBox(postId) {
+  document.getElementById(`reply-input-${postId}`).classList.toggle('hidden');
+}
+
+async function submitReply(postId, input) {
+  const content = input.value.trim();
+  if (!content) return;
+  await fetch(API_URL + '/api/posts', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ content, parent_id: postId })
+  });
+  input.value = '';
+  loadPosts();
+}
+
+async function toggleLike(postId, btn) {
+  const res = await fetch(API_URL + '/api/likes', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  const data = await res.json();
+  btn.classList.toggle('liked', data.liked);
+  loadPosts();
+}
+
 function renderCourse(){
   const host = document.getElementById('course-content');
   host.innerHTML = '';
@@ -583,105 +660,6 @@ async function loadProgress(){
   } catch (e) { setStatus('Error loading!', 'save-err'); }
 }
 
-/* ---------- COMMUNITY ---------- */
-function toggleCommunityView() {
-  const isLoggedIn = !!localStorage.getItem('token');
-  const isPaid = localStorage.getItem('pc_is_paid') === '1';
-  const section = document.getElementById('community-section');
-  const prompt = document.getElementById('community-login-prompt');
-  if (isLoggedIn && isPaid) {
-    section.classList.remove('hidden');
-    prompt.classList.add('hidden');
-    loadPosts();
-  } else {
-    section.classList.add('hidden');
-    prompt.classList.remove('hidden');
-  }
-}
-
-async function loadPosts() {
-  try {
-    const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
-    if (!res.ok) return;
-    const posts = await res.json();
-    const feed = document.getElementById('posts-feed');
-    feed.innerHTML = posts.map(p => `
-      <div class="post-card">
-        <div class="post-header">
-          <span class="post-author">${p.user_name}</span>
-          <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
-        </div>
-        <div class="post-content">${p.content}</div>
-        <div class="post-actions">
-          <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
-            👍 ${p.like_count}
-          </button>
-          <button class="action-btn" onclick="toggleReplyBox(${p.id})">
-            💬 Reply (${p.replies.results.length})
-          </button>
-        </div>
-        <div id="replies-${p.id}">
-          ${p.replies.results.map(r => `
-            <div class="reply">
-              <div class="post-header">
-                <span class="post-author">${r.user_name}</span>
-                <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
-              </div>
-              <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
-              <div class="post-actions" style="margin-top:8px">
-                <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)">
-                  👍 ${r.like_count}
-                </button>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-        <div id="reply-input-${p.id}" class="reply-box hidden">
-          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
-        </div>
-      </div>
-    `).join('');
-  } catch (e) { console.error(e); }
-}
-
-async function createPost() {
-  const input = document.getElementById('new-post-input');
-  const content = input.value.trim();
-  if (!content) return;
-  await fetch(API_URL + '/api/posts', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ content })
-  });
-  input.value = '';
-  loadPosts();
-}
-
-function toggleReplyBox(postId) {
-  document.getElementById(`reply-input-${postId}`).classList.toggle('hidden');
-}
-
-async function submitReply(postId, input) {
-  const content = input.value.trim();
-  if (!content) return;
-  await fetch(API_URL + '/api/posts', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ content, parent_id: postId })
-  });
-  input.value = '';
-  loadPosts();
-}
-
-async function toggleLike(postId, btn) {
-  const res = await fetch(API_URL + '/api/likes', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  const data = await res.json();
-  btn.classList.toggle('liked', data.liked);
-  loadPosts();
-}
-
-/* ---------- BROWSER NAV ---------- */
 window.addEventListener('popstate', function() {
   if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) {
     if (!document.getElementById('view-course').classList.contains('hidden')) {
@@ -694,7 +672,6 @@ window.addEventListener('popstate', function() {
   }
 });
 
-/* ---------- INIT ---------- */
 renderCourses('home');
 showHome();
 </script>
