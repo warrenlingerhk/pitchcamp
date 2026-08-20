@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +16,7 @@
 :root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; --tan:#E8DCC4; }
 *{box-sizing:border-box}
 body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0; font-size:16px}
-h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
+h1,h2,h3,h4,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .wrap{width:min(1150px,94%);margin-inline:auto}
 .site-head{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:none}
 .head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
@@ -32,12 +30,17 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800}
 .page-content{padding:60px 0; min-height:60vh}
-.page-content h1{font-size:2.5rem; margin-bottom:20px; color:var(--navy);}
-.page-content h2{font-size:1.8rem; margin-top:40px; margin-bottom:15px; color:var(--orange);}
-.page-content h3{font-size:1.3rem; margin-top:25px; margin-bottom:10px; color:var(--navy);}
-.page-content p, .page-content li{font-size:1.1rem; line-height:1.7; margin-bottom:15px;}
-.page-content ul, .page-content ol{margin-left:20px; margin-bottom:20px;}
+.page-content h1{font-size:2.5rem; margin-bottom:30px; color:var(--navy);}
+.page-content h2{font-size:1.8rem; margin-top:50px; margin-bottom:20px; color:var(--orange); border-bottom:2px solid var(--navy); padding-bottom:10px;}
+.page-content h3{font-size:1.4rem; margin-top:30px; margin-bottom:15px; color:var(--navy);}
+.page-content h4{font-size:1.15rem; margin-top:20px; margin-bottom:10px; color:var(--slate);}
+.page-content p, .page-content li{font-size:1.05rem; line-height:1.8; margin-bottom:15px;}
+.page-content ul, .page-content ol{margin-left:25px; margin-bottom:25px;}
 .page-content strong{color:var(--navy); font-weight:800;}
+.page-content table{width:100%; border-collapse:collapse; margin:25px 0; background:#fff;}
+.page-content th, .page-content td{border:1px solid var(--slate); padding:12px; text-align:left;}
+.page-content th{background:var(--navy); color:#fff; font-weight:800;}
+.page-content .warning{background:var(--yellow); padding:25px; border-radius:12px; border-left:5px solid var(--orange); margin:30px 0;}
 </style>
 </head>
 <body>
@@ -59,16 +62,19 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   <h1>Privacy Policy</h1>
   <p><strong>Last updated:</strong> August 20, 2026</p>
   
+  <p>This privacy policy sets out how Certified Innovation Coaching and Training uses and protects your personal data. This privacy policy is provided in a layered format so you can click through to the specific areas set out below.</p>
+
+  <h2>1. IMPORTANT INFORMATION AND WHO WE ARE</h2>
+  
+  <h3>Privacy policy</h3>
   <p>This privacy policy gives you information about how Certified Innovation Coaching and Training collects and uses your personal data through your use of this website, including any data you may provide when you purchase a service from us.</p>
   
   <p>This website is not intended for children and we do not knowingly collect data relating to children.</p>
 
-  <h2>1. IMPORTANT INFORMATION AND WHO WE ARE</h2>
-  
   <h3>Controller</h3>
   <p>Certified Innovation Coaching and Training is the controller and responsible for your personal data (referred to as "we", "us" or "our" in this privacy policy).</p>
   
-  <p>If you have any questions about this privacy policy, including any requests to exercise your legal rights, please contact us using the information set out in the contact details section.</p>
+  <p>If you have any questions about this privacy policy, including any requests to exercise your legal rights (paragraph 9), please contact us using the information set out in the contact details section (paragraph 10).</p>
 
   <h2>2. TYPES OF PERSONAL DATA WE COLLECT ABOUT YOU</h2>
   
@@ -84,6 +90,8 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
     <li><strong>Usage Data</strong> includes information about how you interact with and use our website and services.</li>
     <li><strong>Marketing and Communications Data</strong> includes your preferences in receiving marketing from us and our third parties and your communication preferences.</li>
   </ul>
+  
+  <p>We also collect, use and share aggregated data such as statistical or demographic data which is not personal data as it does not directly (or indirectly) reveal your identity. For example, we may aggregate individuals' Usage Data to calculate the percentage of users accessing a specific website feature in order to analyse general trends in how users are interacting with our website to help improve the website and our service offering.</p>
 
   <h2>3. HOW IS YOUR PERSONAL DATA COLLECTED?</h2>
   
@@ -99,85 +107,189 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </ul>
   
   <h3>Automated technologies or interactions</h3>
-  <p>As you interact with our website, we will automatically collect Technical Data about your equipment, browsing actions and patterns. We collect this personal data by using cookies, server logs and other similar technologies.</p>
+  <p>As you interact with our website, we will automatically collect Technical Data about your equipment, browsing actions and patterns. We collect this personal data by using cookies, server logs and other similar technologies. We may also receive Technical Data about you if you visit other websites employing our cookies. Please see our cookie policy here for further details.</p>
   
   <h3>Third parties or publicly available sources</h3>
-  <p>We will receive personal data about you from various third parties and public sources including:</p>
+  <p>We will receive personal data about you from various third parties and public sources as set out below:</p>
+  
+  <p>Technical Data is collected from the following parties:</p>
   <ul>
-    <li>Technical Data from analytics providers such as Google and Meta</li>
-    <li>Contact, Financial and Transaction Data from providers of technical, payment and delivery services</li>
-    <li>Identity and Contact Data from publicly available sources</li>
+    <li>analytics providers such as Google and Meta based outside HK;</li>
+    <li>advertising networks such as ClickFunnels based outside HK; and</li>
+    <li>scheduling providers such as Calendly based outside the HK.</li>
   </ul>
+  
+  <p>Contact, Financial and Transaction Data is collected from providers of technical, payment and delivery services based both inside and outside the HK.</p>
+  
+  <p>Identity and Contact Data is collected from publicly available sources such as Companies House and the Electoral Register based inside the HK.</p>
 
   <h2>4. HOW WE USE YOUR PERSONAL DATA</h2>
   
-  <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+  <h3>Legal basis</h3>
+  <p>The law requires us to have a legal basis for collecting and using your personal data. We rely on one or more of the following legal bases:</p>
+  
   <ul>
-    <li><strong>Performance of a contract:</strong> Where we need to perform the contract we are about to enter into or have entered into with you.</li>
-    <li><strong>Legitimate interests:</strong> Where it is necessary for our legitimate interests (or those of a third party) and your fundamental rights do not override those interests.</li>
-    <li><strong>Legal obligation:</strong> Where we need to comply with a legal or regulatory obligation.</li>
-    <li><strong>Consent:</strong> Where you have given us your consent.</li>
+    <li><strong>Performance of a contract with you:</strong> Where we need to perform the contract we are about to enter into or have entered into with you.</li>
+    <li><strong>Legitimate interests:</strong> We may use your personal data where it is necessary to conduct our business and pursue our legitimate interests, for example to prevent fraud and enable us to give you the best and most secure customer experience. We make sure we consider and balance any potential impact on you and your rights (both positive and negative) before we process your personal data for our legitimate interests. We do not use your personal data for activities where our interests are overridden by the impact on you (unless we have your consent or are otherwise required or permitted to by law).</li>
+    <li><strong>Legal obligation:</strong> We may use your personal data where it is necessary for compliance with a legal obligation that we are subject to. We will identify the relevant legal obligation when we rely on this legal basis.</li>
+    <li><strong>Consent:</strong> We rely on consent only where we have obtained your active agreement to use your personal data for a specified purpose, for example if you subscribe to an email newsletter.</li>
   </ul>
+
+  <h3>Purposes for which we will use your personal data</h3>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Purpose/Use</th>
+        <th>Type of data</th>
+        <th>Legal basis and retention period</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>To register you as a new client</td>
+        <td>(a) Identity<br>(b) Contact</td>
+        <td>Performance of a contract with you.</td>
+      </tr>
+      <tr>
+        <td>To process and deliver services including:<br>(a) Manage payments, fees and charges<br>(b) Collect and recover money owed to us</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Financial<br>(d) Transaction</td>
+        <td>(a) Performance of a contract with you<br>(b) Necessary for our legitimate interests (to recover debts due to us)</td>
+      </tr>
+      <tr>
+        <td>To manage our relationship with you which will include:<br>(a) Notifying you about changes to our terms or privacy policy<br>(b) Dealing with your requests, complaints and queries</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Profile</td>
+        <td>(a) Performance of a contract with you<br>(b) Necessary to comply with a legal obligation<br>(c) Necessary for our legitimate interests (to keep our records updated and manage our relationship with you)</td>
+      </tr>
+      <tr>
+        <td>To administer and protect our business and this website (including troubleshooting, data analysis, testing, system maintenance, support, reporting and hosting of data)</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Technical</td>
+        <td>(a) Necessary for our legitimate interests (for running our business, provision of administration and IT services, network security, to prevent fraud and in the context of a business reorganisation or group restructuring exercise)<br>(b) Necessary to comply with a legal obligation</td>
+      </tr>
+      <tr>
+        <td>To deliver relevant website content and online advertisements to you and measure or understand the effectiveness of the advertising we serve to you</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Profile<br>(d) Usage<br>(e) Marketing and Communications<br>(f) Technical</td>
+        <td>Necessary for our legitimate interests (to study how clients use our services, to develop them, to grow our business and to inform our marketing strategy)</td>
+      </tr>
+      <tr>
+        <td>To use data analytics to improve our website, services, client relationships and experiences and to measure the effectiveness of our communications and marketing</td>
+        <td>(a) Technical<br>(b) Usage</td>
+        <td>Necessary for our legitimate interests (to define types of clients for our services, to keep our website updated and relevant, to develop our business and to inform our marketing strategy)</td>
+      </tr>
+      <tr>
+        <td>To send you relevant marketing communications and make personalised suggestions and recommendations to you about services that may be of interest to you based on your Profile Data</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Technical<br>(d) Usage<br>(e) Profile<br>(f) Marketing and Communications</td>
+        <td>Consent, having obtained your prior consent to receiving direct marketing communications</td>
+      </tr>
+      <tr>
+        <td>To carry out market research through your voluntary participation in surveys</td>
+        <td>(a) Identity<br>(b) Contact<br>(c) Technical<br>(d) Usage<br>(e) Profile<br>(f) Marketing and Communications</td>
+        <td>Necessary for our legitimate interests (to study how clients use our services and to help us improve and develop our Services)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Direct marketing</h3>
+  <p>You will receive marketing communications from us if you have requested information from us or purchased services from us and you have not opted out of receiving the marketing.</p>
+  
+  <p>We may also analyse your Identity, Contact, Technical, Usage and Profile Data to form a view on which services and offers may be of interest to you so that we can then send you relevant marketing communications.</p>
+
+  <h3>Third-party marketing</h3>
+  <p>We will get your express consent before we share your personal data with any third party for their own direct marketing purposes.</p>
+
+  <h3>Opting out of marketing</h3>
+  <p>You can ask us to stop sending you marketing communications at any time by following the opt-out links within any marketing communication sent to you or by contacting us.</p>
+  
+  <p>If you opt out of receiving marketing communications, you will still receive service-related communications that are essential for administrative or client service purposes for example relating to the service we are providing to you, updates to our Terms and Conditions or checking that your contact details are correct.</p>
+
+  <h3>Cookies</h3>
+  <p>For more information about the cookies we use and how to change your cookie preferences, please send an email to help@theimperiumagency.com.</p>
 
   <h2>5. DISCLOSURES OF YOUR PERSONAL DATA</h2>
   
-  <p>We may share your personal data with the parties set out below:</p>
+  <p>We may share your personal data where necessary with the parties set out below for the purposes set out in the table 'Purposes for which we will use your personal data' above:</p>
+  
+  <h3>External Third Parties such as:</h3>
   <ul>
-    <li>Service providers who provide IT and system administration services</li>
-    <li>Professional advisers including lawyers, bankers, auditors and insurers</li>
-    <li>Regulators and other authorities who require reporting of processing activities</li>
-    <li>Third parties to whom we may choose to sell, transfer or merge parts of our business or our assets</li>
+    <li>Hyros, Meta and Google – for advertisement tracking;</li>
+    <li>Slack – for internal communication with team members;</li>
+    <li>Zapier – used for automations to connect different software;</li>
+    <li>DocuSign – used for clients to sign our Terms and Conditions;</li>
+    <li>Payfunnels – used for processing payment details;</li>
+    <li>Stripe – used for storing payment details;</li>
+    <li>Active campaign – for email marketing;</li>
+    <li>Skool.com – for hosting our services; and</li>
+    <li>to sub-contractors who assist us in providing our services.</li>
   </ul>
+  
+  <p>Third parties to whom we may choose to sell, transfer or merge parts of our business or our assets. Alternatively, we may seek to acquire other businesses or merge with them. If a change happens to our business, then the new owners may use your personal data in the same way as set out in this privacy policy.</p>
+  
+  <p>We require all third parties to respect the security of your personal data and to treat it in accordance with the law. We do not allow our third-party service providers to use your personal data for their own purposes and only permit them to process your personal data for specified purposes and in accordance with our instructions.</p>
 
   <h2>6. INTERNATIONAL TRANSFERS</h2>
   
   <p>We may transfer your personal data to service providers that carry out certain functions on our behalf. This may involve transferring personal data outside HK to countries which have laws that do not provide the same level of data protection as HK law.</p>
   
-  <p>Whenever we transfer your personal data out of HK to service providers, we ensure a similar degree of protection is afforded to it by ensuring that appropriate safeguards are in place.</p>
+  <p>Whenever we transfer your personal data out of HK to service providers, we ensure a similar degree of protection is afforded to it by ensuring that the following safeguards are in place. We will only transfer your personal data to countries that have been deemed by HK to provide an adequate level of protection for personal data.</p>
 
   <h2>7. DATA SECURITY</h2>
   
-  <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know.</p>
+  <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know. They will only process your personal data on our instructions and they are subject to a duty of confidentiality.</p>
   
   <p>We have put in place procedures to deal with any suspected personal data breach and will notify you and any applicable regulator of a breach where we are legally required to do so.</p>
 
   <h2>8. DATA RETENTION</h2>
   
-  <p>We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements.</p>
+  <h3>How long will you use my personal data for?</h3>
+  <p>We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements. We may retain your personal data for a longer period in the event of a complaint or if we reasonably believe there is a prospect of litigation in respect to our relationship with you.</p>
+  
+  <p>To determine the appropriate retention period for personal data, we consider the amount, nature and sensitivity of the personal data, the potential risk of harm from unauthorised use or disclosure of your personal data, the purposes for which we process your personal data and whether we can achieve those purposes through other means, and the applicable legal, regulatory, tax, accounting or other requirements.</p>
   
   <p>By law we have to keep basic information about our clients (including Contact, Identity, Financial and Transaction Data) for six years after they cease being clients for tax purposes.</p>
+  
+  <p>In some circumstances you can ask us to delete your data: see paragraph 9 below for further information.</p>
 
   <h2>9. YOUR LEGAL RIGHTS</h2>
   
-  <p>You have the right to:</p>
+  <p>You have a number of rights under data protection laws in relation to your personal data. You have the right to:</p>
+  
   <ul>
-    <li><strong>Request access</strong> to your personal data</li>
-    <li><strong>Request correction</strong> of the personal data that we hold about you</li>
-    <li><strong>Request erasure</strong> of your personal data in certain circumstances</li>
-    <li><strong>Object to processing</strong> of your personal data</li>
-    <li><strong>Request the transfer</strong> of your personal data to you or to a third party</li>
-    <li><strong>Withdraw consent</strong> at any time where we are relying on consent to process your personal data</li>
-    <li><strong>Request restriction of processing</strong> of your personal data</li>
+    <li><strong>Request access to your personal data</strong> (commonly known as a "subject access request"). This enables you to receive a copy of the personal data we hold about you and to check that we are lawfully processing it.</li>
+    <li><strong>Request correction of the personal data</strong> that we hold about you. This enables you to have any incomplete or inaccurate data we hold about you corrected, though we may need to verify the accuracy of the new data you provide to us.</li>
+    <li><strong>Request erasure of your personal data</strong> in certain circumstances. This enables you to ask us to delete or remove personal data where there is no good reason for us continuing to process it. You also have the right to ask us to delete or remove your personal data where you have successfully exercised your right to object to processing, where we may have processed your information unlawfully or where we are required to erase your personal data to comply with local law. Note, however, that we may not always be able to comply with your request of erasure for specific legal reasons which will be notified to you, if applicable, at the time of your request.</li>
+    <li><strong>Object to processing of your personal data</strong> where we are relying on a legitimate interest (or those of a third party) as the legal basis for that particular use of your data (including carrying out profiling based on our legitimate interests). In some cases, we may demonstrate that we have compelling legitimate grounds to process your information which override your right to object. You also have the absolute right to object any time to the processing of your personal data for direct marketing purposes.</li>
+    <li><strong>Request the transfer of your personal data</strong> to you or to a third party. We will provide to you, or a third party you have chosen, your personal data in a structured, commonly used, machine-readable format. Note that this right only applies to automated information which you initially provided consent for us to use or where we used the information to perform a contract with you.</li>
+    <li><strong>Withdraw consent at any time</strong> where we are relying on consent to process your personal data. However, this will not affect the lawfulness of any processing carried out before you withdraw your consent. If you withdraw your consent, we may not be able to provide certain products or services to you. We will advise you if this is the case at the time you withdraw your consent.</li>
+    <li><strong>Request restriction of processing of your personal data.</strong> This enables you to ask us to suspend the processing of your personal data if you want us to establish the data's accuracy; where our use of the data is unlawful but you do not want us to erase it; where you need us to hold the data even if we no longer require it as you need it to establish, exercise or defend legal claims; or you have objected to our use of your data but we need to verify whether we have overriding legitimate grounds to use it.</li>
   </ul>
+
+  <h3>No fee usually required</h3>
+  <p>You will not have to pay a fee to access your personal data (or to exercise any of the other rights). However, we may charge a reasonable fee if your request is clearly unfounded, repetitive or excessive. Alternatively, we could refuse to comply with your request in these circumstances.</p>
+
+  <h3>What we may need from you</h3>
+  <p>We may need to request specific information from you to help us confirm your identity and ensure your right to access your personal data (or to exercise any of your other rights). This is a security measure to ensure that personal data is not disclosed to any person who has no right to receive it.</p>
+
+  <h3>Time limit to respond</h3>
+  <p>We try to respond to all legitimate requests within one month. Occasionally it could take us longer than a month if your request is particularly complex or you have made a number of requests. In this case, we will notify you and keep you updated.</p>
 
   <h2>10. CONTACT DETAILS</h2>
   
-  <p>If you have any questions about this privacy policy or about the use of your personal data or you want to exercise your privacy rights, please contact us:</p>
+  <p>If you have any questions about this privacy policy or about the use of your personal data or you want to exercise your privacy rights, please contact us in the following ways:</p>
   
-  <p><strong>Email:</strong> drwarren@cict.co<br>
+  <p><strong>Email address:</strong> drwarren@cict.co<br>
   <strong>Postal address:</strong> Certified Innovation Coaching and Training, 2/F #26, To Fung Shan Road, Sha Tin, HK</p>
 
   <h2>11. COMPLAINTS</h2>
   
   <p>You have the right to make a complaint at any time to us at the above contact details.</p>
 
-  <h2>12. CHANGES TO THE PRIVACY POLICY</h2>
+  <h2>12. CHANGES TO THE PRIVACY POLICY AND YOUR DUTY TO INFORM US OF CHANGES</h2>
   
-  <p>We keep our privacy policy under regular review. It is important that the personal data we hold about you is accurate and current. Please keep us informed if your personal data changes during your relationship with us.</p>
+  <p>We keep our privacy policy under regular review. It is important that the personal data we hold about you is accurate and current. Please keep us informed if your personal data changes during your relationship with us, for example a new address or email address.</p>
 
   <h2>13. THIRD-PARTY LINKS</h2>
   
-  <p>This website may include links to third-party websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements.</p>
+  <p>This website may include links to third-party websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements. When you leave our website, we encourage you to read the privacy policy of every website you visit.</p>
 </div>
 
 <footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
