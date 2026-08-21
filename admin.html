@@ -132,7 +132,7 @@ async function loadDashboard() {
             <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.post_content}</td>
             <td class="report-actions">
               <button class="btn btn-danger btn-sm" onclick="deletePost(${r.post_id})">Delete Post</button>
-              <button class="btn btn-danger btn-sm" onclick="banUser(${r.user_id})">Ban User</button>
+              ${!r.reported_user_is_admin ? `<button class="btn btn-danger btn-sm" onclick="banUser(${r.user_id})">Ban User</button>` : '<span style="color:var(--slate);font-size:.75rem">Admin</span>'}
             </td>
           </tr>
         `).join('');
