@@ -506,6 +506,7 @@ async function loadPosts() {
     if (!res.ok) return;
     const posts = await res.json();
     const is_admin = localStorage.getItem('pc_is_admin') === '1';
+    console.log('Is admin?', is_admin, 'Value:', localStorage.getItem('pc_is_admin'));
     const feed = document.getElementById('posts-feed');
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
@@ -573,6 +574,13 @@ async function loadPosts() {
   menu.dataset.userId = userId;
   menu.dataset.userName = userName;
 }
+
+// Close menus when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.action-btn') && !e.target.closest('.post-menu')) {
+    document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
+  }
+});
 
 async function copyPostLink(postId) {
   const url = window.location.origin + '/?post=' + postId;
