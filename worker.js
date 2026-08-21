@@ -20,35 +20,64 @@ async function handleApi(request, env, ctx, url) {
     const { name, email, password } = await request.json();
     if (!email || !password || String(password).length < 6)
       return json({ error: 'Email and a password of 6+ characters required.' }, 400);
+    
     const hash = await hashPassword(password);
+    
+    // Get the next user number
+    const maxUser = await env.DB.prepare('SELECT MAX(user_number) as max_num FROM users').first();
+    const nextUserNumber = (maxUser.max_num || 0) + 1;
+    
     try {
-      await env.DB.prepare('INSERT INTO users (email, password, name, is_paid) VALUES (?, ?, ?, 1)').bind(email.toLowerCase(), hash, name).run();
-    } catch (e) { return json({ error: 'That email is already registered.' }, 409); }
-    const user = await env.DB.prepare('SELECT id, name, is_paid, is_admin FROM users WHERE email = ?').bind(email.toLowerCase()).first();
+      await env.DB.prepare('INSERT INTO users (email, password, name, is_paid, user_number) VALUES (?, ?, ?, 1, ?)').bind(email.toLowerCase(), hash, name, nextUserNumber).run();
+    } catch (e) { 
+      return json({ error: 'That email is already registered.' }, 409); 
+    }
+    
+    const user = await env.DB.prepare('SELECT id, name, is_paid, is_admin, user_number FROM users WHERE email = ?').bind(email.toLowerCase()).first();
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin });
+    
+    return json({ 
+      token, 
+      name: user.name, 
+      is_paid: user.is_paid, 
+      is_admin: user.is_admin,
+      user_number: user.user_number 
+    });
   }
 
   if (path === '/api/login' && method === 'POST') {
     const { email, password } = await request.json();
-    const user = await env.DB.prepare('SELECT id, password, name, is_paid, is_admin, banned FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
+    const user = await env.DB.prepare('SELECT id, password, name, is_paid, is_admin, user_number, banned FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
+    
     if (!user || user.password !== await hashPassword(password || ''))
       return json({ error: 'Invalid email or password.' }, 401);
-    if (user.banned) return json({ error: 'This account has been banned.' }, 403);
+    
+    if (user.banned) 
+      return json({ error: 'This account has been banned.' }, 403);
+    
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin });
+    
+    return json({ 
+      token, 
+      name: user.name, 
+      is_paid: user.is_paid, 
+      is_admin: user.is_admin,
+      user_number: user.user_number 
+    });
   }
 
   // --- PROGRESS ---
   if (path === '/api/progress') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in again.' }, 401);
+    
     if (method === 'GET') {
       const res = await env.DB.prepare('SELECT item_id, completed, note FROM progress WHERE user_id = ?').bind(userId).all();
       return json(res.results);
     }
+    
     if (method === 'POST') {
       const { progress } = await request.json();
       for (const item of progress) {
