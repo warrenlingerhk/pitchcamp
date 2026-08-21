@@ -78,10 +78,24 @@ async function handleApi(request, env, ctx, url) {
   }
 
   // --- COMMUNITY ---
-  if (path === '/api/posts' && method === 'GET') {
+ if (path === '/api/posts' && method === 'GET') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
     
+    // Get pagination params
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get('page') || '1');
+    const limit = 20;
+    const offset = (page - 1) * limit;
+    
+    // Get total count
+    const totalCount = await env.DB.prepare(`
+      SELECT COUNT(*) as count FROM posts p 
+      JOIN users u ON p.user_id = u.id 
+      WHERE p.parent_id IS NULL AND u.banned = 0
+    `).first();
+    
+    // Get paginated posts
     const posts = await env.DB.prepare(`
       SELECT p.*, u.name as user_name, u.id as user_id,
       (SELECT COUNT(*) FROM likes WHERE post_id = p.id) as like_count,
@@ -89,8 +103,10 @@ async function handleApi(request, env, ctx, url) {
       FROM posts p JOIN users u ON p.user_id = u.id 
       WHERE p.parent_id IS NULL AND u.banned = 0
       ORDER BY p.pinned DESC, p.created_at DESC
-    `).bind(userId).all();
-
+      LIMIT ? OFFSET ?
+    `).bind(userId, limit, offset).all();
+  
+    // Get replies for each post
     for (let post of posts.results) {
       post.replies = await env.DB.prepare(`
         SELECT p.*, u.name as user_name, u.id as user_id,
@@ -101,9 +117,18 @@ async function handleApi(request, env, ctx, url) {
         ORDER BY p.created_at ASC
       `).bind(userId, post.id).all();
     }
-    return json(posts.results);
-  }
-
+  
+      return json({
+        posts: posts.results,
+        pagination: {
+          page,
+          limit,
+          total: totalCount.count,
+          totalPages: Math.ceil(totalCount.count / limit)
+        }
+      });
+    }
+  
   if (path === '/api/posts' && method === 'POST') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
