@@ -37,6 +37,9 @@ tr:last-child td{border-bottom:none}
 .btn-sm{padding:6px 12px;font-size:.8rem}
 .btn-danger{background:var(--red);color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:800}
 .btn-slate{background:var(--slate);color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:800}
+.announce-box{display:flex;gap:10px;margin-bottom:20px}
+.announce-input{flex:1;padding:12px;border-radius:10px;border:2px solid var(--cream);font-family:inherit;font-size:1rem}
+.announce-input:focus{outline:none;border-color:var(--gold)}
 </style>
 </head>
 <body>
@@ -45,6 +48,15 @@ tr:last-child td{border-bottom:none}
   <div class="header">
     <h1>Admin Dashboard</h1>
     <a href="/" class="btn">Back to Site</a>
+  </div>
+
+  <div class="section">
+    <h2>Post Announcement</h2>
+    <p style="color:var(--slate);margin-top:-15px;margin-bottom:15px">This will post to the community feed and pin it to the top automatically.</p>
+    <div class="announce-box">
+      <input type="text" id="announce-input" class="announce-input" placeholder="Type your announcement here...">
+      <button class="btn" onclick="postAnnouncement()">Post & Pin</button>
+    </div>
   </div>
 
   <div class="stats-grid" id="stats-grid">
@@ -95,14 +107,12 @@ async function loadDashboard() {
     if (repRes.ok) {
       const reports = await repRes.json();
       const tbody = document.getElementById('reports-body');
-      if (reports.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--slate)">No reports yet. Great job!</td></tr>';
-      } else {
+      if (reports.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--slate)">No reports yet. Great job!</td></tr>'; } 
+      else {
         tbody.innerHTML = reports.map(r => `
           <tr style="${r.resolved ? 'opacity:0.5;background:#f9f9f9' : ''}">
             <td><input type="checkbox" ${r.resolved ? 'checked' : ''} onchange="toggleReportStatus(${r.id}, this.checked)" style="width:20px;height:20px;cursor:pointer"></td>
-            <td>${r.reporter_name}</td>
-            <td>${r.reported_user_name}</td>
+            <td>${r.reporter_name}</td><td>${r.reported_user_name}</td>
             <td>${r.reason || 'No reason given'}</td>
             <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.post_content}</td>
             <td class="report-actions">
@@ -122,9 +132,7 @@ async function loadDashboard() {
       const users = await userRes.json();
       document.getElementById('users-body').innerHTML = users.map(u => `
         <tr>
-          <td>${u.user_number || '-'}</td>
-          <td>${u.name}</td>
-          <td>${u.email}</td>
+          <td>${u.user_number || '-'}</td><td>${u.name}</td><td>${u.email}</td>
           <td>${u.banned ? '<span class="badge badge-banned">Banned</span>' : '<span class="badge badge-active">Active</span>'}</td>
           <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : 'Founding Member'}</td>
         </tr>
@@ -133,44 +141,33 @@ async function loadDashboard() {
   } catch (e) { console.error(e); }
 }
 
+async function postAnnouncement() {
+  const input = document.getElementById('announce-input');
+  const content = input.value.trim();
+  if (!content) return;
+  const token = localStorage.getItem('token');
+  const headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+  
+  try {
+    // 1. Create the post
+    const postRes = await fetch(API_URL + '/api/posts', { method: 'POST', headers, body: JSON.stringify({ content }) });
+    const postData = await postRes.json();
+    if (postData.id) {
+      // 2. Pin it to the top
+      await fetch(API_URL + '/api/posts/pin', { method: 'POST', headers, body: JSON.stringify({ post_id: postData.id }) });
+      input.value = '';
+      alert('Announcement posted and pinned!');
+    }
+  } catch (e) { alert('Error posting announcement.'); }
+}
+
 async function toggleReportStatus(reportId, resolved) {
-  await fetch(API_URL + '/api/admin/reports/resolve', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
-    body: JSON.stringify({ report_id: reportId, resolved: resolved })
-  });
+  await fetch(API_URL + '/api/admin/reports/resolve', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ report_id: reportId, resolved: resolved }) });
   loadDashboard();
 }
-
-async function deleteReport(reportId) {
-  if (!confirm('Delete this report? (The post will remain)')) return;
-  await fetch(API_URL + '/api/admin/reports/delete', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
-    body: JSON.stringify({ report_id: reportId })
-  });
-  loadDashboard();
-}
-
-async function deletePost(postId) {
-  if (!confirm('Delete this post?')) return;
-  await fetch(API_URL + '/api/posts/delete', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
-    body: JSON.stringify({ post_id: postId })
-  });
-  loadDashboard();
-}
-
-async function banUser(userId) {
-  if (!confirm('Ban this user?')) return;
-  await fetch(API_URL + '/api/users/ban', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
-    body: JSON.stringify({ user_id: userId })
-  });
-  loadDashboard();
-}
+async function deleteReport(reportId) { if (!confirm('Delete this report?')) return; await fetch(API_URL + '/api/admin/reports/delete', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ report_id: reportId }) }); loadDashboard(); }
+async function deletePost(postId) { if (!confirm('Delete this post?')) return; await fetch(API_URL + '/api/posts/delete', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ post_id: postId }) }); loadDashboard(); }
+async function banUser(userId) { if (!confirm('Ban this user?')) return; await fetch(API_URL + '/api/users/ban', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ user_id: userId }) }); loadDashboard(); }
 
 loadDashboard();
 </script>
