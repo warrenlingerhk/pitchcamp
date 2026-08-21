@@ -520,10 +520,10 @@ async function loadPosts() {
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
         <div class="post-header">
-          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.user_name}</span>
+          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.pinned_to_course ? '📚 ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
-            <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
+            <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')"></button>
           </div>
         </div>
         <div class="post-content">${p.content}</div>
@@ -531,9 +531,7 @@ async function loadPosts() {
           <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
              ${p.like_count}
           </button>
-          <button class="action-btn" onclick="toggleReplyBox(${p.id})">
-             Reply (${p.replies.results.length})
-          </button>
+          ${!p.comments_disabled ? `<button class="action-btn" onclick="toggleReplyBox(${p.id})">Reply (${p.replies.results.length})</button>` : '<span style="color:var(--slate);font-size:.9rem">Comments off</span>'}
         </div>
         <div id="replies-${p.id}">
           ${p.replies.results.map(r => `
@@ -554,6 +552,10 @@ async function loadPosts() {
               <div id="post-menu-${r.id}" class="post-menu hidden">
                 ${is_admin ? `
                   <div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div>
+                  <div class="menu-item" onclick="changeCategory(${r.id})">Change category</div>
+                  <div class="menu-item" onclick="pinPost(${r.id})">${r.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
+                  <div class="menu-item" onclick="pinToCourse(${r.id})">${r.pinned_to_course ? 'Unpin from course page' : 'Pin to course page'}</div>
+                  <div class="menu-item" onclick="toggleComments(${r.id})">${r.comments_disabled ? 'Turn on comments' : 'Turn off comments'}</div>
                   <div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>
                   <div class="menu-item danger" onclick="deletePost(${r.id})">Delete</div>
                   <div class="menu-item danger" onclick="banUser(${r.user_id}, '${r.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
@@ -565,13 +567,16 @@ async function loadPosts() {
             </div>
           `).join('')}
         </div>
-        <div id="reply-input-${p.id}" class="reply-box hidden">
+        ${!p.comments_disabled ? `<div id="reply-input-${p.id}" class="reply-box hidden">
           <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
-        </div>
+        </div>` : ''}
         <div id="post-menu-${p.id}" class="post-menu hidden">
           ${is_admin ? `
             <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+            <div class="menu-item" onclick="changeCategory(${p.id})">Change category</div>
             <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
+            <div class="menu-item" onclick="pinToCourse(${p.id})">${p.pinned_to_course ? 'Unpin from course page' : 'Pin to course page'}</div>
+            <div class="menu-item" onclick="toggleComments(${p.id})">${p.comments_disabled ? 'Turn on comments' : 'Turn off comments'}</div>
             <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
             <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
             <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
@@ -583,6 +588,32 @@ async function loadPosts() {
       </div>
     `).join('');
   } catch (e) { console.error(e); }
+}
+
+async function changeCategory(postId) {
+  const category = prompt('Enter category (e.g., general, announcement, question):');
+  if (!category) return;
+  await fetch(API_URL + '/api/posts/category', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId, category: category.toLowerCase() })
+  });
+  loadPosts();
+}
+
+async function pinToCourse(postId) {
+  await fetch(API_URL + '/api/posts/pin-course', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  loadPosts();
+}
+
+async function toggleComments(postId) {
+  await fetch(API_URL + '/api/posts/comments', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  loadPosts();
 }
 
 function togglePostMenu(postId, userId, userName) {
