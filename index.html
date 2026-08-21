@@ -437,6 +437,7 @@ function renderHeader(){
 
   if (localStorage.getItem('token')) {
     host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + numDisplay + (name || 'Student') + '</span>' +
+      '<a href="/admin.html" class="btn small ghost" style="margin-right:10px;text-decoration:none">Admin</a>' +
       '<button class="btn small ghost" onclick="logout()">Log out</button>';
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
