@@ -235,17 +235,25 @@ async function handleApi(request, env, ctx, url) {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
     
     const res = await env.DB.prepare(`
-      SELECT r.id, r.reason, r.created_at, 
+      SELECT r.id, r.reason, r.created_at, r.resolved,
       p.content as post_content, p.id as post_id, p.user_id,
       u.name as reporter_name, au.name as reported_user_name
       FROM reports r
       JOIN posts p ON r.post_id = p.id
       JOIN users u ON r.reporter_id = u.id
       JOIN users au ON p.user_id = au.id
-      ORDER BY r.created_at DESC LIMIT 50
+      ORDER BY r.resolved ASC, r.created_at DESC LIMIT 50
     `).all();
     return json(res.results);
   }
+
+// Add this new endpoint right after the reports GET endpoint
+if (path === '/api/admin/reports/resolve' && method === 'POST') {
+  if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+  const { report_id, resolved } = await request.json();
+  await env.DB.prepare('UPDATE reports SET resolved = ? WHERE id = ?').bind(resolved ? 1 : 0, report_id).run();
+  return json({ success: true });
+}
 
   if (path === '/api/admin/users' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
