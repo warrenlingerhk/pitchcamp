@@ -141,6 +141,12 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
+.post-menu{position:absolute;right:10px;top:40px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10;min-width:180px;overflow:hidden}
+.menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)}
+.menu-item:hover{background:var(--cream)}
+.menu-item.danger{color:var(--red)}
+.menu-item.danger:hover{background:#fee}
+.post-card{position:relative}
 </style>
 </head>
 <body>
@@ -392,7 +398,7 @@ function showCourse(){
   window.scrollTo(0,0);
 }
 
-function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); localStorage.removeItem('pc_is_paid'); showHome(); }
+function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); localStorage.removeItem('pc_is_paid'); localStorage.removeItem('pc_is_admin'); showHome(); }
 
 function renderHeader(){
   const host = document.getElementById('head-actions');
@@ -439,6 +445,7 @@ async function login() {
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
+      localStorage.setItem('pc_is_admin', data.is_admin);
       if (data.name) {
         localStorage.setItem('pc_name', data.name);
       } else {
@@ -467,6 +474,7 @@ async function signup() {
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
+      localStorage.setItem('pc_is_admin', data.is_admin);
       localStorage.setItem('pc_name', name);
       showHome();
     } else {
@@ -497,12 +505,16 @@ async function loadPosts() {
     const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
     if (!res.ok) return;
     const posts = await res.json();
+    const is_admin = localStorage.getItem('pc_is_admin') === '1';
     const feed = document.getElementById('posts-feed');
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
         <div class="post-header">
-          <span class="post-author">${p.user_name}</span>
-          <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
+          <span class="post-author">${p.pinned ? ' ' : ''}${p.user_name}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
+            <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')"></button>
+          </div>
         </div>
         <div class="post-content">${p.content}</div>
         <div class="post-actions">
@@ -518,7 +530,10 @@ async function loadPosts() {
             <div class="reply">
               <div class="post-header">
                 <span class="post-author">${r.user_name}</span>
-                <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="post-time">${new Date(r.created_at).toLocaleDateString()}</span>
+                  <button class="action-btn" onclick="togglePostMenu(${r.id}, ${r.user_id}, '${r.user_name.replace(/'/g, "\\'")}')">⋯</button>
+                </div>
               </div>
               <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
               <div class="post-actions" style="margin-top:8px">
@@ -532,9 +547,78 @@ async function loadPosts() {
         <div id="reply-input-${p.id}" class="reply-box hidden">
           <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
         </div>
+        <div id="post-menu-${p.id}" class="post-menu hidden">
+          ${is_admin ? `
+            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+            <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
+            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+            <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
+            <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
+          ` : `
+            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+          `}
+        </div>
       </div>
     `).join('');
   } catch (e) { console.error(e); }
+}
+
+  function togglePostMenu(postId, userId, userName) {
+  const menu = document.getElementById(`post-menu-${postId}`);
+  document.querySelectorAll('.post-menu').forEach(m => {
+    if (m.id !== `post-menu-${postId}`) m.classList.add('hidden');
+  });
+  menu.classList.toggle('hidden');
+  menu.dataset.userId = userId;
+  menu.dataset.userName = userName;
+}
+
+async function copyPostLink(postId) {
+  const url = window.location.origin + '/?post=' + postId;
+  await navigator.clipboard.writeText(url);
+  alert('Link copied!');
+  document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
+}
+
+async function pinPost(postId) {
+  await fetch(API_URL + '/api/posts/pin', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  loadPosts();
+}
+
+async function reportPost(postId) {
+  const reason = prompt('Reason for reporting (optional):');
+  await fetch(API_URL + '/api/reports', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId, reason: reason || '' })
+  });
+  alert('Report submitted. Thank you.');
+  document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
+}
+
+async function deletePost(postId) {
+  if (!confirm('Delete this post and all replies?')) return;
+  await fetch(API_URL + '/api/posts/delete', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: postId })
+  });
+  loadPosts();
+}
+
+async function banUser(userId, userName) {
+  if (!confirm(`Ban ${userName}? This will delete their posts and prevent future access.`)) return;
+  await fetch(API_URL + '/api/users/ban', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ user_id: userId })
+  });
+  await fetch(API_URL + '/api/posts/delete', {
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    body: JSON.stringify({ post_id: userId })
+  });
+  loadPosts();
 }
 
 async function createPost() {
