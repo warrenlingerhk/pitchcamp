@@ -44,17 +44,21 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 
-.hero{overflow:hidden;display:grid;grid-template-columns:1fr .95fr}
-@media(max-width:700px){.hero{grid-template-columns:1fr}}
+.hero{overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
 .hero-copy{padding:34px 30px}
 .hero h1{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;line-height:1.15;margin:0}
 .hl-orange{color:var(--orange)}
 .hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700; font-size:1.1rem}
+.hero-bullets{list-style:none;padding:0;margin:16px 0 0}
+.hero-bullets li{font-size:1.1rem;font-weight:700;color:var(--slate);margin-bottom:8px;padding-left:24px;position:relative}
+.hero-bullets li::before{content:'•';color:var(--orange);font-weight:800;position:absolute;left:0}
+.hero-copy{padding:34px 30px 28px}
 .hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
 .hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
 
-.rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
+.rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px;text-align:center}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
 .course h3{margin:0;font-size:1.2rem;font-weight:800}
@@ -147,6 +151,18 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
+
+.course-outcomes{margin-top:8px}
+.outcomes-list{margin:8px 0 0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
+.outcomes-extra{margin:0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
+.outcomes-extra li{animation:fadeSlide .3s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.expand-btn{background:none;border:none;cursor:pointer;color:inherit;padding:6px 10px;margin-left:-6px;display:flex;align-items:center;gap:4px;font-weight:800;font-size:.9rem}
+.expand-btn:hover{opacity:.8}
+.expand-btn svg{transition:transform .3s ease}
+.expand-btn.expanded svg{transform:rotate(180deg)}
+.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem}
+.course-btn:hover{background:#1E2F42}
 </style>
 </head>
 <body>
@@ -165,10 +181,14 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 <div id="view-home">
   <div class="wrap layout">
     <div>
-      <section class="hero card">
+     <section class="hero card">
         <div class="hero-copy">
-          <h1>Master New Skills From <span class="hl-orange">Expert Teachers.</span></h1>
-          <p class="hero-sub">Build your Confidence. Pitch with Clarity. Act with Impact.</p>
+          <h1>Master New Skills<br>With Experts</h1>
+          <ul class="hero-bullets">
+            <li>Build your Confidence.</li>
+            <li>Pitch with Clarity.</li>
+            <li>Act with Impact.</li>
+          </ul>
         </div>
         <div class="hero-media">
           <img class="hero-img" src="hero.jpg" alt="" onerror="this.remove()">
@@ -199,7 +219,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
     </div>
 
     <aside class="rail" id="rail-home">
-      <h2 class="rail-title">Courses</h2>
+     <h2 class="rail-title">Offers</h2>
       <div class="course-list" id="course-list-home"></div>
     </aside>
   </div>
@@ -285,11 +305,11 @@ const API_URL = '';
 let saveTimeout;
 
 const COURSES = [
-  { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room'] },
-  { name:'Big Ticket Sales', tone:2, active:false, outcomes:['Close high-value deals','Negotiate with status'] },
-  { name:'Offers for Success', tone:3, active:false, outcomes:['Craft irresistible offers'] },
-  { name:'Get More-Better Leads', tone:4, active:false, outcomes:['Build reliable lead engines'] },
-  { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams'] }
+  { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room','Master Q&A like a pro','Build instant status with any audience','Craft narratives that convert','Frame control under pressure'] },
+  { name:'SalesCamp', tone:2, active:false, outcomes:['Close high-value deals','Negotiate with status','Handle objections gracefully','Build rapport in minutes','Price with confidence','Create urgency without pressure'] },
+  { name:'Offers for Success', tone:3, active:false, outcomes:['Craft irresistible offers','Stack value like the pros','Position premium pricing','Create bonuses that convert'] },
+  { name:'Get More-Better Leads', tone:4, active:false, outcomes:['Build reliable lead engines','Master outreach that works','Convert cold to warm fast','Scale your pipeline'] },
+  { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams','Build recurring income','Productize your expertise','Scale without burnout'] }
 ];
 
 const COURSE_DATA = [
@@ -427,9 +447,25 @@ function renderCourses(target){
   host.innerHTML = COURSES.map(c =>
     '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
-      '<ul>' + c.outcomes.map(o => '<li>' + o + '</li>').join('') + '</ul>' +
-      '<button class="course-btn" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>' +
+      (c.active ? '<button class="course-btn" style="margin:10px 0" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>'
+                : '<button class="course-btn" style="margin:10px 0;opacity:.7;cursor:not-allowed" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>') +
+      '<div class="course-outcomes" data-outcomes=\'' + JSON.stringify(c.outcomes) + '\'>' +
+        '<div class="outcomes-list">' +
+          c.outcomes.slice(0, 2).map(o => '<li>' + o + '</li>').join('') +
+        '</div>' +
+        '<div class="outcomes-extra hidden">' +
+          c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') +
+        '</div>' +
+        (c.outcomes.length > 2 ? '<button class="expand-btn" onclick="toggleOutcomes(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' : '') +
+      '</div>' +
     '</div>').join('');
+}
+
+function toggleOutcomes(btn) {
+  const container = btn.closest('.course-outcomes');
+  const extra = container.querySelector('.outcomes-extra');
+  extra.classList.toggle('hidden');
+  btn.classList.toggle('expanded');
 }
 
 function handleCourseClick(name, active){
