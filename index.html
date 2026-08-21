@@ -557,36 +557,40 @@ function toggleCommunityView() {
   }
 }
 
-async function loadPosts() {
+let currentPage = 1;
+let totalPages = 1;
+
+async function loadPosts(page = 1) {
   try {
-    const res = await fetch(API_URL + '/api/posts', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+    const res = await fetch(API_URL + `/api/posts?page=${page}`, { 
+      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} 
+    });
     if (!res.ok) return;
-    const posts = await res.json();
+    const data = await res.json();
+    const posts = data.posts;
+    totalPages = data.pagination.totalPages;
+    currentPage = data.pagination.page;
+    
     const is_admin = localStorage.getItem('pc_is_admin') === '1';
     const feed = document.getElementById('posts-feed');
     
+    // ... existing post rendering code remains the same ...
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
-        
-        <!-- MAIN POST HEADER -->
         <div class="post-header">
-          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.pinned_to_course ? '📚 ' : ''}${p.user_name}</span>
+          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.pinned_to_course ? ' ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
             <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
           </div>
         </div>
-        
         <div class="post-content">${p.content}</div>
-        
         <div class="post-actions">
           <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
              👍 ${p.like_count}
           </button>
           ${!p.comments_disabled ? `<button class="action-btn" onclick="toggleReplyBox(${p.id})">Reply (${p.replies.results.length})</button>` : '<span style="color:var(--slate);font-size:.9rem">Comments off</span>'}
         </div>
-
-        <!-- REPLIES SECTION -->
         <div id="replies-${p.id}">
           ${p.replies.results.map(r => `
             <div class="reply">
@@ -603,8 +607,6 @@ async function loadPosts() {
                   👍 ${r.like_count}
                 </button>
               </div>
-              
-              <!-- COMMENT MENU (No Change Category here) -->
               <div id="post-menu-${r.id}" class="post-menu hidden">
                 ${is_admin ? `
                   <div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div>
@@ -620,12 +622,9 @@ async function loadPosts() {
             </div>
           `).join('')}
         </div>
-
         ${!p.comments_disabled ? `<div id="reply-input-${p.id}" class="reply-box hidden">
           <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
         </div>` : ''}
-        
-        <!-- MAIN POST MENU (Has Change Category) -->
         <div id="post-menu-${p.id}" class="post-menu hidden">
           ${is_admin ? `
             <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
@@ -642,17 +641,65 @@ async function loadPosts() {
         </div>
       </div>
     `).join('');
+    
+    // Add pagination controls
+    renderPagination();
   } catch (e) { console.error(e); }
 }
 
-async function changeCategory(postId) {
-  const category = prompt('Enter category (e.g., general, announcement, question):');
-  if (!category) return;
-  await fetch(API_URL + '/api/posts/category', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId, category: category.toLowerCase() })
-  });
-  loadPosts();
+function renderPagination() {
+  const feed = document.getElementById('posts-feed');
+  const existingPagination = feed.querySelector('.pagination-controls');
+  if (existingPagination) existingPagination.remove();
+  
+  if (totalPages <= 1) return;
+  
+  const pagination = document.createElement('div');
+  pagination.className = 'pagination-controls';
+  pagination.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:8px;margin-top:30px;padding:20px 0';
+  
+  let html = '';
+  
+  // Previous button
+  html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.3;cursor:not-allowed"' : ''}>&larr; Previous</button>`;
+  
+  // Page numbers
+  const maxVisible = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+  
+  if (endPage - startPage < maxVisible - 1) {
+    startPage = Math.max(1, endPage - maxVisible + 1);
+  }
+  
+  if (startPage > 1) {
+    html += `<button class="page-btn" onclick="changePage(1)">1</button>`;
+    if (startPage > 2) html += `<span style="color:var(--slate)">...</span>`;
+  }
+  
+  for (let i = startPage; i <= endPage; i++) {
+    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})" style="${i === currentPage ? 'background:var(--yellow);color:var(--navy);font-weight:800' : ''}">${i}</button>`;
+  }
+  
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) html += `<span style="color:var(--slate)">...</span>`;
+    html += `<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
+  }
+  
+  // Next button
+  html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.3;cursor:not-allowed"' : ''}>Next &rarr;</button>`;
+  
+  // Page info
+  html += `<span style="color:var(--slate);font-size:.9rem;margin-left:10px">Page ${currentPage} of ${totalPages}</span>`;
+  
+  pagination.innerHTML = html;
+  feed.appendChild(pagination);
+}
+
+function changePage(page) {
+  if (page < 1 || page > totalPages || page === currentPage) return;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  loadPosts(page);
 }
 
 async function pinToCourse(postId) {
