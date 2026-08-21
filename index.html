@@ -551,6 +551,17 @@ async function loadPosts() {
                   👍 ${r.like_count}
                 </button>
               </div>
+              <div id="post-menu-${r.id}" class="post-menu hidden">
+                ${is_admin ? `
+                  <div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div>
+                  <div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>
+                  <div class="menu-item danger" onclick="deletePost(${r.id})">Delete</div>
+                  <div class="menu-item danger" onclick="banUser(${r.user_id}, '${r.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
+                ` : `
+                  <div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div>
+                  <div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>
+                `}
+              </div>
             </div>
           `).join('')}
         </div>
