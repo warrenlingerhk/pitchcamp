@@ -513,7 +513,7 @@ async function loadPosts() {
           <span class="post-author">${p.pinned ? ' ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
-            <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')"></button>
+           <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
           </div>
         </div>
         <div class="post-content">${p.content}</div>
@@ -609,18 +609,15 @@ async function deletePost(postId) {
 }
 
 async function banUser(userId, userName) {
-  if (!confirm(`Ban ${userName}? This will delete their posts and prevent future access.`)) return;
+  if (!confirm(`Ban ${userName}? This will hide their posts and prevent future access.`)) return;
   await fetch(API_URL + '/api/users/ban', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    method:'POST', 
+    headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
     body: JSON.stringify({ user_id: userId })
   });
-  await fetch(API_URL + '/api/posts/delete', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: userId })
-  });
-  loadPosts();
+  loadPosts(); // Their posts will instantly disappear from the feed
 }
-
+  
 async function createPost() {
   const input = document.getElementById('new-post-input');
   const content = input.value.trim();
