@@ -135,7 +135,7 @@ async function loadDashboard() {
           <td>
             ${u.banned ? '<span class="badge badge-banned">Banned</span>' : '<span class="badge badge-paid">Active</span>'}
           </td>
-          <td>${new Date(u.created_at).toLocaleDateString()}</td>
+          <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : 'Founding Member'}</td>
         </tr>
       `).join('');
     }
