@@ -79,7 +79,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .auth-link:hover{text-decoration:underline}
 
 /* --- COMMUNITY STYLES --- */
-.post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1)}
+.post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1); position:relative;}
 .post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .post-author{font-weight:800;color:var(--navy)}
 .post-time{font-size:.85rem;color:var(--slate)}
@@ -91,6 +91,12 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .reply-box{margin-top:12px;padding-top:12px;border-top:1px solid rgba(46,65,86,.1)}
 .reply{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--orange)}
 .reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
+
+.post-menu{position:absolute;right:10px;top:35px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:20;min-width:180px;overflow:hidden}
+.menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)}
+.menu-item:hover{background:var(--cream)}
+.menu-item.danger{color:var(--red)}
+.menu-item.danger:hover{background:#fee}
 
 /* --- COURSE PAGE STYLES --- */
 .module-menu{
@@ -141,12 +147,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .modal-box h3{margin:0 0 12px;font-size:1.4rem}
 .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
 .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
-.post-menu{position:absolute;right:10px;top:40px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10;min-width:180px;overflow:hidden}
-.menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)}
-.menu-item:hover{background:var(--cream)}
-.menu-item.danger{color:var(--red)}
-.menu-item.danger:hover{background:#fee}
-.post-card{position:relative}
 </style>
 </head>
 <body>
@@ -176,7 +176,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         </div>
       </section>
 
-      <!-- COMMUNITY SECTION (MOVED UP) -->
+      <!-- COMMUNITY SECTION -->
       <section id="community-section" class="hidden" style="margin-top:34px">
         <div class="card" style="padding:24px 28px">
           <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
@@ -398,13 +398,21 @@ function showCourse(){
   window.scrollTo(0,0);
 }
 
-function logout(){ localStorage.removeItem('token'); localStorage.removeItem('pc_name'); localStorage.removeItem('pc_is_paid'); localStorage.removeItem('pc_is_admin'); showHome(); }
+function logout(){ 
+  localStorage.removeItem('token'); 
+  localStorage.removeItem('pc_name'); 
+  localStorage.removeItem('pc_is_paid'); 
+  localStorage.removeItem('pc_is_admin'); 
+  localStorage.removeItem('pc_user_number'); 
+  showHome(); 
+}
 
 function renderHeader(){
   const host = document.getElementById('head-actions');
   const name = localStorage.getItem('pc_name');
+  const userNumber = localStorage.getItem('pc_user_number');
   if (localStorage.getItem('token')) {
-    host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + '</span>' +
+    host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + (userNumber ? '#' + userNumber + ' ' : '') + (name || 'Student') + '</span>' +
       '<button class="btn small ghost" onclick="logout()">Log out</button>';
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
@@ -446,6 +454,7 @@ async function login() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
       localStorage.setItem('pc_is_admin', data.is_admin);
+      localStorage.setItem('pc_user_number', data.user_number);
       if (data.name) {
         localStorage.setItem('pc_name', data.name);
       } else {
@@ -475,6 +484,7 @@ async function signup() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
       localStorage.setItem('pc_is_admin', data.is_admin);
+      localStorage.setItem('pc_user_number', data.user_number);
       localStorage.setItem('pc_name', name);
       showHome();
     } else {
@@ -506,21 +516,20 @@ async function loadPosts() {
     if (!res.ok) return;
     const posts = await res.json();
     const is_admin = localStorage.getItem('pc_is_admin') === '1';
-    console.log('Is admin?', is_admin, 'Value:', localStorage.getItem('pc_is_admin'));
     const feed = document.getElementById('posts-feed');
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
         <div class="post-header">
-          <span class="post-author">${p.pinned ? ' ' : ''}${p.user_name}</span>
+          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
-           <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
+            <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
           </div>
         </div>
         <div class="post-content">${p.content}</div>
         <div class="post-actions">
           <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
-            👍 ${p.like_count}
+             ${p.like_count}
           </button>
           <button class="action-btn" onclick="toggleReplyBox(${p.id})">
              Reply (${p.replies.results.length})
@@ -545,24 +554,27 @@ async function loadPosts() {
             </div>
           `).join('')}
         </div>
+        <div id="reply-input-${p.id}" class="reply-box hidden">
+          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
+        </div>
         <div id="post-menu-${p.id}" class="post-menu hidden">
-        ${is_admin ? `
-          <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-          <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
-          <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
-          <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
-          <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
-        ` : `
-          <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-          <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
-        `}
-      </div>
+          ${is_admin ? `
+            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+            <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
+            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+            <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
+            <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
+          ` : `
+            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+          `}
+        </div>
       </div>
     `).join('');
   } catch (e) { console.error(e); }
 }
 
-  function togglePostMenu(postId, userId, userName) {
+function togglePostMenu(postId, userId, userName) {
   const menu = document.getElementById(`post-menu-${postId}`);
   document.querySelectorAll('.post-menu').forEach(m => {
     if (m.id !== `post-menu-${postId}`) m.classList.add('hidden');
@@ -572,7 +584,6 @@ async function loadPosts() {
   menu.dataset.userName = userName;
 }
 
-// Close menus when clicking outside
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.action-btn') && !e.target.closest('.post-menu')) {
     document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
@@ -616,13 +627,12 @@ async function deletePost(postId) {
 async function banUser(userId, userName) {
   if (!confirm(`Ban ${userName}? This will hide their posts and prevent future access.`)) return;
   await fetch(API_URL + '/api/users/ban', {
-    method:'POST', 
-    headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
     body: JSON.stringify({ user_id: userId })
   });
-  loadPosts(); // Their posts will instantly disappear from the feed
+  loadPosts();
 }
-  
+
 async function createPost() {
   const input = document.getElementById('new-post-input');
   const content = input.value.trim();
