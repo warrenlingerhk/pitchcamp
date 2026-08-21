@@ -237,7 +237,7 @@ async function handleApi(request, env, ctx, url) {
     const res = await env.DB.prepare(`
       SELECT r.id, r.reason, r.created_at, r.resolved,
       p.content as post_content, p.id as post_id, p.user_id,
-      u.name as reporter_name, au.name as reported_user_name
+      u.name as reporter_name, au.name as reported_user_name, au.is_admin as reported_user_is_admin
       FROM reports r
       JOIN posts p ON r.post_id = p.id
       JOIN users u ON r.reporter_id = u.id
