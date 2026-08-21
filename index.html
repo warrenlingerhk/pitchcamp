@@ -582,7 +582,6 @@ async function loadPosts() {
         <div id="post-menu-${p.id}" class="post-menu hidden">
           ${is_admin ? `
             <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-            <div class="menu-item" onclick="changeCategory(${p.id})">Change category</div>
             <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
             <div class="menu-item" onclick="pinToCourse(${p.id})">${p.pinned_to_course ? 'Unpin from course page' : 'Pin to course page'}</div>
             <div class="menu-item" onclick="toggleComments(${p.id})">${p.comments_disabled ? 'Turn on comments' : 'Turn off comments'}</div>
