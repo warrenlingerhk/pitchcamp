@@ -26,7 +26,7 @@ async function handleApi(request, env, ctx, url) {
     const nextUserNumber = (maxUser.max_num || 0) + 1;
     
     try {
-      await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 1, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();   
+      await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 1, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();
     } catch (e) { 
       return json({ error: 'That email is already registered.' }, 409); 
     }
@@ -70,7 +70,7 @@ async function handleApi(request, env, ctx, url) {
         await env.DB.prepare("INSERT OR REPLACE INTO progress (user_id, item_id, completed, note, updated_at) VALUES (?, ?, ?, ?, datetime('now'))").bind(userId, item.item_id, item.completed ? 1 : 0, item.note || '').run();
       }
       if (env.GOOGLE_WEBHOOK_URL) {
-       const user = await env.DB.prepare('SELECT email, name, user_number FROM users WHERE id = ?').bind(userId).first();
+        const user = await env.DB.prepare('SELECT email, name, user_number FROM users WHERE id = ?').bind(userId).first();
         ctx.waitUntil(syncSheet(env.GOOGLE_WEBHOOK_URL, user.email, user.name, user.user_number, progress));
       }
       return json({ success: true });
@@ -78,24 +78,10 @@ async function handleApi(request, env, ctx, url) {
   }
 
   // --- COMMUNITY ---
- if (path === '/api/posts' && method === 'GET') {
+  if (path === '/api/posts' && method === 'GET') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
     
-    // Get pagination params
-    const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get('page') || '1');
-    const limit = 20;
-    const offset = (page - 1) * limit;
-    
-    // Get total count
-    const totalCount = await env.DB.prepare(`
-      SELECT COUNT(*) as count FROM posts p 
-      JOIN users u ON p.user_id = u.id 
-      WHERE p.parent_id IS NULL AND u.banned = 0
-    `).first();
-    
-    // Get paginated posts
     const posts = await env.DB.prepare(`
       SELECT p.*, u.name as user_name, u.id as user_id,
       (SELECT COUNT(*) FROM likes WHERE post_id = p.id) as like_count,
@@ -103,10 +89,8 @@ async function handleApi(request, env, ctx, url) {
       FROM posts p JOIN users u ON p.user_id = u.id 
       WHERE p.parent_id IS NULL AND u.banned = 0
       ORDER BY p.pinned DESC, p.created_at DESC
-      LIMIT ? OFFSET ?
-    `).bind(userId, limit, offset).all();
-  
-    // Get replies for each post
+    `).bind(userId).all();
+
     for (let post of posts.results) {
       post.replies = await env.DB.prepare(`
         SELECT p.*, u.name as user_name, u.id as user_id,
@@ -117,18 +101,9 @@ async function handleApi(request, env, ctx, url) {
         ORDER BY p.created_at ASC
       `).bind(userId, post.id).all();
     }
-  
-      return json({
-        posts: posts.results,
-        pagination: {
-          page,
-          limit,
-          total: totalCount.count,
-          totalPages: Math.ceil(totalCount.count / limit)
-        }
-      });
-    }
-  
+    return json(posts.results);
+  }
+
   if (path === '/api/posts' && method === 'POST') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
@@ -165,16 +140,6 @@ async function handleApi(request, env, ctx, url) {
     if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
     const { post_id } = await request.json();
     await env.DB.prepare('UPDATE posts SET pinned_to_course = NOT pinned_to_course WHERE id = ?').bind(post_id).run();
-    return json({ success: true });
-  }
-
-  if (path === '/api/posts/category' && method === 'POST') {
-    const userId = await auth(request, env);
-    if (!userId) return json({ error: 'Please log in.' }, 401);
-    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
-    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
-    const { post_id, category } = await request.json();
-    await env.DB.prepare('UPDATE posts SET category = ? WHERE id = ?').bind(category, post_id).run();
     return json({ success: true });
   }
 
@@ -219,21 +184,18 @@ async function handleApi(request, env, ctx, url) {
     }
   }
 
-    // --- ADMIN DASHBOARD ---
+  // --- ADMIN DASHBOARD ---
   if (path === '/api/admin/stats' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
-    
     const users = await env.DB.prepare('SELECT COUNT(*) as c FROM users').first();
     const posts = await env.DB.prepare('SELECT COUNT(*) as c FROM posts WHERE parent_id IS NULL').first();
     const reports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports').first();
     const mod1 = await env.DB.prepare("SELECT COUNT(DISTINCT user_id) as c FROM progress WHERE item_id = 'welcome' AND completed = 1").first();
-    
     return json({ users: users.c, posts: posts.c, reports: reports.c, mod1: mod1.c });
   }
 
   if (path === '/api/admin/reports' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
-    
     const res = await env.DB.prepare(`
       SELECT r.id, r.reason, r.created_at, r.resolved,
       p.content as post_content, p.id as post_id, p.user_id,
@@ -247,25 +209,28 @@ async function handleApi(request, env, ctx, url) {
     return json(res.results);
   }
 
-// Add this new endpoint right after the reports GET endpoint
-if (path === '/api/admin/reports/resolve' && method === 'POST') {
-  if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
-  const { report_id, resolved } = await request.json();
-  await env.DB.prepare('UPDATE reports SET resolved = ? WHERE id = ?').bind(resolved ? 1 : 0, report_id).run();
-  return json({ success: true });
-}
+  if (path === '/api/admin/reports/resolve' && method === 'POST') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const { report_id, resolved } = await request.json();
+    await env.DB.prepare('UPDATE reports SET resolved = ? WHERE id = ?').bind(resolved ? 1 : 0, report_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/admin/reports/delete' && method === 'POST') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const { report_id } = await request.json();
+    await env.DB.prepare('DELETE FROM reports WHERE id = ?').bind(report_id).run();
+    return json({ success: true });
+  }
 
   if (path === '/api/admin/users' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
-    
     const res = await env.DB.prepare('SELECT id, name, email, user_number, is_paid, banned, created_at FROM users ORDER BY user_number ASC').all();
     return json(res.results);
   }
 
-  // --- ADMIN ANALYTICS ---
   if (path === '/api/admin/analytics' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
-    
     const totalUsers = await env.DB.prepare('SELECT COUNT(*) as c FROM users').first();
     const activeLearners = await env.DB.prepare('SELECT COUNT(DISTINCT user_id) as c FROM progress').first();
     const elite = await env.DB.prepare("SELECT COUNT(DISTINCT user_id) as c FROM progress WHERE item_id = 'reflection6' AND completed = 1").first();
@@ -274,14 +239,7 @@ if (path === '/api/admin/reports/resolve' && method === 'POST') {
     const engagement = totalUsers.c > 0 ? (totalPosts.c / totalUsers.c).toFixed(1) : 0;
     const totalReports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports').first();
     const healthRatio = totalPosts.c > 0 ? (totalReports.c / totalPosts.c).toFixed(2) : 0;
-  
-    return json({
-      totalUsers: totalUsers.c,
-      activeLearners: activeLearners.c,
-      eliteRate: eliteRate,
-      engagement: engagement,
-      healthRatio: healthRatio
-    });
+    return json({ totalUsers: totalUsers.c, activeLearners: activeLearners.c, eliteRate: eliteRate, engagement: engagement, healthRatio: healthRatio });
   }
 
   return json({ error: 'Not found.' }, 404);
@@ -314,10 +272,5 @@ function json(data, status = 200) {
 }
 
 async function syncSheet(webhookUrl, email, name, user_number, progress) {
-  try { 
-    await fetch(webhookUrl, { 
-      method: 'POST', 
-      body: JSON.stringify({ email, name, user_number, progress }) 
-    }); 
-  } catch (e) {}
+  try { await fetch(webhookUrl, { method: 'POST', body: JSON.stringify({ email, name, user_number, progress }) }); } catch (e) {}
 }
