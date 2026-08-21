@@ -545,21 +545,18 @@ async function loadPosts() {
             </div>
           `).join('')}
         </div>
-        <div id="reply-input-${p.id}" class="reply-box hidden">
-          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
-        </div>
         <div id="post-menu-${p.id}" class="post-menu hidden">
-          ${is_admin ? `
-            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-            <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
-            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
-            <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
-            <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
-          ` : `
-            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
-          `}
-        </div>
+        ${is_admin ? `
+          <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+          <div class="menu-item" onclick="pinPost(${p.id})">${p.pinned ? 'Unpin from feed' : 'Pin to feed'}</div>
+          <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+          <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
+          <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
+        ` : `
+          <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
+          <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
+        `}
+      </div>
       </div>
     `).join('');
   } catch (e) { console.error(e); }
