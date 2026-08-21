@@ -262,6 +262,28 @@ if (path === '/api/admin/reports/resolve' && method === 'POST') {
     return json(res.results);
   }
 
+  // --- ADMIN ANALYTICS ---
+  if (path === '/api/admin/analytics' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    
+    const totalUsers = await env.DB.prepare('SELECT COUNT(*) as c FROM users').first();
+    const activeLearners = await env.DB.prepare('SELECT COUNT(DISTINCT user_id) as c FROM progress').first();
+    const elite = await env.DB.prepare("SELECT COUNT(DISTINCT user_id) as c FROM progress WHERE item_id = 'reflection6' AND completed = 1").first();
+    const eliteRate = totalUsers.c > 0 ? Math.round((elite.c / totalUsers.c) * 100) : 0;
+    const totalPosts = await env.DB.prepare('SELECT COUNT(*) as c FROM posts WHERE parent_id IS NULL').first();
+    const engagement = totalUsers.c > 0 ? (totalPosts.c / totalUsers.c).toFixed(1) : 0;
+    const totalReports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports').first();
+    const healthRatio = totalPosts.c > 0 ? (totalReports.c / totalPosts.c).toFixed(2) : 0;
+  
+    return json({
+      totalUsers: totalUsers.c,
+      activeLearners: activeLearners.c,
+      eliteRate: eliteRate,
+      engagement: engagement,
+      healthRatio: healthRatio
+    });
+  }
+
   return json({ error: 'Not found.' }, 404);
 }
 
