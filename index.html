@@ -15,62 +15,46 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6;
-  --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B;
-  --tan:#E8DCC4;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; --tan:#E8DCC4; }
+*{box-sizing:border-box} html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0; font-size:16px}
 h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
-.hidden{display:none!important}
-.wrap{width:min(1150px,94%);margin-inline:auto}
-
+.hidden{display:none!important} .wrap{width:min(1150px,94%);margin-inline:auto}
 .site-head{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:none}
 .head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
-.brand-logo{width:46px;height:46px;object-fit:contain}
-.brand-dot{color:var(--orange)}
+.brand-logo{width:46px;height:46px;object-fit:contain} .brand-dot{color:var(--orange)}
 .head-actions{display:flex;align-items:center;gap:10px}
 .btn{border-radius:999px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;font-family:'Nunito Sans'}
-.btn:hover{transform:translateY(-2px)}
-.btn.small{padding:8px 20px;font-size:.9rem}
+.btn:hover{transform:translateY(-2px)} .btn.small{padding:8px 20px;font-size:.9rem}
 .btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
 .layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:26px 0 70px;align-items:start}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
-
 .hero{overflow:hidden;display:grid;grid-template-columns:1.5fr .5fr}
 @media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
-.hero-copy{padding:34px 30px}
-.hero h1{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;line-height:1.15;margin:0}
-.hl-orange{color:var(--orange)}
-.hero-sub{margin:12px 0 18px;color:var(--slate);font-weight:700; font-size:1.1rem}
+.hero-copy{padding:34px 30px 28px}
+.hero h1{font-size:clamp(1.5rem,3.8vw,2.3rem);font-weight:800;line-height:1.2;margin:0}
+.hl-orange{color:#B8860B}
 .hero-bullets{list-style:none;padding:0;margin:16px 0 0}
 .hero-bullets li{font-size:1.1rem;font-weight:700;color:var(--slate);margin-bottom:8px;padding-left:24px;position:relative}
 .hero-bullets li::before{content:'•';color:var(--orange);font-weight:800;position:absolute;left:0}
-.hero-copy{padding:34px 30px 28px}
-.hero-media{position:relative;min-height:280px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red))}
-.hero-media .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.mascot{position:absolute;right:14px;bottom:-8px;width:122px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3));z-index:2}
-
 .rail-title{font-size:1.25rem;font-weight:800;margin:6px 0 14px;text-align:center}
 .course-list{display:flex;flex-direction:column;gap:14px}
 .course{border-radius:16px;padding:18px 20px;box-shadow:0 6px 0 rgba(46,65,86,.18);color:#fff}
 .course h3{margin:0;font-size:1.2rem;font-weight:800}
-.course ul{margin:8px 0 14px;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
-.c1{background:var(--yellow);color:var(--navy)}
-.c2{background:#EC9A38}
-.c3{background:var(--orange)}
-.c4{background:#D65F2C}
-.c5{background:var(--red)}
-.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem}
+.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem;margin:10px 0}
 .course-btn:hover{background:#1E2F42}
-
+.course-outcomes{margin-top:8px}
+.outcomes-list{margin:8px 0 0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
+.outcomes-extra{margin:0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
+.outcomes-extra li{animation:fadeSlide .3s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.expand-btn{background:none;border:none;cursor:pointer;color:inherit;padding:6px 10px;margin-left:-6px;display:flex;align-items:center;gap:4px;font-weight:800;font-size:.9rem}
+.expand-btn:hover{opacity:.8} .expand-btn svg{transition:transform .3s ease} .expand-btn.expanded svg{transform:rotate(180deg)}
+.c1{background:var(--yellow);color:var(--navy)} .c2{background:#EC9A38} .c3{background:var(--orange)} .c4{background:#D65F2C} .c5{background:var(--red)}
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
 .auth-band{background:linear-gradient(90deg,var(--yellow),var(--orange));padding:18px 26px;font-weight:800;font-size:1.2rem}
@@ -79,90 +63,37 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .auth-body input:focus{outline:none;border-color:var(--orange)}
 .auth-body .btn{width:100%;padding:11px;margin-bottom:10px}
 .form-error{color:var(--red);font-weight:800;font-size:1rem; margin-top:8px}
-.auth-link{color:var(--orange);font-weight:800;text-decoration:none}
-.auth-link:hover{text-decoration:underline}
-
-/* --- COMMUNITY STYLES --- */
+.auth-link{color:var(--orange);font-weight:800;text-decoration:none} .auth-link:hover{text-decoration:underline}
 .post-card{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(46,65,86,.1); position:relative;}
 .post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.post-author{font-weight:800;color:var(--navy)}
-.post-time{font-size:.85rem;color:var(--slate)}
+.post-author{font-weight:800;color:var(--navy)} .post-time{font-size:.85rem;color:var(--slate)}
 .post-content{font-size:1rem;line-height:1.6;margin-bottom:12px;white-space:pre-wrap}
 .post-actions{display:flex;gap:16px}
 .action-btn{background:none;border:none;cursor:pointer;font-weight:800;color:var(--slate);font-size:.9rem;display:flex;align-items:center;gap:4px}
-.action-btn:hover{color:var(--orange)}
-.action-btn.liked{color:var(--orange)}
+.action-btn:hover{color:var(--orange)} .action-btn.liked{color:var(--orange)}
 .reply-box{margin-top:12px;padding-top:12px;border-top:1px solid rgba(46,65,86,.1)}
 .reply{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid var(--orange)}
 .reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
-
 .post-menu{position:absolute;right:10px;top:35px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:20;min-width:180px;overflow:hidden}
-.menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)}
-.menu-item:hover{background:var(--cream)}
-.menu-item.danger{color:var(--red)}
-.menu-item.danger:hover{background:#fee}
-
-/* --- COURSE PAGE STYLES --- */
-.module-menu{
-  position:sticky; top:63px; z-index:40;
-  background:var(--navy); color:#fff;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:12px 20px; border-bottom:3px solid var(--orange);
-}
+.menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)} .menu-item:hover{background:var(--cream)} .menu-item.danger{color:var(--red)} .menu-item.danger:hover{background:#fee}
+.module-menu{position:sticky; top:63px; z-index:40; background:var(--navy); color:#fff; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-bottom:3px solid var(--orange);}
 .module-menu-left, .module-menu-right{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-.module-menu a{
-  color:#fff; text-decoration:none; font-weight:800; font-size:.95rem;
-  padding:6px 14px; border-radius:999px; transition:background .2s;
-}
+.module-menu a{color:#fff; text-decoration:none; font-weight:800; font-size:.95rem; padding:6px 14px; border-radius:999px; transition:background .2s;}
 .module-menu a:hover{background:rgba(255,255,255,.15)}
-.back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px}
-.back-home:hover{opacity:.85}
-.save-status{color:var(--yellow); font-weight:800; font-size:1rem; margin-left:12px}
-.save-warn{color:var(--orange)}
-.save-err{color:var(--red)}
-@media(max-width:700px){
-  .module-menu{top:63px; padding:8px 12px}
-  .module-menu a{font-size:.85rem; padding:5px 10px}
-  .save-status{display:none}
-}
-
+.back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px} .back-home:hover{opacity:.85}
+.save-status{color:var(--yellow); font-weight:800; font-size:1rem; margin-left:12px} .save-warn{color:var(--orange)} .save-err{color:var(--red)}
+@media(max-width:700px){.module-menu{top:63px; padding:8px 12px} .module-menu a{font-size:.85rem; padding:5px 10px} .save-status{display:none}}
 .module-section{padding:60px 0; border-bottom:4px solid var(--navy)}
-.bg-mod-1{background:var(--yellow); color:var(--navy)}
-.bg-mod-2{background:var(--orange); color:#fff}
-.bg-mod-3{background:var(--red); color:#fff}
-.bg-mod-4{background:var(--navy); color:#fff}
-.bg-mod-5{background:var(--slate); color:#fff}
-.bg-mod-6{background:var(--tan); color:var(--navy)}
-
-.module-header{text-align:center; margin-bottom:40px}
-.module-header h2{font-size:clamp(2rem,5vw,3rem); font-weight:800; margin:0 0 12px}
-.module-header p{font-size:1.2rem; font-weight:700; opacity:.95; max-width:700px; margin:0 auto}
-
+.bg-mod-1{background:var(--yellow); color:var(--navy)} .bg-mod-2{background:var(--orange); color:#fff} .bg-mod-3{background:var(--red); color:#fff}
+.bg-mod-4{background:var(--navy); color:#fff} .bg-mod-5{background:var(--slate); color:#fff} .bg-mod-6{background:var(--tan); color:var(--navy)}
+.module-header{text-align:center; margin-bottom:40px} .module-header h2{font-size:clamp(2rem,5vw,3rem); font-weight:800; margin:0 0 12px} .module-header p{font-size:1.2rem; font-weight:700; opacity:.95; max-width:700px; margin:0 auto}
 .mod-item{background:#fff; color:var(--navy); border-radius:14px; padding:24px 26px; box-shadow:0 5px 0 rgba(46,65,86,.12); margin-bottom:16px; display:flex; gap:18px; align-items:flex-start}
 .check-input{width:24px;height:24px;accent-color:var(--orange);margin-top:4px;cursor:pointer;flex:0 0 auto}
-.item-title{font-size:1.25rem;font-weight:800;margin:0 0 6px}
-.item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
-.mod-content{font-size:1.05rem;line-height:1.7}
-.note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem}
-.note-input:focus{outline:none;border-color:var(--orange)}
-
+.item-title{font-size:1.25rem;font-weight:800;margin:0 0 6px} .item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
+.mod-content{font-size:1.05rem;line-height:1.7} .note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem} .note-input:focus{outline:none;border-color:var(--orange)}
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
-.modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
-.modal-box h3{margin:0 0 12px;font-size:1.4rem}
-.modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700}
-.modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
-
-.course-outcomes{margin-top:8px}
-.outcomes-list{margin:8px 0 0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
-.outcomes-extra{margin:0;padding-left:18px;list-style:disc;font-size:1rem;font-weight:700}
-.outcomes-extra li{animation:fadeSlide .3s ease}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-.expand-btn{background:none;border:none;cursor:pointer;color:inherit;padding:6px 10px;margin-left:-6px;display:flex;align-items:center;gap:4px;font-weight:800;font-size:.9rem}
-.expand-btn:hover{opacity:.8}
-.expand-btn svg{transition:transform .3s ease}
-.expand-btn.expanded svg{transform:rotate(180deg)}
-.course-btn{width:100%;padding:10px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer;font-size:1rem}
-.course-btn:hover{background:#1E2F42}
+.modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)} .modal-box h3{margin:0 0 12px;font-size:1.4rem} .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700} .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
+.page-btn{padding:8px 16px;border:2px solid var(--slate);background:#fff;border-radius:8px;cursor:pointer;font-weight:700;font-size:.9rem;transition:all .2s;} .page-btn:hover:not([disabled]){background:var(--cream);border-color:var(--navy);} .page-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);} .page-btn[disabled]{cursor:not-allowed;opacity:.3;}
 </style>
 </head>
 <body>
@@ -177,11 +108,10 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </header>
 
-<!-- HOME VIEW -->
 <div id="view-home">
   <div class="wrap layout">
     <div>
-     <section class="hero card">
+      <section class="hero card">
         <div class="hero-copy">
           <h1>Master New Skills<br><span class="hl-orange">With Experts</span></h1>
           <ul class="hero-bullets">
@@ -196,7 +126,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
         </div>
       </section>
 
-      <!-- COMMUNITY SECTION -->
       <section id="community-section" class="hidden" style="margin-top:34px">
         <div class="card" style="padding:24px 28px">
           <h2 style="margin:0 0 10px;font-size:1.4rem;font-weight:800">Community Discussion</h2>
@@ -206,6 +135,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
             <button class="btn cta" style="margin-top:10px" onclick="createPost()">Post</button>
           </div>
           <div id="posts-feed"></div>
+          <div id="pagination-container" style="display:flex;justify-content:center;margin-top:20px;"></div>
         </div>
       </section>
 
@@ -219,13 +149,12 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
     </div>
 
     <aside class="rail" id="rail-home">
-     <h2 class="rail-title">Offers</h2>
+      <h2 class="rail-title">Offers</h2>
       <div class="course-list" id="course-list-home"></div>
     </aside>
   </div>
 </div>
 
-<!-- SIGN UP VIEW -->
 <div id="view-auth-signup" class="hidden">
   <div class="auth-wrap">
     <div class="auth-card card">
@@ -242,7 +171,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- LOG IN VIEW -->
 <div id="view-auth-login" class="hidden">
   <div class="auth-wrap">
     <div class="auth-card card">
@@ -258,26 +186,18 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- COURSE VIEW -->
 <div id="view-course" class="hidden">
   <nav class="module-menu">
     <div class="module-menu-left">
       <a href="#" class="back-home" onclick="showHome();return false">&larr; Back to Home</a>
-      <a href="#mod-1">Module 1</a>
-      <a href="#mod-2">Module 2</a>
-      <a href="#mod-3">Module 3</a>
-      <a href="#mod-4">Module 4</a>
-      <a href="#mod-5">Module 5</a>
-      <a href="#mod-6">Module 6</a>
+      <a href="#mod-1">Module 1</a><a href="#mod-2">Module 2</a><a href="#mod-3">Module 3</a>
+      <a href="#mod-4">Module 4</a><a href="#mod-5">Module 5</a><a href="#mod-6">Module 6</a>
     </div>
-    <div class="module-menu-right">
-      <span id="save-status" class="save-status">All changes saved.</span>
-    </div>
+    <div class="module-menu-right"><span id="save-status" class="save-status">All changes saved.</span></div>
   </nav>
   <div id="course-content"></div>
 </div>
 
-<!-- ACCESS MODAL -->
 <div id="access-modal" class="modal-overlay hidden" onclick="closeModal(event)">
   <div class="modal-box">
     <h3>Course Access Required</h3>
@@ -286,7 +206,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
   <div class="wrap">
     <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
@@ -302,139 +221,75 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 
 <script>
 const API_URL = '';
-let saveTimeout;
+// --- PASTE YOUR GOOGLE SHEET CSV LINK BELOW ---
+const CMS_COURSES_URL = 'PASTE_YOUR_PUBLISHED_CSV_LINK_HERE'; 
+// ----------------------------------------------
 
-const COURSES = [
-  { name:'PitchCamp', tone:1, active:true,  outcomes:['Pitch with confidence','Control the room','Master Q&A like a pro','Build instant status with any audience','Craft narratives that convert','Frame control under pressure'] },
-  { name:'SalesCamp', tone:2, active:false, outcomes:['Close high-value deals','Negotiate with status','Handle objections gracefully','Build rapport in minutes','Price with confidence','Create urgency without pressure'] },
-  { name:'Offers for Success', tone:3, active:false, outcomes:['Craft irresistible offers','Stack value like the pros','Position premium pricing','Create bonuses that convert'] },
-  { name:'Get More-Better Leads', tone:4, active:false, outcomes:['Build reliable lead engines','Master outreach that works','Convert cold to warm fast','Scale your pipeline'] },
-  { name:'Multiply Cash Models', tone:5, active:false, outcomes:['Multiply revenue streams','Build recurring income','Productize your expertise','Scale without burnout'] }
-];
+let saveTimeout;
+let currentPage = 1;
+let totalPages = 1;
+let COURSES = []; // Will be loaded from Google Sheets
 
 const COURSE_DATA = [
-  {
-    id: 'mod-1', title: 'Module 1: Awaken Your Inner Storyteller', bg: 'bg-mod-1',
-    sub: 'Day 1 AM — Kickoff, Benchmark, and The Storytelling Advantage',
-    items: [
-      { id:'welcome', title:'Kickoff & Connect', hasInput:false, content:'<p>Forge connections with fellow founders and ignite your creative spark.</p><p style="margin-top:10px"><strong>Ground rules:</strong> Be on time, do your best, follow my lead.</p>' },
-      { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ul style="margin:10px 0 0 20px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck, 5 minutes</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ul>' },
-      { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best.</p><p style="margin-top:10px">All participants pitch for five minutes.</p><p style="margin-top:10px">Voting scale (1 to 6): <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">Google Form</a></p><p style="margin-top:10px;color:var(--slate);font-style:italic">LB-EBI (Like Best, Even Better If) feedback for every speaker.</p>' },
-      { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
-      { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:10px;font-weight:800">Market forces story structure:</p><ul style="margin:10px 0 0 20px"><li>Economic — Nuclear Winter</li><li>Social — Double the benefits/outcomes</li><li>Technological — Why us</li><li>Opportunity</li><li>Problem</li></ul>' },
-      { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p><strong>Practice format:</strong></p><ul style="margin:10px 0 0 20px"><li>When you did/said…</li><li>The strength I saw was…</li><li>EBI: It would be Even Better If you…</li></ul>' },
-      { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
-      { id:'reflection1', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  },
-  {
-    id: 'mod-2', title: 'Module 2: Unleash Your Inner Storyteller', bg: 'bg-mod-2',
-    sub: 'Day 1 PM — Core Message, Audience Mastery, and Narrative Architecture',
-    items: [
-      { id:'m2_core', title:'Re-Craft Your Core Message', hasInput:false, content:'<p>Distill your "why" into a powerful message that resonates with every audience.</p><p style="margin-top:10px">Sharing in Dyads, then in groups of 4.</p>' },
-      { id:'m2_core_input', title:'Your one-sentence killer message', hasInput:true, content:'' },
-      { id:'m2_audience', title:'Audience Mastery', hasInput:false, content:'<p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p><p style="margin-top:10px"><strong>Exercise:</strong> Intro to 4 styles of communication. Group into each style and follow the 4-styles exercise.</p>' },
-      { id:'m2_narrative', title:'Narrative Architect', hasInput:false, content:'<p>Build a compelling story arc that captivates and inspires action.</p><p style="margin-top:10px;font-weight:800">The need for:</p><ul style="margin:10px 0 0 20px"><li>Curiosity and intrigue</li><li>Tension and conflict</li><li>FOMO</li><li>Desire and wanting</li><li>Fun</li><li>Push-pull & Prizing</li></ul>' },
-      { id:'m2_revision', title:'Revision Magic', hasInput:false, content:'<p>Revise and craft your pitch. Connect your solution to the opportunity (Pitch Slide 2) and your secret sauce to the problem.</p>' },
-      { id:'reflection2', title:'Day-1PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  },
-  {
-    id: 'mod-3', title: 'Module 3: Refine & Conquer', bg: 'bg-mod-3',
-    sub: 'Day 2 AM — Pitch Perfection, Frame Control, and Social Dynamics',
-    items: [
-      { id:'m3_perfection', title:'Pitch Perfection', hasInput:false, content:'<p>Sharpen your message and delivery through expert feedback and peer collaboration.</p><p style="margin-top:10px"><strong>Group exercise:</strong> Present first 4 slides. Get feedback using LB (Like Best) and EBI (Even Better If).</p>' },
-      { id:'m3_frame', title:'Frame Control', hasInput:false, content:'<p>Learn to handle disruptions by controlling the frame of reference.</p><p style="margin-top:10px;font-weight:800">Types of frames:</p><ul style="margin:10px 0 0 20px"><li>Power frame → Power-busting frame</li><li>Time frame → Time constraining frame</li><li>Analyst frame → Intrigue frame / Prize frame</li></ul>' },
-      { id:'m3_frame_input', title:'Which frame do you struggle with most?', hasInput:true, content:'' },
-      { id:'m3_social', title:'Social Dynamics Mastery', hasInput:false, content:'<p>Keep your listeners in FLOW by showing your situational status.</p><p style="margin-top:10px">Learn how to use the 4 styles to keep attention. Tease with push-pulls.</p>' },
-      { id:'reflection3', title:'Day-2AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  },
-  {
-    id: 'mod-4', title: 'Module 4: Refine & Conquer', bg: 'bg-mod-4',
-    sub: 'Day 2 PM — Visual Storytelling, Q&A Mastery, and Pitch Polish',
-    items: [
-      { id:'m4_visual', title:'Visual Storytelling', hasInput:false, content:'<p>Master the art of creating impactful stories that amplify your narrative.</p><p style="margin-top:10px">Create a portfolio of 3-5 credibility stories. Introduce hot cognitions, stacking frames, intrigue pings, and metaphors.</p>' },
-      { id:'m4_practice', title:'Pitch Practice Powerhouse', hasInput:false, content:'<p>Step into the spotlight and practice your pitch in a supportive environment. (Pitch Slide 8: Traction)</p>' },
-      { id:'m4_qa', title:'Q&A Mastery', hasInput:false, content:'<p>Learn how to handle tough questions with confidence and finesse.</p><p style="margin-top:10px;font-weight:800">Answer strategies:</p><ul style="margin:10px 0 0 20px"><li>Relationship redirect</li><li>Refer back to the 3 market forces</li><li>Partial answer bridge</li><li>Clarify pause</li></ul>' },
-      { id:'m4_qa_input', title:'Your strategy for handling hostile questions', hasInput:true, content:'' },
-      { id:'m4_polish', title:'Pitch Polish', hasInput:false, content:'<p>Refine your pitch to perfection. Add fun and challenge. (Pitch Slide 10: Call-to-Action)</p>' },
-      { id:'reflection4', title:'Day-2PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  },
-  {
-    id: 'mod-5', title: 'Module 5: Launch & Lead', bg: 'bg-mod-5',
-    sub: 'Day 3 AM — Action Plan, Final Prep, and Preliminary Rounds',
-    items: [
-      { id:'m5_action', title:'Action Plan Ignition', hasInput:false, content:'<p>Create a personalized action plan to implement your learnings.</p><p style="margin-top:10px"><strong>Key principles:</strong> Relationships, Fun, Oversubscribe and apologize (exclusive clubs make you wait).</p>' },
-      { id:'m5_action_input', title:'Your personalized action plan', hasInput:true, content:'' },
-      { id:'m5_prep', title:'Final Pitch Prep & Preliminary Rounds', hasInput:false, content:'<p>Get ready to deliver your most compelling pitch yet. Groups will hear pitches and nominate candidates for the final round judged by investors.</p>' },
-      { id:'m5_adjust_input', title:'One adjustment you made after the preliminary round', hasInput:true, content:'' },
-      { id:'reflection5', title:'Day-3AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  },
-  {
-    id: 'mod-6', title: 'Module 6: Final Showcase', bg: 'bg-mod-6',
-    sub: 'Day 3 PM — The Main Stage, Celebration, and Next Steps',
-    items: [
-      { id:'m6_showcase', title:'Pitch Showcase', hasInput:false, content:'<p>Take the stage and deliver your refined pitch to a supportive audience and get judged by real investors.</p>' },
-      { id:'m6_celebrate', title:'Celebrate & Connect', hasInput:false, content:'<p>Celebrate your accomplishments, connect with fellow founders, and leave feeling empowered.</p>' },
-      { id:'m6_takeaways', title:'Key Takeaways & Next Steps', hasInput:false, content:'<p>Recap your learnings, receive valuable resources, and embark on your journey to success.</p>' },
-      { id:'reflection6', title:'Day-3PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-    ]
-  }
+  { id: 'mod-1', title: 'Module 1: Awaken Your Inner Storyteller', bg: 'bg-mod-1', sub: 'Day 1 AM — Kickoff, Benchmark, and The Storytelling Advantage', items: [
+    { id:'welcome', title:'Kickoff & Connect', hasInput:false, content:'<p>Forge connections with fellow founders and ignite your creative spark.</p><p style="margin-top:10px"><strong>Ground rules:</strong> Be on time, do your best, follow my lead.</p>' },
+    { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ul style="margin:10px 0 0 20px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck, 5 minutes</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ul>' },
+    { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best.</p><p style="margin-top:10px">All participants pitch for five minutes.</p><p style="margin-top:10px">Voting scale (1 to 6): <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">Google Form</a></p><p style="margin-top:10px;color:var(--slate);font-style:italic">LB-EBI (Like Best, Even Better If) feedback for every speaker.</p>' },
+    { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
+    { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:10px;font-weight:800">Market forces story structure:</p><ul style="margin:10px 0 0 20px"><li>Economic — Nuclear Winter</li><li>Social — Double the benefits/outcomes</li><li>Technological — Why us</li><li>Opportunity</li><li>Problem</li></ul>' },
+    { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p><strong>Practice format:</strong></p><ul style="margin:10px 0 0 20px"><li>When you did/said…</li><li>The strength I saw was…</li><li>EBI: It would be Even Better If you…</li></ul>' },
+    { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
+    { id:'reflection1', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]},
+  { id: 'mod-2', title: 'Module 2: Unleash Your Inner Storyteller', bg: 'bg-mod-2', sub: 'Day 1 PM — Core Message, Audience Mastery, and Narrative Architecture', items: [
+    { id:'m2_core', title:'Re-Craft Your Core Message', hasInput:false, content:'<p>Distill your "why" into a powerful message that resonates with every audience.</p><p style="margin-top:10px">Sharing in Dyads, then in groups of 4.</p>' },
+    { id:'m2_core_input', title:'Your one-sentence killer message', hasInput:true, content:'' },
+    { id:'m2_audience', title:'Audience Mastery', hasInput:false, content:'<p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p><p style="margin-top:10px"><strong>Exercise:</strong> Intro to 4 styles of communication. Group into each style and follow the 4-styles exercise.</p>' },
+    { id:'m2_narrative', title:'Narrative Architect', hasInput:false, content:'<p>Build a compelling story arc that captivates and inspires action.</p><p style="margin-top:10px;font-weight:800">The need for:</p><ul style="margin:10px 0 0 20px"><li>Curiosity and intrigue</li><li>Tension and conflict</li><li>FOMO</li><li>Desire and wanting</li><li>Fun</li><li>Push-pull & Prizing</li></ul>' },
+    { id:'m2_revision', title:'Revision Magic', hasInput:false, content:'<p>Revise and craft your pitch. Connect your solution to the opportunity (Pitch Slide 2) and your secret sauce to the problem.</p>' },
+    { id:'reflection2', title:'Day-1PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]},
+  { id: 'mod-3', title: 'Module 3: Refine & Conquer', bg: 'bg-mod-3', sub: 'Day 2 AM — Pitch Perfection, Frame Control, and Social Dynamics', items: [
+    { id:'m3_perfection', title:'Pitch Perfection', hasInput:false, content:'<p>Sharpen your message and delivery through expert feedback and peer collaboration.</p><p style="margin-top:10px"><strong>Group exercise:</strong> Present first 4 slides. Get feedback using LB (Like Best) and EBI (Even Better If).</p>' },
+    { id:'m3_frame', title:'Frame Control', hasInput:false, content:'<p>Learn to handle disruptions by controlling the frame of reference.</p><p style="margin-top:10px;font-weight:800">Types of frames:</p><ul style="margin:10px 0 0 20px"><li>Power frame → Power-busting frame</li><li>Time frame → Time constraining frame</li><li>Analyst frame → Intrigue frame / Prize frame</li></ul>' },
+    { id:'m3_frame_input', title:'Which frame do you struggle with most?', hasInput:true, content:'' },
+    { id:'m3_social', title:'Social Dynamics Mastery', hasInput:false, content:'<p>Keep your listeners in FLOW by showing your situational status.</p><p style="margin-top:10px">Learn how to use the 4 styles to keep attention. Tease with push-pulls.</p>' },
+    { id:'reflection3', title:'Day-2AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]},
+  { id: 'mod-4', title: 'Module 4: Refine & Conquer', bg: 'bg-mod-4', sub: 'Day 2 PM — Visual Storytelling, Q&A Mastery, and Pitch Polish', items: [
+    { id:'m4_visual', title:'Visual Storytelling', hasInput:false, content:'<p>Master the art of creating impactful stories that amplify your narrative.</p><p style="margin-top:10px">Create a portfolio of 3-5 credibility stories. Introduce hot cognitions, stacking frames, intrigue pings, and metaphors.</p>' },
+    { id:'m4_practice', title:'Pitch Practice Powerhouse', hasInput:false, content:'<p>Step into the spotlight and practice your pitch in a supportive environment. (Pitch Slide 8: Traction)</p>' },
+    { id:'m4_qa', title:'Q&A Mastery', hasInput:false, content:'<p>Learn how to handle tough questions with confidence and finesse.</p><p style="margin-top:10px;font-weight:800">Answer strategies:</p><ul style="margin:10px 0 0 20px"><li>Relationship redirect</li><li>Refer back to the 3 market forces</li><li>Partial answer bridge</li><li>Clarify pause</li></ul>' },
+    { id:'m4_qa_input', title:'Your strategy for handling hostile questions', hasInput:true, content:'' },
+    { id:'m4_polish', title:'Pitch Polish', hasInput:false, content:'<p>Refine your pitch to perfection. Add fun and challenge. (Pitch Slide 10: Call-to-Action)</p>' },
+    { id:'reflection4', title:'Day-2PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]},
+  { id: 'mod-5', title: 'Module 5: Launch & Lead', bg: 'bg-mod-5', sub: 'Day 3 AM — Action Plan, Final Prep, and Preliminary Rounds', items: [
+    { id:'m5_action', title:'Action Plan Ignition', hasInput:false, content:'<p>Create a personalized action plan to implement your learnings.</p><p style="margin-top:10px"><strong>Key principles:</strong> Relationships, Fun, Oversubscribe and apologize (exclusive clubs make you wait).</p>' },
+    { id:'m5_action_input', title:'Your personalized action plan', hasInput:true, content:'' },
+    { id:'m5_prep', title:'Final Pitch Prep & Preliminary Rounds', hasInput:false, content:'<p>Get ready to deliver your most compelling pitch yet. Groups will hear pitches and nominate candidates for the final round judged by investors.</p>' },
+    { id:'m5_adjust_input', title:'One adjustment you made after the preliminary round', hasInput:true, content:'' },
+    { id:'reflection5', title:'Day-3AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]},
+  { id: 'mod-6', title: 'Module 6: Final Showcase', bg: 'bg-mod-6', sub: 'Day 3 PM — The Main Stage, Celebration, and Next Steps', items: [
+    { id:'m6_showcase', title:'Pitch Showcase', hasInput:false, content:'<p>Take the stage and deliver your refined pitch to a supportive audience and get judged by real investors.</p>' },
+    { id:'m6_celebrate', title:'Celebrate & Connect', hasInput:false, content:'<p>Celebrate your accomplishments, connect with fellow founders, and leave feeling empowered.</p>' },
+    { id:'m6_takeaways', title:'Key Takeaways & Next Steps', hasInput:false, content:'<p>Recap your learnings, receive valuable resources, and embark on your journey to success.</p>' },
+    { id:'reflection6', title:'Day-3PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
+  ]}
 ];
 
-function hideAllViews() {
-  ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v =>
-    document.getElementById(v).classList.add('hidden'));
-}
-
-function showHome(){ 
-  hideAllViews();
-  document.getElementById('view-home').classList.remove('hidden');
-  renderHeader(); 
-  renderCourses('home'); 
-  toggleCommunityView();
-  history.pushState(null, '', '/');
-  window.scrollTo(0,0);
-}
-
-function showAuth(type) { 
-  hideAllViews();
-  if (type === 'signup') {
-    document.getElementById('view-auth-signup').classList.remove('hidden');
-  } else {
-    document.getElementById('view-auth-login').classList.remove('hidden');
-  }
-  window.scrollTo(0,0);
-}
-
-function showCourse(){ 
-  hideAllViews();
-  document.getElementById('view-course').classList.remove('hidden');
-  renderCourse(); 
-  history.pushState(null, '', '/pitchcamp');
-  window.scrollTo(0,0);
-}
-
-function logout(){ 
-  localStorage.removeItem('token'); 
-  localStorage.removeItem('pc_name'); 
-  localStorage.removeItem('pc_is_paid'); 
-  localStorage.removeItem('pc_is_admin'); 
-  localStorage.removeItem('pc_user_number'); 
-  showHome(); 
-}
+function hideAllViews() { ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v => document.getElementById(v).classList.add('hidden')); }
+function showHome(){ hideAllViews(); document.getElementById('view-home').classList.remove('hidden'); renderHeader(); renderCourses('home'); toggleCommunityView(); history.pushState(null, '', '/'); window.scrollTo(0,0); }
+function showAuth(type) { hideAllViews(); document.getElementById(type === 'signup' ? 'view-auth-signup' : 'view-auth-login').classList.remove('hidden'); window.scrollTo(0,0); }
+function showCourse(){ hideAllViews(); document.getElementById('view-course').classList.remove('hidden'); renderCourse(); history.pushState(null, '', '/pitchcamp'); window.scrollTo(0,0); }
+function logout(){ localStorage.clear(); showHome(); }
 
 function renderHeader(){
   const host = document.getElementById('head-actions');
   const name = localStorage.getItem('pc_name');
   const userNumber = localStorage.getItem('pc_user_number');
-  
-  // Only show the number if it exists and isn't the word "null"
   const numDisplay = (userNumber && userNumber !== 'null') ? '#' + userNumber + ' ' : '';
-
   if (localStorage.getItem('token')) {
     host.innerHTML = '<span class="name-chip" title="' + (name||'') + '">' + numDisplay + (name || 'Student') + '</span>' +
       '<a href="/admin.html" class="btn small ghost" style="margin-right:10px;text-decoration:none">Admin</a>' +
@@ -448,85 +303,57 @@ function renderHeader(){
 function renderCourses(target){
   const hostId = target === 'home' ? 'course-list-home' : 'course-list-module';
   const host = document.getElementById(hostId);
-  if (!host) return;
+  if (!host || COURSES.length === 0) return;
   host.innerHTML = COURSES.map(c =>
     '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
       '<button class="course-btn" style="margin:10px 0" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>' +
       '<div class="course-outcomes" data-outcomes=\'' + JSON.stringify(c.outcomes) + '\'>' +
-        '<div class="outcomes-list">' +
-          c.outcomes.slice(0, 2).map(o => '<li>' + o + '</li>').join('') +
-        '</div>' +
-        '<div class="outcomes-extra hidden">' +
-          c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') +
-        '</div>' +
+        '<div class="outcomes-list">' + c.outcomes.slice(0, 2).map(o => '<li>' + o + '</li>').join('') + '</div>' +
+        '<div class="outcomes-extra hidden">' + c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') + '</div>' +
         (c.outcomes.length > 2 ? '<button class="expand-btn" onclick="toggleOutcomes(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' : '') +
       '</div>' +
     '</div>').join('');
 }
-  
+
+function handleCourseClick(name, active){
+  if (!localStorage.getItem('token')) { showAuth('login'); return; }
+  if (active && name === 'PitchCamp') { showCourse(); return; }
+  alert('Talk to DrWarren\'s team to get access to ' + name + '.');
+}
+function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 function toggleOutcomes(btn) {
   const container = btn.closest('.course-outcomes');
-  const extra = container.querySelector('.outcomes-extra');
-  extra.classList.toggle('hidden');
+  container.querySelector('.outcomes-extra').classList.toggle('hidden');
   btn.classList.toggle('expanded');
 }
 
-function handleCourseClick(name, active){
-  if (!localStorage.getItem('token')) { 
-    showAuth('login'); 
-    return; 
-  }
-  if (active && name === 'PitchCamp') { 
-    showCourse(); 
-    return; 
-  }
-  // Show warning for inactive courses
-  alert('Talk to DrWarren\'s team to get access to ' + name + '.');
-}
-  
-function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
-
 async function login() {
-  const errEl = document.getElementById('login-error');
-  errEl.innerText = '';
+  const errEl = document.getElementById('login-error'); errEl.innerText = '';
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
   try {
-    const res = await fetch(API_URL + '/api/login', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email, password })
-    });
+    const res = await fetch(API_URL + '/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('pc_is_paid', data.is_paid);
       localStorage.setItem('pc_is_admin', data.is_admin);
       localStorage.setItem('pc_user_number', data.user_number);
-      if (data.name) {
-        localStorage.setItem('pc_name', data.name);
-      } else {
-        localStorage.setItem('pc_name', email.split('@')[0]);
-      }
+      localStorage.setItem('pc_name', data.name || email.split('@')[0]);
       showHome();
-    } else {
-      errEl.innerText = data.error || 'Something went wrong.';
-    }
+    } else { errEl.innerText = data.error || 'Something went wrong.'; }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
 }
 
 async function signup() {
-  const errEl = document.getElementById('signup-error');
-  errEl.innerText = '';
+  const errEl = document.getElementById('signup-error'); errEl.innerText = '';
   const name = document.getElementById('signup-name').value.trim();
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
   if (!name) { errEl.innerText = 'Please enter your name.'; return; }
   try {
-    const res = await fetch(API_URL + '/api/signup', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, email, password })
-    });
+    const res = await fetch(API_URL + '/api/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) });
     const data = await res.json();
     if (data.token) {
       localStorage.setItem('token', data.token);
@@ -535,51 +362,33 @@ async function signup() {
       localStorage.setItem('pc_user_number', data.user_number);
       localStorage.setItem('pc_name', name);
       showHome();
-    } else {
-      errEl.innerText = data.error || 'Something went wrong.';
-    }
+    } else { errEl.innerText = data.error || 'Something went wrong.'; }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
 }
 
-// --- COMMUNITY LOGIC ---
 function toggleCommunityView() {
   const isLoggedIn = !!localStorage.getItem('token');
   const isPaid = localStorage.getItem('pc_is_paid') === '1';
   const section = document.getElementById('community-section');
   const prompt = document.getElementById('community-login-prompt');
-  
-  if (isLoggedIn && isPaid) {
-    section.classList.remove('hidden');
-    prompt.classList.add('hidden');
-    loadPosts();
-  } else {
-    section.classList.add('hidden');
-    prompt.classList.remove('hidden');
-  }
+  if (isLoggedIn && isPaid) { section.classList.remove('hidden'); prompt.classList.add('hidden'); loadPosts(); } 
+  else { section.classList.add('hidden'); prompt.classList.remove('hidden'); }
 }
-
-let currentPage = 1;
-let totalPages = 1;
 
 async function loadPosts(page = 1) {
   try {
-    const res = await fetch(API_URL + `/api/posts?page=${page}`, { 
-      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} 
-    });
+    const res = await fetch(API_URL + `/api/posts?page=${page}`, { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
     if (!res.ok) return;
     const data = await res.json();
     const posts = data.posts;
     totalPages = data.pagination.totalPages;
     currentPage = data.pagination.page;
-    
     const is_admin = localStorage.getItem('pc_is_admin') === '1';
     const feed = document.getElementById('posts-feed');
-    
-    // ... existing post rendering code remains the same ...
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
         <div class="post-header">
-          <span class="post-author">${p.pinned ? '📌 ' : ''}${p.pinned_to_course ? ' ' : ''}${p.user_name}</span>
+          <span class="post-author">${p.pinned ? ' ' : ''}${p.pinned_to_course ? '📚 ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
             <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
@@ -587,9 +396,7 @@ async function loadPosts(page = 1) {
         </div>
         <div class="post-content">${p.content}</div>
         <div class="post-actions">
-          <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">
-             👍 ${p.like_count}
-          </button>
+          <button class="action-btn ${p.user_liked ? 'liked' : ''}" onclick="toggleLike(${p.id}, this)">👍 ${p.like_count}</button>
           ${!p.comments_disabled ? `<button class="action-btn" onclick="toggleReplyBox(${p.id})">Reply (${p.replies.results.length})</button>` : '<span style="color:var(--slate);font-size:.9rem">Comments off</span>'}
         </div>
         <div id="replies-${p.id}">
@@ -604,9 +411,7 @@ async function loadPosts(page = 1) {
               </div>
               <div class="post-content" style="font-size:.95rem;margin:0">${r.content}</div>
               <div class="post-actions" style="margin-top:8px">
-                <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)">
-                  👍 ${r.like_count}
-                </button>
+                <button class="action-btn ${r.user_liked ? 'liked' : ''}" onclick="toggleLike(${r.id}, this)"> ${r.like_count}</button>
               </div>
               <div id="post-menu-${r.id}" class="post-menu hidden">
                 ${is_admin ? `
@@ -615,17 +420,12 @@ async function loadPosts(page = 1) {
                   <div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>
                   <div class="menu-item danger" onclick="deletePost(${r.id})">Delete</div>
                   <div class="menu-item danger" onclick="banUser(${r.user_id}, '${r.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
-                ` : `
-                  <div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div>
-                  <div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>
-                `}
+                ` : `<div class="menu-item" onclick="copyPostLink(${r.id})">Copy link</div><div class="menu-item" onclick="reportPost(${r.id})">Report to admins</div>`}
               </div>
             </div>
           `).join('')}
         </div>
-        ${!p.comments_disabled ? `<div id="reply-input-${p.id}" class="reply-box hidden">
-          <input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)">
-        </div>` : ''}
+        ${!p.comments_disabled ? `<div id="reply-input-${p.id}" class="reply-box hidden"><input type="text" class="reply-input" placeholder="Write a reply..." onkeypress="if(event.key==='Enter') submitReply(${p.id}, this)"></div>` : ''}
         <div id="post-menu-${p.id}" class="post-menu hidden">
           ${is_admin ? `
             <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
@@ -635,212 +435,61 @@ async function loadPosts(page = 1) {
             <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
             <div class="menu-item danger" onclick="deletePost(${p.id})">Delete</div>
             <div class="menu-item danger" onclick="banUser(${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">Delete and ban user</div>
-          ` : `
-            <div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div>
-            <div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>
-          `}
+          ` : `<div class="menu-item" onclick="copyPostLink(${p.id})">Copy link</div><div class="menu-item" onclick="reportPost(${p.id})">Report to admins</div>`}
         </div>
       </div>
     `).join('');
-    
-    // Add pagination controls
     renderPagination();
   } catch (e) { console.error(e); }
 }
 
 function renderPagination() {
-  const feed = document.getElementById('posts-feed');
-  const existingPagination = feed.querySelector('.pagination-controls');
-  if (existingPagination) existingPagination.remove();
-  
-  if (totalPages <= 1) return;
-  
-  const pagination = document.createElement('div');
-  pagination.className = 'pagination-controls';
-  pagination.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:8px;margin-top:30px;padding:20px 0';
-  
+  const container = document.getElementById('pagination-container');
+  if (!container || totalPages <= 1) { if(container) container.innerHTML = ''; return; }
   let html = '';
-  
-  // Previous button
-  html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.3;cursor:not-allowed"' : ''}>&larr; Previous</button>`;
-  
-  // Page numbers
-  const maxVisible = 5;
-  let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-  
-  if (endPage - startPage < maxVisible - 1) {
-    startPage = Math.max(1, endPage - maxVisible + 1);
+  html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&larr; Prev</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+    } else if (i === currentPage - 2 || i === currentPage + 2) {
+      html += `<span style="padding:0 5px">...</span>`;
+    }
   }
-  
-  if (startPage > 1) {
-    html += `<button class="page-btn" onclick="changePage(1)">1</button>`;
-    if (startPage > 2) html += `<span style="color:var(--slate)">...</span>`;
-  }
-  
-  for (let i = startPage; i <= endPage; i++) {
-    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})" style="${i === currentPage ? 'background:var(--yellow);color:var(--navy);font-weight:800' : ''}">${i}</button>`;
-  }
-  
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) html += `<span style="color:var(--slate)">...</span>`;
-    html += `<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
-  }
-  
-  // Next button
-  html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.3;cursor:not-allowed"' : ''}>Next &rarr;</button>`;
-  
-  // Page info
-  html += `<span style="color:var(--slate);font-size:.9rem;margin-left:10px">Page ${currentPage} of ${totalPages}</span>`;
-  
-  pagination.innerHTML = html;
-  feed.appendChild(pagination);
+  html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &rarr;</button>`;
+  container.innerHTML = html;
 }
-
-function changePage(page) {
-  if (page < 1 || page > totalPages || page === currentPage) return;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  loadPosts(page);
-}
-
-async function pinToCourse(postId) {
-  await fetch(API_URL + '/api/posts/pin-course', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  loadPosts();
-}
-
-async function toggleComments(postId) {
-  await fetch(API_URL + '/api/posts/comments', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  loadPosts();
-}
+function changePage(page) { if (page < 1 || page > totalPages || page === currentPage) return; window.scrollTo({ top: 0, behavior: 'smooth' }); loadPosts(page); }
 
 function togglePostMenu(postId, userId, userName) {
   const menu = document.getElementById(`post-menu-${postId}`);
-  document.querySelectorAll('.post-menu').forEach(m => {
-    if (m.id !== `post-menu-${postId}`) m.classList.add('hidden');
-  });
+  document.querySelectorAll('.post-menu').forEach(m => { if (m.id !== `post-menu-${postId}`) m.classList.add('hidden'); });
   menu.classList.toggle('hidden');
-  menu.dataset.userId = userId;
-  menu.dataset.userName = userName;
 }
+document.addEventListener('click', function(e) { if (!e.target.closest('.action-btn') && !e.target.closest('.post-menu')) document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden')); });
 
-// Close menus when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.action-btn') && !e.target.closest('.post-menu')) {
-    document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
-  }
-});
-
-async function copyPostLink(postId) {
-  const url = window.location.origin + '/?post=' + postId;
-  await navigator.clipboard.writeText(url);
-  alert('Link copied!');
-  document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
-}
-
-async function pinPost(postId) {
-  await fetch(API_URL + '/api/posts/pin', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  loadPosts();
-}
-
-async function reportPost(postId) {
-  const reason = prompt('Reason for reporting (optional):');
-  await fetch(API_URL + '/api/reports', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId, reason: reason || '' })
-  });
-  alert('Report submitted. Thank you.');
-  document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden'));
-}
-
-async function deletePost(postId) {
-  if (!confirm('Delete this post and all replies?')) return;
-  await fetch(API_URL + '/api/posts/delete', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  loadPosts();
-}
-
-async function banUser(userId, userName) {
-  if (!confirm(`Ban ${userName}? This will hide their posts and prevent future access.`)) return;
-  await fetch(API_URL + '/api/users/ban', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ user_id: userId })
-  });
-  loadPosts();
-}
-
-async function createPost() {
-  const input = document.getElementById('new-post-input');
-  const content = input.value.trim();
-  if (!content) return;
-  await fetch(API_URL + '/api/posts', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ content })
-  });
-  input.value = '';
-  loadPosts();
-}
-
-function toggleReplyBox(postId) {
-  document.getElementById(`reply-input-${postId}`).classList.toggle('hidden');
-}
-
-async function submitReply(postId, input) {
-  const content = input.value.trim();
-  if (!content) return;
-  await fetch(API_URL + '/api/posts', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ content, parent_id: postId })
-  });
-  input.value = '';
-  loadPosts();
-}
-
-async function toggleLike(postId, btn) {
-  const res = await fetch(API_URL + '/api/likes', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-    body: JSON.stringify({ post_id: postId })
-  });
-  const data = await res.json();
-  btn.classList.toggle('liked', data.liked);
-  loadPosts();
-}
+async function copyPostLink(postId) { await navigator.clipboard.writeText(window.location.origin + '/?post=' + postId); alert('Link copied!'); document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden')); }
+async function pinPost(postId) { await fetch(API_URL + '/api/posts/pin', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); loadPosts(); }
+async function pinToCourse(postId) { await fetch(API_URL + '/api/posts/pin-course', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); loadPosts(); }
+async function toggleComments(postId) { await fetch(API_URL + '/api/posts/comments', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); loadPosts(); }
+async function reportPost(postId) { const reason = prompt('Reason for reporting (optional):'); await fetch(API_URL + '/api/reports', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId, reason: reason || '' }) }); alert('Report submitted.'); document.querySelectorAll('.post-menu').forEach(m => m.classList.add('hidden')); }
+async function deletePost(postId) { if (!confirm('Delete this post and all replies?')) return; await fetch(API_URL + '/api/posts/delete', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); loadPosts(); }
+async function banUser(userId, userName) { if (!confirm(`Ban ${userName}?`)) return; await fetch(API_URL + '/api/users/ban', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ user_id: userId }) }); loadPosts(); }
+async function createPost() { const input = document.getElementById('new-post-input'); const content = input.value.trim(); if (!content) return; await fetch(API_URL + '/api/posts', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ content }) }); input.value = ''; loadPosts(); }
+function toggleReplyBox(postId) { document.getElementById(`reply-input-${postId}`).classList.toggle('hidden'); }
+async function submitReply(postId, input) { const content = input.value.trim(); if (!content) return; await fetch(API_URL + '/api/posts', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ content, parent_id: postId }) }); input.value = ''; loadPosts(); }
+async function toggleLike(postId, btn) { const res = await fetch(API_URL + '/api/likes', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); const data = await res.json(); btn.classList.toggle('liked', data.liked); loadPosts(); }
+async function pinComment(commentId) { alert('Pin comment feature - to be implemented'); }
 
 function renderCourse(){
-  const host = document.getElementById('course-content');
-  host.innerHTML = '';
+  const host = document.getElementById('course-content'); host.innerHTML = '';
   COURSE_DATA.forEach(mod => {
-    const section = document.createElement('section');
-    section.id = mod.id;
-    section.className = 'module-section ' + mod.bg;
-    section.innerHTML =
-      '<div class="wrap">' +
-        '<div class="module-header"><h2>' + mod.title + '</h2><p>' + mod.sub + '</p></div>' +
-        '<div class="mod-items" id="items-' + mod.id + '"></div>' +
-      '</div>';
+    const section = document.createElement('section'); section.id = mod.id; section.className = 'module-section ' + mod.bg;
+    section.innerHTML = '<div class="wrap"><div class="module-header"><h2>' + mod.title + '</h2><p>' + mod.sub + '</p></div><div class="mod-items" id="items-' + mod.id + '"></div></div>';
     host.appendChild(section);
     const itemsHost = document.getElementById('items-' + mod.id);
     mod.items.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'mod-item';
-      div.dataset.id = item.id;
-      div.innerHTML =
-        '<input type="checkbox" class="check-input">' +
-        '<div style="flex:1">' +
-          '<h3 class="item-title">' + item.title + '</h3>' +
-          (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') +
-          (item.hasInput ? '<textarea class="note-input" placeholder="Type your answer here…"></textarea>' : '') +
-        '</div>';
+      const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id;
+      div.innerHTML = '<input type="checkbox" class="check-input"><div style="flex:1"><h3 class="item-title">' + item.title + '</h3>' + (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + (item.hasInput ? '<textarea class="note-input" placeholder="Type your answer here…"></textarea>' : '') + '</div>';
       itemsHost.appendChild(div);
     });
   });
@@ -848,93 +497,63 @@ function renderCourse(){
   document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
   document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
 }
-
-function triggerAutoSave(){
-  document.querySelectorAll('.mod-item').forEach(item =>
-    item.classList.toggle('item-completed', item.querySelector('.check-input').checked));
-  setStatus('Unsaved changes…', 'save-warn');
-  clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(saveProgress, 1500);
-}
-function setStatus(text, cls){
-  const el = document.getElementById('save-status');
-  el.innerText = text; 
-  el.className = 'save-status ' + (cls || '');
-}
+function triggerAutoSave(){ document.querySelectorAll('.mod-item').forEach(item => item.classList.toggle('item-completed', item.querySelector('.check-input').checked)); setStatus('Unsaved changes…', 'save-warn'); clearTimeout(saveTimeout); saveTimeout = setTimeout(saveProgress, 1500); }
+function setStatus(text, cls){ const el = document.getElementById('save-status'); el.innerText = text; el.className = 'save-status ' + (cls || ''); }
 async function saveProgress(){
   setStatus('Saving…', 'save-warn');
   const progress = [];
-  document.querySelectorAll('.mod-item').forEach(item => {
-    const noteEl = item.querySelector('.note-input');
-    progress.push({
-      item_id: item.dataset.id,
-      completed: item.querySelector('.check-input').checked ? 1 : 0,
-      note: noteEl ? noteEl.value : ''
-    });
-  });
-  try {
-    const res = await fetch(API_URL + '/api/progress', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-      body: JSON.stringify({ progress })
-    });
-    if (!res.ok) throw new Error();
-    setStatus('All changes saved.', 'save-ok');
-  } catch (e) { setStatus('Error saving!', 'save-err'); }
+  document.querySelectorAll('.mod-item').forEach(item => { const noteEl = item.querySelector('.note-input'); progress.push({ item_id: item.dataset.id, completed: item.querySelector('.check-input').checked ? 1 : 0, note: noteEl ? noteEl.value : '' }); });
+  try { const res = await fetch(API_URL + '/api/progress', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ progress }) }); if (!res.ok) throw new Error(); setStatus('All changes saved.', 'save-ok'); } catch (e) { setStatus('Error saving!', 'save-err'); }
 }
 async function loadProgress(){
-  try {
-    const res = await fetch(API_URL + '/api/progress', {
-      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')}
-    });
-    if (!res.ok) { logout(); return; }
-    const data = await res.json();
-    data.forEach(saved => {
-      const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]');
-      if (item) {
-        item.querySelector('.check-input').checked = saved.completed === 1;
-        item.classList.toggle('item-completed', saved.completed === 1);
-        const noteEl = item.querySelector('.note-input');
-        if (noteEl) noteEl.value = saved.note || '';
-      }
-    });
-
-    async function pinToCourse(postId) {
-      await fetch(API_URL + '/api/posts/pin-course', {
-        method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-        body: JSON.stringify({ post_id: postId })
-      });
-      loadPosts();
-    }
-    
-    async function toggleComments(postId) {
-      await fetch(API_URL + '/api/posts/comments', {
-        method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')},
-        body: JSON.stringify({ post_id: postId })
-      });
-      loadPosts();
-    }
-    
-    async function pinComment(commentId) {
-      alert('Pin comment feature - to be implemented');
-    }
-    
-    setStatus('All changes saved.', 'save-ok');
-  } catch (e) { setStatus('Error loading!', 'save-err'); }
+  try { const res = await fetch(API_URL + '/api/progress', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} }); if (!res.ok) { logout(); return; } const data = await res.json(); data.forEach(saved => { const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); if (item) { item.querySelector('.check-input').checked = saved.completed === 1; item.classList.toggle('item-completed', saved.completed === 1); const noteEl = item.querySelector('.note-input'); if (noteEl) noteEl.value = saved.note || ''; } }); setStatus('All changes saved.', 'save-ok'); } catch (e) { setStatus('Error loading!', 'save-err'); }
 }
 
-window.addEventListener('popstate', function() {
-  if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) {
-    if (!document.getElementById('view-course').classList.contains('hidden')) {
-      // Stay on course page
-    } else {
-      showCourse();
-    }
-  } else {
-    showHome();
-  }
-});
+window.addEventListener('popstate', function() { if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) { if (!document.getElementById('view-course').classList.contains('hidden')) {} else { showCourse(); } } else { showHome(); } });
 
+// --- GOOGLE SHEETS CMS ENGINE FOR COURSES ---
+async function parseCSV(text) {
+  const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === '"') { inQuotes = !inQuotes; } 
+    else if (char === ',' && !inQuotes) { currentRow.push(currentCell); currentCell = ''; } 
+    else if ((char === '\n' || char === '\r') && !inQuotes) { if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); } currentRow = []; currentCell = ''; if (char === '\r' && text[i+1] === '\n') i++; } 
+    else { currentCell += char; }
+  }
+  if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); }
+  return rows;
+}
+
+async function loadCoursesFromSheet() {
+  try {
+    const response = await fetch(CMS_COURSES_URL);
+    const csvText = await response.text();
+    const rows = await parseCSV(csvText);
+    COURSES = [];
+    // Skip header row (index 0)
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length >= 4) {
+        COURSES.push({
+          name: row[0].trim(),
+          tone: parseInt(row[1].trim()) || 1,
+          active: row[2].trim().toLowerCase() === 'true',
+          outcomes: row[3].split('|').map(o => o.trim()).filter(o => o)
+        });
+      }
+    }
+    renderCourses('home');
+  } catch (error) {
+    console.error('CMS Course Load Error:', error);
+    // Fallback if sheet fails
+    COURSES = [ { name:'PitchCamp', tone:1, active:true, outcomes:['Pitch with confidence','Control the room'] } ];
+    renderCourses('home');
+  }
+}
+
+// Initialize
+loadCoursesFromSheet();
 renderCourses('home');
 showHome();
 </script>
