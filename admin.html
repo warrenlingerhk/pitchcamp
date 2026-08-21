@@ -129,7 +129,7 @@ async function loadDashboard() {
       const users = await userRes.json();
       document.getElementById('users-body').innerHTML = users.map(u => `
         <tr>
-          <td>#${u.user_number || '-'}</td>
+          <td>${u.user_number || '-'}</td>
           <td>${u.name}</td>
           <td>${u.email}</td>
           <td>
