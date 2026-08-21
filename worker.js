@@ -22,8 +22,6 @@ async function handleApi(request, env, ctx, url) {
       return json({ error: 'Email and a password of 6+ characters required.' }, 400);
     
     const hash = await hashPassword(password);
-    
-    // Get the next user number
     const maxUser = await env.DB.prepare('SELECT MAX(user_number) as max_num FROM users').first();
     const nextUserNumber = (maxUser.max_num || 0) + 1;
     
@@ -37,13 +35,7 @@ async function handleApi(request, env, ctx, url) {
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
     
-    return json({ 
-      token, 
-      name: user.name, 
-      is_paid: user.is_paid, 
-      is_admin: user.is_admin,
-      user_number: user.user_number 
-    });
+    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin, user_number: user.user_number });
   }
 
   if (path === '/api/login' && method === 'POST') {
@@ -59,13 +51,7 @@ async function handleApi(request, env, ctx, url) {
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
     
-    return json({ 
-      token, 
-      name: user.name, 
-      is_paid: user.is_paid, 
-      is_admin: user.is_admin,
-      user_number: user.user_number 
-    });
+    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin, user_number: user.user_number });
   }
 
   // --- PROGRESS ---
@@ -144,6 +130,36 @@ async function handleApi(request, env, ctx, url) {
     if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
     const { post_id } = await request.json();
     await env.DB.prepare('UPDATE posts SET pinned = NOT pinned WHERE id = ?').bind(post_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/posts/pin-course' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { post_id } = await request.json();
+    await env.DB.prepare('UPDATE posts SET pinned_to_course = NOT pinned_to_course WHERE id = ?').bind(post_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/posts/category' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { post_id, category } = await request.json();
+    await env.DB.prepare('UPDATE posts SET category = ? WHERE id = ?').bind(category, post_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/posts/comments' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { post_id } = await request.json();
+    await env.DB.prepare('UPDATE posts SET comments_disabled = NOT comments_disabled WHERE id = ?').bind(post_id).run();
     return json({ success: true });
   }
 
