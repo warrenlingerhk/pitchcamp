@@ -26,7 +26,7 @@ async function handleApi(request, env, ctx, url) {
     const nextUserNumber = (maxUser.max_num || 0) + 1;
     
     try {
-      await env.DB.prepare('INSERT INTO users (email, password, name, is_paid, user_number) VALUES (?, ?, ?, 1, ?)').bind(email.toLowerCase(), hash, name, nextUserNumber).run();
+      await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 1, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();   
     } catch (e) { 
       return json({ error: 'That email is already registered.' }, 409); 
     }
