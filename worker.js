@@ -70,8 +70,8 @@ async function handleApi(request, env, ctx, url) {
         await env.DB.prepare("INSERT OR REPLACE INTO progress (user_id, item_id, completed, note, updated_at) VALUES (?, ?, ?, ?, datetime('now'))").bind(userId, item.item_id, item.completed ? 1 : 0, item.note || '').run();
       }
       if (env.GOOGLE_WEBHOOK_URL) {
-        const user = await env.DB.prepare('SELECT email FROM users WHERE id = ?').bind(userId).first();
-        ctx.waitUntil(syncSheet(env.GOOGLE_WEBHOOK_URL, user.email, progress));
+       const user = await env.DB.prepare('SELECT email, name, user_number FROM users WHERE id = ?').bind(userId).first();
+        ctx.waitUntil(syncSheet(env.GOOGLE_WEBHOOK_URL, user.email, user.name, user.user_number, progress));
       }
       return json({ success: true });
     }
@@ -240,6 +240,11 @@ function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 }
 
-async function syncSheet(webhookUrl, email, progress) {
-  try { await fetch(webhookUrl, { method: 'POST', body: JSON.stringify({ email, progress }) }); } catch (e) {}
+async function syncSheet(webhookUrl, email, name, user_number, progress) {
+  try { 
+    await fetch(webhookUrl, { 
+      method: 'POST', 
+      body: JSON.stringify({ email, name, user_number, progress }) 
+    }); 
+  } catch (e) {}
 }
