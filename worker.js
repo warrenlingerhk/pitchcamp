@@ -219,7 +219,50 @@ async function handleApi(request, env, ctx, url) {
     }
   }
 
+    // --- ADMIN DASHBOARD ---
+  if (path === '/api/admin/stats' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    
+    const users = await env.DB.prepare('SELECT COUNT(*) as c FROM users').first();
+    const posts = await env.DB.prepare('SELECT COUNT(*) as c FROM posts WHERE parent_id IS NULL').first();
+    const reports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports').first();
+    const mod1 = await env.DB.prepare("SELECT COUNT(DISTINCT user_id) as c FROM progress WHERE item_id = 'welcome' AND completed = 1").first();
+    
+    return json({ users: users.c, posts: posts.c, reports: reports.c, mod1: mod1.c });
+  }
+
+  if (path === '/api/admin/reports' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    
+    const res = await env.DB.prepare(`
+      SELECT r.id, r.reason, r.created_at, 
+      p.content as post_content, p.id as post_id, p.user_id,
+      u.name as reporter_name, au.name as reported_user_name
+      FROM reports r
+      JOIN posts p ON r.post_id = p.id
+      JOIN users u ON r.reporter_id = u.id
+      JOIN users au ON p.user_id = au.id
+      ORDER BY r.created_at DESC LIMIT 50
+    `).all();
+    return json(res.results);
+  }
+
+  if (path === '/api/admin/users' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    
+    const res = await env.DB.prepare('SELECT id, name, email, user_number, is_paid, banned, created_at FROM users ORDER BY user_number ASC').all();
+    return json(res.results);
+  }
+
   return json({ error: 'Not found.' }, 404);
+}
+
+async function requireAdmin(request, env) {
+  const userId = await auth(request, env);
+  if (!userId) return null;
+  const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+  if (!user || !user.is_admin) return null;
+  return userId;
 }
 
 async function auth(request, env) {
