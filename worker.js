@@ -201,9 +201,9 @@ async function handleApi(request, env, ctx, url) {
       p.content as post_content, p.id as post_id, p.user_id,
       u.name as reporter_name, au.name as reported_user_name, au.is_admin as reported_user_is_admin
       FROM reports r
-      JOIN posts p ON r.post_id = p.id
-      JOIN users u ON r.reporter_id = u.id
-      JOIN users au ON p.user_id = au.id
+      LEFT JOIN posts p ON r.post_id = p.id
+      LEFT JOIN users u ON r.reporter_id = u.id
+      LEFT JOIN users au ON p.user_id = au.id
       ORDER BY r.resolved ASC, r.created_at DESC LIMIT 50
     `).all();
     return json(res.results);
@@ -219,6 +219,7 @@ async function handleApi(request, env, ctx, url) {
   if (path === '/api/admin/reports/delete' && method === 'POST') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
     const { report_id } = await request.json();
+    // ONLY delete from reports table - post remains untouched
     await env.DB.prepare('DELETE FROM reports WHERE id = ?').bind(report_id).run();
     return json({ success: true });
   }
