@@ -24,20 +24,21 @@ async function handleApi(request, env, ctx, url) {
     try {
       await env.DB.prepare('INSERT INTO users (email, password, name, is_paid) VALUES (?, ?, ?, 1)').bind(email.toLowerCase(), hash, name).run();
     } catch (e) { return json({ error: 'That email is already registered.' }, 409); }
-    const user = await env.DB.prepare('SELECT id, name, is_paid FROM users WHERE email = ?').bind(email.toLowerCase()).first();
+    const user = await env.DB.prepare('SELECT id, name, is_paid, is_admin FROM users WHERE email = ?').bind(email.toLowerCase()).first();
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token, name: user.name, is_paid: user.is_paid });
+    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin });
   }
 
   if (path === '/api/login' && method === 'POST') {
     const { email, password } = await request.json();
-    const user = await env.DB.prepare('SELECT id, password, name, is_paid FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
+    const user = await env.DB.prepare('SELECT id, password, name, is_paid, is_admin, banned FROM users WHERE email = ?').bind((email || '').toLowerCase()).first();
     if (!user || user.password !== await hashPassword(password || ''))
       return json({ error: 'Invalid email or password.' }, 401);
+    if (user.banned) return json({ error: 'This account has been banned.' }, 403);
     const token = crypto.randomUUID();
     await env.DB.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').bind(token, user.id).run();
-    return json({ token, name: user.name, is_paid: user.is_paid });
+    return json({ token, name: user.name, is_paid: user.is_paid, is_admin: user.is_admin });
   }
 
   // --- PROGRESS ---
@@ -61,29 +62,27 @@ async function handleApi(request, env, ctx, url) {
     }
   }
 
-  // --- COMMUNITY (SKOOL-STYLE) ---
+  // --- COMMUNITY ---
   if (path === '/api/posts' && method === 'GET') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
     
-    // Get top-level posts with user names and like counts
     const posts = await env.DB.prepare(`
-      SELECT p.*, u.name as user_name, 
+      SELECT p.*, u.name as user_name, u.id as user_id,
       (SELECT COUNT(*) FROM likes WHERE post_id = p.id) as like_count,
       (SELECT COUNT(*) FROM likes WHERE post_id = p.id AND user_id = ?) as user_liked
       FROM posts p JOIN users u ON p.user_id = u.id 
-      WHERE p.parent_id IS NULL 
-      ORDER BY p.created_at DESC
+      WHERE p.parent_id IS NULL AND u.banned = 0
+      ORDER BY p.pinned DESC, p.created_at DESC
     `).bind(userId).all();
 
-    // Get replies for each post
     for (let post of posts.results) {
       post.replies = await env.DB.prepare(`
-        SELECT p.*, u.name as user_name,
+        SELECT p.*, u.name as user_name, u.id as user_id,
         (SELECT COUNT(*) FROM likes WHERE post_id = p.id) as like_count,
         (SELECT COUNT(*) FROM likes WHERE post_id = p.id AND user_id = ?) as user_liked
         FROM posts p JOIN users u ON p.user_id = u.id 
-        WHERE p.parent_id = ? 
+        WHERE p.parent_id = ? AND u.banned = 0
         ORDER BY p.created_at ASC
       `).bind(userId, post.id).all();
     }
@@ -99,6 +98,44 @@ async function handleApi(request, env, ctx, url) {
     return json({ id: res.meta.last_row_id });
   }
 
+  if (path === '/api/posts/delete' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { post_id } = await request.json();
+    await env.DB.prepare('DELETE FROM posts WHERE id = ? OR parent_id = ?').bind(post_id, post_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/posts/pin' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { post_id } = await request.json();
+    await env.DB.prepare('UPDATE posts SET pinned = NOT pinned WHERE id = ?').bind(post_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/users/ban' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(userId).first();
+    if (!user || !user.is_admin) return json({ error: 'Admin only.' }, 403);
+    const { user_id } = await request.json();
+    await env.DB.prepare('UPDATE users SET banned = 1 WHERE id = ?').bind(user_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/reports' && method === 'POST') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const { post_id, reason } = await request.json();
+    await env.DB.prepare('INSERT INTO reports (post_id, reporter_id, reason) VALUES (?, ?, ?)').bind(post_id, userId, reason || '').run();
+    return json({ success: true });
+  }
+
   if (path === '/api/likes' && method === 'POST') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
@@ -107,7 +144,6 @@ async function handleApi(request, env, ctx, url) {
       await env.DB.prepare('INSERT INTO likes (post_id, user_id) VALUES (?, ?)').bind(post_id, userId).run();
       return json({ liked: true });
     } catch (e) {
-      // If already liked, remove it (toggle)
       await env.DB.prepare('DELETE FROM likes WHERE post_id = ? AND user_id = ?').bind(post_id, userId).run();
       return json({ liked: false });
     }
