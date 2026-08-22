@@ -26,7 +26,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .brand-logo{width:46px;height:46px;object-fit:contain} .brand-dot{color:var(--orange)}
 .head-actions{display:flex;align-items:center;gap:10px}
 .btn{border-radius:999px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;font-family:'Nunito Sans'}
-.btn:hover{transform:translateY(-2px)} .btn.small{padding:8px 20px;font-size:.9rem}
+.btn:hover{transform:translateY(-2px)} .btn.small{padding:6px 16px;font-size:.85rem}
 .btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:8px 20px;font-size:.9rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -291,9 +291,9 @@ function renderHeader(){
   const userNumber = localStorage.getItem('pc_user_number');
   const numSuffix = (userNumber && userNumber !== 'null') ? ' ' + userNumber : '';
   if (localStorage.getItem('token')) {
-    host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none">Admin</a>' +
-      '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
-      '<button class="btn small ghost" onclick="logout()">Log out</button>';
+   host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin</a>' +
+     '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
+     '<button class="btn small ghost" onclick="logout()" style="background:#fff">Log out</button>';
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
       '<button class="btn small ghost" onclick="showAuth(\'login\')">Log in</button>';
