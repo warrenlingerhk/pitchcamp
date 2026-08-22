@@ -621,7 +621,14 @@ async function loadCourseContentFromSheet() {
 loadCoursesFromSheet();
 loadCourseContentFromSheet();
 renderCourses('home');
-showHome();
+
+// Check URL on load
+if (location.hash.startsWith('#mod') || location.hash === '#course') {
+  showCourse();
+} else {
+  showHome();
+}
+  
 </script>
 </body>
 </html>
