@@ -457,7 +457,7 @@ function renderCourse(){
       
       let contentHtml = '';
       if (item.format === 'bullets') {
-        contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => '<li>' + b.trim() + '</li>').join('') + '</ul></div>';
+        contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => b.trim()).filter(b => b).map(b => '<li>' + b + '</li>').join('') + '</ul></div>';
       } else if (item.format === 'bold') {
         contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
       } else if (item.format === 'input_box') {
@@ -519,21 +519,31 @@ async function saveProgress(){
 }
 
 async function loadProgress(){
+  const userEmail = localStorage.getItem('pc_email') || '';
+  if (!userEmail) {
+    setStatus('All changes saved.', 'save-ok');
+    return;
+  }
+  
   try { 
-    const res = await fetch(API_URL + '/api/progress', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} }); 
-    if (!res.ok) { logout(); return; } 
+    const res = await fetch(CMS_ANSWERS_WEBHOOK_URL + '?email=' + encodeURIComponent(userEmail)); 
+    if (!res.ok) { 
+      setStatus('All changes saved.', 'save-ok');
+      return; 
+    } 
     const data = await res.json(); 
     data.forEach(saved => { 
-      const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); 
+      const item = document.querySelector('.mod-item[data-header="' + saved.header_name + '"]'); 
       if (item) { 
         item.querySelector('.check-input').checked = saved.completed === 1; 
         item.classList.toggle('item-completed', saved.completed === 1); 
         const noteEl = item.querySelector('.note-input'); 
-        if (noteEl) noteEl.value = saved.note || ''; 
+        if (noteEl && saved.note) noteEl.value = saved.note; 
       } 
     }); 
     setStatus('All changes saved.', 'save-ok'); 
   } catch (e) { 
+    console.error(e);
     setStatus('Error loading!', 'save-err'); 
   }
 }
