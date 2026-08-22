@@ -532,6 +532,11 @@ async function loadProgress(){
       return; 
     } 
     const data = await res.json(); 
+    if (data.error) {
+      console.error(data.error);
+      setStatus('Error loading!', 'save-err');
+      return;
+    }
     data.forEach(saved => { 
       const item = document.querySelector('.mod-item[data-header="' + saved.header_name + '"]'); 
       if (item) { 
