@@ -235,7 +235,13 @@ let COURSE_DATA = [];
 function hideAllViews() { ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v => document.getElementById(v).classList.add('hidden')); }
 function showHome(){ hideAllViews(); document.getElementById('view-home').classList.remove('hidden'); renderHeader(); renderCourses('home'); toggleCommunityView(); history.pushState(null, '', '/'); window.scrollTo(0,0); }
 function showAuth(type) { hideAllViews(); document.getElementById(type === 'signup' ? 'view-auth-signup' : 'view-auth-login').classList.remove('hidden'); window.scrollTo(0,0); }
-function showCourse(){ hideAllViews(); document.getElementById('view-course').classList.remove('hidden'); renderCourse(); history.pushState(null, '', '/pitchcamp'); window.scrollTo(0,0); }
+function showCourse(){ 
+  hideAllViews(); 
+  document.getElementById('view-course').classList.remove('hidden'); 
+  renderCourse(); 
+  history.pushState(null, '', '#course'); 
+  window.scrollTo(0,0); 
+}
 function logout(){ localStorage.clear(); showHome(); }
 
 function renderHeader(){
