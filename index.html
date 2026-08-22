@@ -581,20 +581,37 @@ async function loadCourseContentFromSheet() {
       const row = rows[i];
       if (row.length < 2) continue;
       
-      // Flexible parsing: allows optional Module column, or just Title, Content, Format
-      let modNum = '1', title = '', content = '', format = 'text';
+      // Check if first column has a module number
+      let modNum = '1';
+      let titleIndex = 0;
+      let contentIndex = 1;
+      let formatIndex = 2;
       
-      if (row.length >= 4 && !isNaN(row[0].trim())) {
+      // If row has 4 columns (Module, Title, Content, Format)
+      if (row.length >= 4 && row[0] && row[0].trim() !== '') {
         modNum = row[0].trim();
-        title = row[1].trim();
-        content = row[2].trim();
-        format = row[3].trim().toLowerCase();
-      } else {
-        title = row[0].trim();
-        content = row[1].trim();
-        format = row[2] ? row[2].trim().toLowerCase() : 'text';
+        titleIndex = 1;
+        contentIndex = 2;
+        formatIndex = 3;
+      } 
+      // If row has 3 columns (Title, Content, Format) - no module column
+      else if (row.length >= 3) {
+        titleIndex = 0;
+        contentIndex = 1;
+        formatIndex = 2;
       }
+      // If row has 2 columns (Title, Content)
+      else {
+        titleIndex = 0;
+        contentIndex = 1;
+        formatIndex = 2;
+      }
+      
+      const title = row[titleIndex] ? row[titleIndex].trim() : '';
+      const content = row[contentIndex] ? row[contentIndex].trim() : '';
+      const format = row[formatIndex] ? row[formatIndex].trim().toLowerCase() : 'text';
 
+      // Create new module if needed
       if (!currentMod || currentMod.id !== 'mod-' + modNum) {
         currentMod = {
           id: 'mod-' + modNum,
@@ -606,6 +623,7 @@ async function loadCourseContentFromSheet() {
         COURSE_DATA.push(currentMod);
       }
 
+      // Add item if title exists
       if (title) {
         currentMod.items.push({
           id: title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, ''),
@@ -624,7 +642,7 @@ async function loadCourseContentFromSheet() {
     console.error('CMS Content Load Error:', error);
   }
 }
-
+  
 // Initialize
 loadCoursesFromSheet();
 loadCourseContentFromSheet();
