@@ -292,7 +292,7 @@ function renderHeader(){
   const numDisplay = (userNumber && userNumber !== 'null') ? '#' + userNumber + ' ' : '';
   if (localStorage.getItem('token')) {
     host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none">Admin</a>' +
-      '<span class="name-chip" title="' + (name||') + '">' + numDisplay + (name || 'Student') + '</span>' +
+      '<span class="name-chip" title="' + (name||'') + '">' + numDisplay + (name || 'Student') + '</span>' +
       '<button class="btn small ghost" onclick="logout()">Log out</button>';
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
