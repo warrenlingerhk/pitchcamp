@@ -30,14 +30,13 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:26px 0 70px;align-items:start}
+.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:26px 0 70px;align-items:start}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 .hero{overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr}
 .hero-media{background:linear-gradient(135deg, #F2B33D 0%, #E07A2F 100%); width:100%; height:100%;}
 .hero-copy{padding:34px 30px 28px}
 @media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
-.hero-copy{padding:34px 30px 28px}
 .hero h1{font-size:clamp(1.5rem,3.8vw,2.3rem);font-weight:800;line-height:1.2;margin:0}
 .hl-orange{color:var(--orange)}
 .hero-bullets{list-style:none;padding:0;margin:16px 0 0}
@@ -92,7 +91,8 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .mod-item{background:#fff; color:var(--navy); border-radius:14px; padding:24px 26px; box-shadow:0 5px 0 rgba(46,65,86,.12); margin-bottom:16px; display:flex; gap:18px; align-items:flex-start}
 .check-input{width:24px;height:24px;accent-color:var(--orange);margin-top:4px;cursor:pointer;flex:0 0 auto}
 .item-title{font-size:1.25rem;font-weight:800;margin:0 0 6px} .item-completed .item-title{text-decoration:line-through;text-decoration-color:var(--orange);color:var(--slate)}
-.mod-content{font-size:1.05rem;line-height:1.7} .note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem} .note-input:focus{outline:none;border-color:var(--orange)}
+.mod-content{font-size:1.05rem;line-height:1.7} .mod-content ul{margin:10px 0 0 20px} .mod-content li{margin-bottom:6px}
+.note-input{width:100%;margin-top:14px;padding:14px 16px;border-radius:10px;border:2px solid var(--slate);font:inherit;min-height:90px; font-size:1rem} .note-input:focus{outline:none;border-color:var(--orange)}
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
 .modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)} .modal-box h3{margin:0 0 12px;font-size:1.4rem} .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700} .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
 .page-btn{padding:8px 16px;border:2px solid var(--slate);background:#fff;border-radius:8px;cursor:pointer;font-weight:700;font-size:.9rem;transition:all .2s;} .page-btn:hover:not([disabled]){background:var(--cream);border-color:var(--navy);} .page-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);} .page-btn[disabled]{cursor:not-allowed;opacity:.3;}
@@ -122,10 +122,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
             <li>Act with Impact.</li>
           </ul>
         </div>
-        <div class="hero-media">
-          <img class="hero-img" src="hero.jpg" alt="" onerror="this.remove()">
-          <img class="mascot" src="pitch-guy.png" alt="Pitch Guy" onerror="this.remove()">
-        </div>
+        <div class="hero-media"></div>
       </section>
 
       <section id="community-section" class="hidden" style="margin-top:34px">
@@ -223,63 +220,17 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 
 <script>
 const API_URL = '';
-// --- PASTE YOUR GOOGLE SHEET CSV LINK BELOW ---
-const CMS_COURSES_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNbO7bdDtfEM8sKjPtefHp1I3aauVYhkHlr4ke59phYV2UEjL5dluBhWyydZ1-NmT8SOfzTDSjTOYZ/pub?output=csv'; 
-// ----------------------------------------------
+// --- GOOGLE SHEETS CMS LINKS ---
+const CMS_OFFERS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR98WVTWmDPakog1QytOCQtnFcLaKGbuWIWjQfPhBMUBhvKMNM_Lg5ER3G-emXDYUf4Z94ofhMDWdLH/pub?gid=1761099526&single=true&output=csv';
+const CMS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR98WVTWmDPakog1QytOCQtnFcLaKGbuWIWjQfPhBMUBhvKMNM_Lg5ER3G-emXDYUf4Z94ofhMDWdLH/pub?gid=129167410&single=true&output=csv';
+const CMS_ANSWERS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxxz_u9m1bvC8jiSVd6-tocKLVxh4pAZOx3r4EvTlnKTN5CVEKuYE0dXuWSy91GwzQl/exec'; 
+// -------------------------------
 
 let saveTimeout;
 let currentPage = 1;
 let totalPages = 1;
-let COURSES = []; // Will be loaded from Google Sheets
-
-const COURSE_DATA = [
-  { id: 'mod-1', title: 'Module 1: Awaken Your Inner Storyteller', bg: 'bg-mod-1', sub: 'Day 1 AM — Kickoff, Benchmark, and The Storytelling Advantage', items: [
-    { id:'welcome', title:'Kickoff & Connect', hasInput:false, content:'<p>Forge connections with fellow founders and ignite your creative spark.</p><p style="margin-top:10px"><strong>Ground rules:</strong> Be on time, do your best, follow my lead.</p>' },
-    { id:'objectives', title:'Learning Objectives', hasInput:false, content:'<ul style="margin:10px 0 0 20px"><li>Pitching is about relationship first</li><li>Relationships multiply emotions good and bad</li><li>Have fun</li><li>10 slide deck, 5 minutes</li><li>Compelling narratives</li><li>Frame control</li><li>Build status</li><li>Master Q&A</li><li>Impact strategies</li></ul>' },
-    { id:'benchmark', title:'Benchmark Your Pitch', hasInput:false, content:'<p>Celebrate what your pitch connects and influences best.</p><p style="margin-top:10px">All participants pitch for five minutes.</p><p style="margin-top:10px">Voting scale (1 to 6): <a href="https://forms.gle/yYVTCdXU98MkttZ76" target="_blank" style="color:var(--orange);font-weight:800">Google Form</a></p><p style="margin-top:10px;color:var(--slate);font-style:italic">LB-EBI (Like Best, Even Better If) feedback for every speaker.</p>' },
-    { id:'pitch_improve', title:'One part of your pitch you want to improve', hasInput:true, content:'' },
-    { id:'storytelling', title:'The Storytelling Advantage', hasInput:false, content:'<p>Discover the secrets of captivating narratives and how they fuel startup success.</p><p style="margin-top:10px;font-weight:800">Market forces story structure:</p><ul style="margin:10px 0 0 20px"><li>Economic — Nuclear Winter</li><li>Social — Double the benefits/outcomes</li><li>Technological — Why us</li><li>Opportunity</li><li>Problem</li></ul>' },
-    { id:'dyad', title:'Dyad discussions and practice', hasInput:false, content:'<p><strong>Practice format:</strong></p><ul style="margin:10px 0 0 20px"><li>When you did/said…</li><li>The strength I saw was…</li><li>EBI: It would be Even Better If you…</li></ul>' },
-    { id:'story_improve', title:'Story feature you want to improve', hasInput:true, content:'' },
-    { id:'reflection1', title:'Day-1AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]},
-  { id: 'mod-2', title: 'Module 2: Unleash Your Inner Storyteller', bg: 'bg-mod-2', sub: 'Day 1 PM — Core Message, Audience Mastery, and Narrative Architecture', items: [
-    { id:'m2_core', title:'Re-Craft Your Core Message', hasInput:false, content:'<p>Distill your "why" into a powerful message that resonates with every audience.</p><p style="margin-top:10px">Sharing in Dyads, then in groups of 4.</p>' },
-    { id:'m2_core_input', title:'Your one-sentence killer message', hasInput:true, content:'' },
-    { id:'m2_audience', title:'Audience Mastery', hasInput:false, content:'<p>Learn how to tailor your pitch to resonate with investors, customers, and your team.</p><p style="margin-top:10px"><strong>Exercise:</strong> Intro to 4 styles of communication. Group into each style and follow the 4-styles exercise.</p>' },
-    { id:'m2_narrative', title:'Narrative Architect', hasInput:false, content:'<p>Build a compelling story arc that captivates and inspires action.</p><p style="margin-top:10px;font-weight:800">The need for:</p><ul style="margin:10px 0 0 20px"><li>Curiosity and intrigue</li><li>Tension and conflict</li><li>FOMO</li><li>Desire and wanting</li><li>Fun</li><li>Push-pull & Prizing</li></ul>' },
-    { id:'m2_revision', title:'Revision Magic', hasInput:false, content:'<p>Revise and craft your pitch. Connect your solution to the opportunity (Pitch Slide 2) and your secret sauce to the problem.</p>' },
-    { id:'reflection2', title:'Day-1PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]},
-  { id: 'mod-3', title: 'Module 3: Refine & Conquer', bg: 'bg-mod-3', sub: 'Day 2 AM — Pitch Perfection, Frame Control, and Social Dynamics', items: [
-    { id:'m3_perfection', title:'Pitch Perfection', hasInput:false, content:'<p>Sharpen your message and delivery through expert feedback and peer collaboration.</p><p style="margin-top:10px"><strong>Group exercise:</strong> Present first 4 slides. Get feedback using LB (Like Best) and EBI (Even Better If).</p>' },
-    { id:'m3_frame', title:'Frame Control', hasInput:false, content:'<p>Learn to handle disruptions by controlling the frame of reference.</p><p style="margin-top:10px;font-weight:800">Types of frames:</p><ul style="margin:10px 0 0 20px"><li>Power frame → Power-busting frame</li><li>Time frame → Time constraining frame</li><li>Analyst frame → Intrigue frame / Prize frame</li></ul>' },
-    { id:'m3_frame_input', title:'Which frame do you struggle with most?', hasInput:true, content:'' },
-    { id:'m3_social', title:'Social Dynamics Mastery', hasInput:false, content:'<p>Keep your listeners in FLOW by showing your situational status.</p><p style="margin-top:10px">Learn how to use the 4 styles to keep attention. Tease with push-pulls.</p>' },
-    { id:'reflection3', title:'Day-2AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]},
-  { id: 'mod-4', title: 'Module 4: Refine & Conquer', bg: 'bg-mod-4', sub: 'Day 2 PM — Visual Storytelling, Q&A Mastery, and Pitch Polish', items: [
-    { id:'m4_visual', title:'Visual Storytelling', hasInput:false, content:'<p>Master the art of creating impactful stories that amplify your narrative.</p><p style="margin-top:10px">Create a portfolio of 3-5 credibility stories. Introduce hot cognitions, stacking frames, intrigue pings, and metaphors.</p>' },
-    { id:'m4_practice', title:'Pitch Practice Powerhouse', hasInput:false, content:'<p>Step into the spotlight and practice your pitch in a supportive environment. (Pitch Slide 8: Traction)</p>' },
-    { id:'m4_qa', title:'Q&A Mastery', hasInput:false, content:'<p>Learn how to handle tough questions with confidence and finesse.</p><p style="margin-top:10px;font-weight:800">Answer strategies:</p><ul style="margin:10px 0 0 20px"><li>Relationship redirect</li><li>Refer back to the 3 market forces</li><li>Partial answer bridge</li><li>Clarify pause</li></ul>' },
-    { id:'m4_qa_input', title:'Your strategy for handling hostile questions', hasInput:true, content:'' },
-    { id:'m4_polish', title:'Pitch Polish', hasInput:false, content:'<p>Refine your pitch to perfection. Add fun and challenge. (Pitch Slide 10: Call-to-Action)</p>' },
-    { id:'reflection4', title:'Day-2PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]},
-  { id: 'mod-5', title: 'Module 5: Launch & Lead', bg: 'bg-mod-5', sub: 'Day 3 AM — Action Plan, Final Prep, and Preliminary Rounds', items: [
-    { id:'m5_action', title:'Action Plan Ignition', hasInput:false, content:'<p>Create a personalized action plan to implement your learnings.</p><p style="margin-top:10px"><strong>Key principles:</strong> Relationships, Fun, Oversubscribe and apologize (exclusive clubs make you wait).</p>' },
-    { id:'m5_action_input', title:'Your personalized action plan', hasInput:true, content:'' },
-    { id:'m5_prep', title:'Final Pitch Prep & Preliminary Rounds', hasInput:false, content:'<p>Get ready to deliver your most compelling pitch yet. Groups will hear pitches and nominate candidates for the final round judged by investors.</p>' },
-    { id:'m5_adjust_input', title:'One adjustment you made after the preliminary round', hasInput:true, content:'' },
-    { id:'reflection5', title:'Day-3AM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]},
-  { id: 'mod-6', title: 'Module 6: Final Showcase', bg: 'bg-mod-6', sub: 'Day 3 PM — The Main Stage, Celebration, and Next Steps', items: [
-    { id:'m6_showcase', title:'Pitch Showcase', hasInput:false, content:'<p>Take the stage and deliver your refined pitch to a supportive audience and get judged by real investors.</p>' },
-    { id:'m6_celebrate', title:'Celebrate & Connect', hasInput:false, content:'<p>Celebrate your accomplishments, connect with fellow founders, and leave feeling empowered.</p>' },
-    { id:'m6_takeaways', title:'Key Takeaways & Next Steps', hasInput:false, content:'<p>Recap your learnings, receive valuable resources, and embark on your journey to success.</p>' },
-    { id:'reflection6', title:'Day-3PM Reflection', hasInput:true, content:'<p style="margin-bottom:8px"><strong>Reflect on your learning:</strong></p><ol style="margin:0 0 0 20px"><li>What is one insight (idea / skill / etc.) you learned that was valuable for you?</li><li>Where do you think you would use this valuable insight?</li><li>What will be the benefit for you to use this valuable insight?</li></ol>' }
-  ]}
-];
+let COURSES = []; 
+let COURSE_DATA = []; 
 
 function hideAllViews() { ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v => document.getElementById(v).classList.add('hidden')); }
 function showHome(){ hideAllViews(); document.getElementById('view-home').classList.remove('hidden'); renderHeader(); renderCourses('home'); toggleCommunityView(); history.pushState(null, '', '/'); window.scrollTo(0,0); }
@@ -293,9 +244,9 @@ function renderHeader(){
   const userNumber = localStorage.getItem('pc_user_number');
   const numSuffix = (userNumber && userNumber !== 'null') ? ' ' + userNumber : '';
   if (localStorage.getItem('token')) {
-   host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin</a>' +
-     '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
-     '<button class="btn small ghost" onclick="logout()" style="background:#fff">Log out</button>';
+    host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin</a>' +
+      '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
+      '<button class="btn small ghost" onclick="logout()" style="background:#fff">Log out</button>';
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
       '<button class="btn small ghost" onclick="showAuth(\'login\')">Log in</button>';
@@ -343,6 +294,7 @@ async function login() {
       localStorage.setItem('pc_is_admin', data.is_admin);
       localStorage.setItem('pc_user_number', data.user_number);
       localStorage.setItem('pc_name', data.name || email.split('@')[0]);
+      localStorage.setItem('pc_email', email.toLowerCase());
       showHome();
     } else { errEl.innerText = data.error || 'Something went wrong.'; }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
@@ -363,6 +315,7 @@ async function signup() {
       localStorage.setItem('pc_is_admin', data.is_admin);
       localStorage.setItem('pc_user_number', data.user_number);
       localStorage.setItem('pc_name', name);
+      localStorage.setItem('pc_email', email.toLowerCase());
       showHome();
     } else { errEl.innerText = data.error || 'Something went wrong.'; }
   } catch (e) { errEl.innerText = 'Network error — try again.'; }
@@ -390,7 +343,7 @@ async function loadPosts(page = 1) {
     feed.innerHTML = posts.map(p => `
       <div class="post-card">
         <div class="post-header">
-          <span class="post-author">${p.pinned ? ' ' : ''}${p.pinned_to_course ? '📚 ' : ''}${p.user_name}</span>
+          <span class="post-author">${p.pinned ? ' ' : ''}${p.pinned_to_course ? ' ' : ''}${p.user_name}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="post-time">${new Date(p.created_at).toLocaleDateString()}</span>
             <button class="action-btn" onclick="togglePostMenu(${p.id}, ${p.user_id}, '${p.user_name.replace(/'/g, "\\'")}')">⋯</button>
@@ -484,14 +437,28 @@ async function pinComment(commentId) { alert('Pin comment feature - to be implem
 
 function renderCourse(){
   const host = document.getElementById('course-content'); host.innerHTML = '';
+  if (COURSE_DATA.length === 0) return;
+  
   COURSE_DATA.forEach(mod => {
     const section = document.createElement('section'); section.id = mod.id; section.className = 'module-section ' + mod.bg;
     section.innerHTML = '<div class="wrap"><div class="module-header"><h2>' + mod.title + '</h2><p>' + mod.sub + '</p></div><div class="mod-items" id="items-' + mod.id + '"></div></div>';
     host.appendChild(section);
     const itemsHost = document.getElementById('items-' + mod.id);
     mod.items.forEach(item => {
-      const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id;
-      div.innerHTML = '<input type="checkbox" class="check-input"><div style="flex:1"><h3 class="item-title">' + item.title + '</h3>' + (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + (item.hasInput ? '<textarea class="note-input" placeholder="Type your answer here…"></textarea>' : '') + '</div>';
+      const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id; div.dataset.header = item.header_name;
+      
+      let contentHtml = '';
+      if (item.format === 'bullets') {
+        contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => '<li>' + b.trim() + '</li>').join('') + '</ul></div>';
+      } else if (item.format === 'bold') {
+        contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
+      } else if (item.format === 'input_box') {
+        contentHtml = '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
+      } else {
+        contentHtml = item.content ? '<div class="mod-content">' + item.content + '</div>' : '';
+      }
+      
+      div.innerHTML = '<input type="checkbox" class="check-input"><div style="flex:1"><h3 class="item-title">' + item.title + '</h3>' + contentHtml + '</div>';
       itemsHost.appendChild(div);
     });
   });
@@ -499,21 +466,73 @@ function renderCourse(){
   document.querySelectorAll('.check-input').forEach(el => el.addEventListener('change', triggerAutoSave));
   document.querySelectorAll('.note-input').forEach(el => el.addEventListener('input', triggerAutoSave));
 }
-function triggerAutoSave(){ document.querySelectorAll('.mod-item').forEach(item => item.classList.toggle('item-completed', item.querySelector('.check-input').checked)); setStatus('Unsaved changes…', 'save-warn'); clearTimeout(saveTimeout); saveTimeout = setTimeout(saveProgress, 1500); }
-function setStatus(text, cls){ const el = document.getElementById('save-status'); el.innerText = text; el.className = 'save-status ' + (cls || ''); }
+
+function triggerAutoSave(){ 
+  document.querySelectorAll('.mod-item').forEach(item => item.classList.toggle('item-completed', item.querySelector('.check-input').checked)); 
+  setStatus('Unsaved changes…', 'save-warn'); 
+  clearTimeout(saveTimeout); 
+  saveTimeout = setTimeout(saveProgress, 1500); 
+}
+
+function setStatus(text, cls){ 
+  const el = document.getElementById('save-status'); 
+  el.innerText = text; 
+  el.className = 'save-status ' + (cls || ''); 
+}
+
 async function saveProgress(){
   setStatus('Saving…', 'save-warn');
   const progress = [];
-  document.querySelectorAll('.mod-item').forEach(item => { const noteEl = item.querySelector('.note-input'); progress.push({ item_id: item.dataset.id, completed: item.querySelector('.check-input').checked ? 1 : 0, note: noteEl ? noteEl.value : '' }); });
-  try { const res = await fetch(API_URL + '/api/progress', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ progress }) }); if (!res.ok) throw new Error(); setStatus('All changes saved.', 'save-ok'); } catch (e) { setStatus('Error saving!', 'save-err'); }
+  document.querySelectorAll('.mod-item').forEach(item => { 
+    const noteEl = item.querySelector('.note-input'); 
+    progress.push({ 
+      item_id: item.dataset.id, 
+      header_name: item.dataset.header,
+      completed: item.querySelector('.check-input').checked ? 1 : 0, 
+      note: noteEl ? noteEl.value : '' 
+    }); 
+  });
+  
+  const userEmail = localStorage.getItem('pc_email') || '';
+  const userName = localStorage.getItem('pc_name') || '';
+  const userNumber = localStorage.getItem('pc_user_number') || '';
+
+  try { 
+    await fetch(CMS_ANSWERS_WEBHOOK_URL, { 
+      method:'POST', 
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, 
+      body: JSON.stringify({ email: userEmail, name: userName, user_number: userNumber, progress: progress }) 
+    }); 
+    setStatus('All changes saved.', 'save-ok'); 
+  } catch (e) { 
+    console.error(e);
+    setStatus('Error saving!', 'save-err'); 
+  }
 }
+
 async function loadProgress(){
-  try { const res = await fetch(API_URL + '/api/progress', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} }); if (!res.ok) { logout(); return; } const data = await res.json(); data.forEach(saved => { const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); if (item) { item.querySelector('.check-input').checked = saved.completed === 1; item.classList.toggle('item-completed', saved.completed === 1); const noteEl = item.querySelector('.note-input'); if (noteEl) noteEl.value = saved.note || ''; } }); setStatus('All changes saved.', 'save-ok'); } catch (e) { setStatus('Error loading!', 'save-err'); }
+  try { 
+    const res = await fetch(API_URL + '/api/progress', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} }); 
+    if (!res.ok) { logout(); return; } 
+    const data = await res.json(); 
+    data.forEach(saved => { 
+      const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); 
+      if (item) { 
+        item.querySelector('.check-input').checked = saved.completed === 1; 
+        item.classList.toggle('item-completed', saved.completed === 1); 
+        const noteEl = item.querySelector('.note-input'); 
+        if (noteEl) noteEl.value = saved.note || ''; 
+      } 
+    }); 
+    setStatus('All changes saved.', 'save-ok'); 
+  } catch (e) { 
+    setStatus('Error loading!', 'save-err'); 
+  }
 }
 
 window.addEventListener('popstate', function() { if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) { if (!document.getElementById('view-course').classList.contains('hidden')) {} else { showCourse(); } } else { showHome(); } });
 
-// --- GOOGLE SHEETS CMS ENGINE FOR COURSES ---
+// --- GOOGLE SHEETS CMS ENGINE ---
 async function parseCSV(text) {
   const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
   for (let i = 0; i < text.length; i++) {
@@ -529,11 +548,10 @@ async function parseCSV(text) {
 
 async function loadCoursesFromSheet() {
   try {
-    const response = await fetch(CMS_COURSES_URL);
+    const response = await fetch(CMS_OFFERS_URL);
     const csvText = await response.text();
     const rows = await parseCSV(csvText);
     COURSES = [];
-    // Skip header row (index 0)
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       if (row.length >= 4) {
@@ -548,14 +566,68 @@ async function loadCoursesFromSheet() {
     renderCourses('home');
   } catch (error) {
     console.error('CMS Course Load Error:', error);
-    // Fallback if sheet fails
-    COURSES = [ { name:'PitchCamp', tone:1, active:true, outcomes:['Pitch with confidence','Control the room'] } ];
-    renderCourses('home');
+  }
+}
+
+async function loadCourseContentFromSheet() {
+  try {
+    const response = await fetch(CMS_SOURCE_URL);
+    const csvText = await response.text();
+    const rows = await parseCSV(csvText);
+    COURSE_DATA = [];
+    let currentMod = null;
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length < 2) continue;
+      
+      // Flexible parsing: allows optional Module column, or just Title, Content, Format
+      let modNum = '1', title = '', content = '', format = 'text';
+      
+      if (row.length >= 4 && !isNaN(row[0].trim())) {
+        modNum = row[0].trim();
+        title = row[1].trim();
+        content = row[2].trim();
+        format = row[3].trim().toLowerCase();
+      } else {
+        title = row[0].trim();
+        content = row[1].trim();
+        format = row[2] ? row[2].trim().toLowerCase() : 'text';
+      }
+
+      if (!currentMod || currentMod.id !== 'mod-' + modNum) {
+        currentMod = {
+          id: 'mod-' + modNum,
+          title: 'Module ' + modNum,
+          bg: 'bg-mod-' + modNum,
+          sub: '',
+          items: []
+        };
+        COURSE_DATA.push(currentMod);
+      }
+
+      if (title) {
+        currentMod.items.push({
+          id: title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, ''),
+          header_name: title,
+          title: title,
+          content: content,
+          format: format
+        });
+      }
+    }
+    
+    if (!document.getElementById('view-course').classList.contains('hidden')) {
+      renderCourse();
+    }
+  } catch (error) {
+    console.error('CMS Content Load Error:', error);
   }
 }
 
 // Initialize
 loadCoursesFromSheet();
+loadCourseContentFromSheet();
 renderCourses('home');
 showHome();
 </script>
