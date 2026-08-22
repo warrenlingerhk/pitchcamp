@@ -579,37 +579,15 @@ async function loadCourseContentFromSheet() {
 
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
-      if (row.length < 2) continue;
+      if (row.length < 3) continue;
       
-      // Check if first column has a module number
-      let modNum = '1';
-      let titleIndex = 0;
-      let contentIndex = 1;
-      let formatIndex = 2;
-      
-      // If row has 4 columns (Module, Title, Content, Format)
-      if (row.length >= 4 && row[0] && row[0].trim() !== '') {
-        modNum = row[0].trim();
-        titleIndex = 1;
-        contentIndex = 2;
-        formatIndex = 3;
-      } 
-      // If row has 3 columns (Title, Content, Format) - no module column
-      else if (row.length >= 3) {
-        titleIndex = 0;
-        contentIndex = 1;
-        formatIndex = 2;
-      }
-      // If row has 2 columns (Title, Content)
-      else {
-        titleIndex = 0;
-        contentIndex = 1;
-        formatIndex = 2;
-      }
-      
-      const title = row[titleIndex] ? row[titleIndex].trim() : '';
-      const content = row[contentIndex] ? row[contentIndex].trim() : '';
-      const format = row[formatIndex] ? row[formatIndex].trim().toLowerCase() : 'text';
+      // Your sheet structure: Col A=Module, Col B=Title, Col C=Content, Col D=Format
+      const modNum = row[0] ? row[0].trim() : '1';
+      const title = row[1] ? row[1].trim() : '';
+      const content = row[2] ? row[2].trim() : '';
+      const format = row[3] ? row[3].trim().toLowerCase() : 'text';
+
+      if (!title) continue;
 
       // Create new module if needed
       if (!currentMod || currentMod.id !== 'mod-' + modNum) {
@@ -623,23 +601,19 @@ async function loadCourseContentFromSheet() {
         COURSE_DATA.push(currentMod);
       }
 
-      // Add item if title exists
-      if (title) {
-        currentMod.items.push({
-          id: title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, ''),
-          header_name: title,
-          title: title,
-          content: content,
-          format: format
-        });
-      }
+      currentMod.items.push({
+        id: title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, ''),
+        header_name: title,
+        title: title,
+        content: content,
+        format: format
+      });
     }
     
-    if (!document.getElementById('view-course').classList.contains('hidden')) {
-      renderCourse();
-    }
+    renderCourse();
   } catch (error) {
     console.error('CMS Content Load Error:', error);
+    console.log('Raw CSV:', await fetch(CMS_SOURCE_URL).then(r => r.text()));
   }
 }
   
