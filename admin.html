@@ -53,6 +53,8 @@ th{background:var(--navy);color:#fff;font-weight:800}
 <main class="wrap">
   <h1>Admin Dashboard</h1>
   <div class="cards" id="stats"></div>
+  <h2>Pending Approvals</h2>
+  <div id="pending"></div>
   <h2>Analytics</h2>
   <div class="cards" id="analytics"></div>
   <h2>Members</h2>
@@ -70,7 +72,6 @@ th{background:var(--navy);color:#fff;font-weight:800}
 const API_URL = '';
 const token = localStorage.getItem('token');
 
-// Guard: only bounce people who are NOT logged-in admins
 if (!token || localStorage.getItem('pc_is_admin') !== '1') {
   window.location.href = '/';
 }
@@ -94,6 +95,25 @@ async function loadStats() {
     document.getElementById('stats').innerHTML =
       card(s.users, 'Members') + card(s.posts, 'Posts') + card(s.reports, 'Reports') + card(s.mod1, 'Module 1 completed');
   } catch (e) { console.error(e); }
+}
+
+async function loadPending() {
+  try {
+    const list = await api('/api/admin/pending');
+    const host = document.getElementById('pending');
+    if (!list.length) { host.innerHTML = '<p class="empty">No pending applications. 🎉</p>'; return; }
+    host.innerHTML = list.map(u =>
+      '<div class="report">' +
+        '<div class="meta">#' + (u.user_number || '—') + ' ' + u.name + ' — ' + u.email + ' (signed up ' + (u.created_at || '').slice(0, 10) + ')</div>' +
+        '<div class="actions"><button class="resolve" onclick="approveUser(' + u.id + ')">Approve (sold)</button></div>' +
+      '</div>'
+    ).join('');
+  } catch (e) { console.error(e); }
+}
+
+async function approveUser(id) {
+  await api('/api/admin/approve', { method: 'POST', body: JSON.stringify({ user_id: id }) });
+  loadPending(); loadUsers(); loadStats();
 }
 
 async function loadAnalytics() {
@@ -147,6 +167,7 @@ async function deleteReport(id) {
 }
 
 loadStats();
+loadPending();
 loadAnalytics();
 loadUsers();
 loadReports();
