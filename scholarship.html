@@ -191,15 +191,19 @@ form.addEventListener('submit', async function(e) {
     submitted_at: new Date().toISOString()
   };
 
-  try {
-    await fetch(WEBHOOK_URL, {
+   try {
+    const res = await fetch('/api/scholarship', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     });
-    msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
-    form.reset();
+    
+   if (res.ok) {
+      msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
+      form.reset();
+    } else {
+      throw new Error('Submission failed');
+    }
   } catch (error) {
     msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
   } finally {
