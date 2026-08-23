@@ -21,18 +21,24 @@ async function handleApi(request, env, ctx, url) {
   if (path === '/api/scholarship' && method === 'POST') {
     const data = await request.json();
     if (!env.SCHOLARSHIP_WEBHOOK_URL) return json({ error: 'Webhook not configured' }, 500);
-    
-    try {
-      // Forward the data to Google Sheets
-      await fetch(env.SCHOLARSHIP_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(data)
-      });
-      return json({ success: true });
-    } catch (e) {
-      return json({ error: 'Failed to forward to sheet' }, 500);
+
+    const gRes = await fetch(env.SCHOLARSHIP_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data)
+    });
+    const gText = await gRes.text();
+
+    // If Google sent back a login page or an error, surface it instead of faking success
+    if (!gRes.ok || gText.indexOf('{') === -1) {
+      return json({ error: 'Google rejected the request. In Apps Script, set deployment access to "Anyone".' }, 502);
     }
+    let parsed = null;
+    try { parsed = JSON.parse(gText); } catch (e) {}
+    if (parsed && parsed.result === 'error') {
+      return json({ error: 'Sheet error: ' + parsed.message }, 500);
+    }
+    return json({ success: true });
   }
   
   if (path === '/api/signup' && method === 'POST') {
