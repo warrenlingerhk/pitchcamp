@@ -22,6 +22,7 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 .hero{background:linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);color:#fff;padding:60px 30px;text-align:center;border-radius:18px;margin:30px 0}
 .hero h1{font-size:2.5rem;margin:0 0 12px}
 .hero p{font-size:1.2rem;max-width:700px;margin:0 auto}
+.hero .meta{font-size:1rem;font-weight:700;margin-top:14px;opacity:.95}
 .section{background:#fff;border-radius:18px;padding:30px;margin:30px 0;box-shadow:0 5px 0 rgba(46,65,86,.12)}
 .section h2{color:var(--orange);font-size:1.5rem;margin:0 0 16px;border-bottom:3px solid var(--navy);padding-bottom:8px}
 .benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:20px 0}
@@ -31,7 +32,7 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 .benefit li{margin-bottom:6px}
 .form-group{margin-bottom:24px}
 .form-group label{display:block;font-weight:700;margin-bottom:8px;font-size:1.05rem}
-.form-group input[type="text"],.form-group input[type="email"],.form-group textarea{width:100%;padding:12px;border:2px solid var(--slate);border-radius:10px;font:inherit;font-size:1rem}
+.form-group input[type="text"],.form-group input[type="email"],.form-group input[type="tel"],.form-group textarea{width:100%;padding:12px;border:2px solid var(--slate);border-radius:10px;font:inherit;font-size:1rem}
 .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--orange)}
 .form-group textarea{min-height:100px;resize:vertical}
 .checkbox-group{margin-bottom:20px}
@@ -57,60 +58,19 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 <main class="wrap">
 <div class="hero">
 <h1>PitchCamp Scholarship</h1>
-<p>Apply for a full scholarship to PitchCamp — our intensive 3-day program that turns nervous presenters into compelling storytellers.</p>
+<p>Apply for a full scholarship to PitchCamp — our intensive 3-day program that turns nervous presenters into compelling and persuasive storytellers.</p>
+<p class="meta">📅 24–26 September &nbsp;|&nbsp; 💰 Normal price: US$3,000</p>
 </div>
 
 <div class="section">
 <h2>What You'll Learn</h2>
 <div class="benefits">
-<div class="benefit">
-<h3>Module 1: Awaken Your Inner Storyteller</h3>
-<ul>
-<li>Forge connections with fellow founders</li>
-<li>Build compelling narratives</li>
-<li>Benchmark your pitch with live feedback</li>
-</ul>
-</div>
-<div class="benefit">
-<h3>Module 2: Unleash Your Inner Storyteller</h3>
-<ul>
-<li>Craft your one-sentence killer message</li>
-<li>Master audience adaptation</li>
-<li>Build compelling story arcs</li>
-</ul>
-</div>
-<div class="benefit">
-<h3>Module 3: Refine & Conquer</h3>
-<ul>
-<li>Sharpen your delivery with expert feedback</li>
-<li>Master frame control</li>
-<li>Keep listeners engaged with social dynamics</li>
-</ul>
-</div>
-<div class="benefit">
-<h3>Module 4: Visual Storytelling & Q&A</h3>
-<ul>
-<li>Create impactful credibility stories</li>
-<li>Handle tough questions with confidence</li>
-<li>Polish your pitch to perfection</li>
-</ul>
-</div>
-<div class="benefit">
-<h3>Module 5: Launch & Lead</h3>
-<ul>
-<li>Create your personalized action plan</li>
-<li>Final pitch preparation</li>
-<li>Preliminary rounds with peer feedback</li>
-</ul>
-</div>
-<div class="benefit">
-<h3>Module 6: Final Showcase</h3>
-<ul>
-<li>Deliver your refined pitch to real investors</li>
-<li>Celebrate your accomplishments</li>
-<li>Connect with fellow founders</li>
-</ul>
-</div>
+<div class="benefit"><h3>Module 1: Awaken Your Inner Storyteller</h3><ul><li>Forge connections with fellow founders</li><li>Build compelling narratives</li><li>Benchmark your pitch with live feedback</li></ul></div>
+<div class="benefit"><h3>Module 2: Unleash Your Inner Storyteller</h3><ul><li>Craft your one-sentence killer message</li><li>Master audience adaptation</li><li>Build compelling story arcs</li></ul></div>
+<div class="benefit"><h3>Module 3: Refine & Conquer</h3><ul><li>Sharpen your delivery with expert feedback</li><li>Master frame control</li><li>Keep listeners engaged with social dynamics</li></ul></div>
+<div class="benefit"><h3>Module 4: Visual Storytelling & Q&A</h3><ul><li>Create impactful credibility stories</li><li>Handle tough questions with confidence</li><li>Polish your pitch to perfection</li></ul></div>
+<div class="benefit"><h3>Module 5: Launch & Lead</h3><ul><li>Create your personalized action plan</li><li>Final pitch preparation</li><li>Preliminary rounds with peer feedback</li></ul></div>
+<div class="benefit"><h3>Module 6: Final Showcase</h3><ul><li>Deliver your refined pitch to real investors</li><li>Celebrate your accomplishments</li><li>Connect with fellow founders</li></ul></div>
 </div>
 </div>
 
@@ -121,63 +81,41 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 <label for="name">Full Name *</label>
 <input type="text" id="name" name="name" required>
 </div>
-
 <div class="form-group">
 <label for="email">Email Address *</label>
 <input type="email" id="email" name="email" required>
 </div>
-
+<div class="form-group">
+<label for="phone">Phone / WhatsApp Number * <span style="font-weight:400;color:var(--slate);font-size:.9rem">(include country code, e.g. +852)</span></label>
+<input type="tel" id="phone" name="phone" pattern="\+?[0-9\s\-()]{7,20}" required placeholder="+1 555 123 4567">
+</div>
 <div class="form-group">
 <label for="company">Company/Startup Name *</label>
 <input type="text" id="company" name="company" required>
 </div>
 
 <h3 style="margin:30px 0 16px;color:var(--navy)">Tell Us Why You Should Win</h3>
-
 <div class="form-group">
 <label for="q1">1. What is the biggest challenge you face when pitching your startup to investors? *</label>
 <textarea id="q1" name="q1" required></textarea>
 </div>
-
 <div class="form-group">
-<label for="q2">2. How will winning this scholarship impact your ability to grow your business in the next 12 months? *</label>
+<label for="q2">2. Why would this scholarship be important for you to win? *</label>
 <textarea id="q2" name="q2" required></textarea>
 </div>
-
 <div class="form-group">
-<label for="q3">3. What specific skills do you hope to develop during PitchCamp that will help you become a better communicator? *</label>
+<label for="q3">3. Why should we pick you to win this scholarship? *</label>
 <textarea id="q3" name="q3" required></textarea>
 </div>
 
 <h3 style="margin:30px 0 16px;color:var(--navy)">Agreement Terms</h3>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" id="agree1" required>
-<span>I confirm I am an active founder pitching investors in the next 12 months.</span>
-</label>
-</div>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" id="agree2" required>
-<span>I agree to fill out a quick form on my pitch skills and confidence (before & after the event).</span>
-</label>
-</div>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" id="agree3" required>
-<span>I agree to allow PitchCamp to share my comments to promote this event this year and in the future.</span>
-</label>
-</div>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" id="agree4" required>
-<span>I agree to have two short 1-on-1 calls with Dr. Warren (one screening call before, one follow-up call after).</span>
-</label>
-</div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree1" required><span>I confirm I am an active founder pitching investors in the next 12 months.</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree2" required><span>I agree to fill out a quick form on my pitch skills and confidence (before & after the event).</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree3" required><span>I agree to allow PitchCamp to share my comments to promote this event this year and in the future.</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree4" required><span>I agree to have two short 1-on-1 calls with Dr. Warren (one screening call before, one follow-up call after).</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree5" required><span>I agree to be contacted via Phone/WhatsApp by Dr. Warren and the PitchCamp team regarding my application and the event.</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree6" required><span>I understand this scholarship is only open for applications through 30 August, 23:59.</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree7" required><span>I agree to let DrWarren and his team contact me on WhatsApp.</span></label></div>
 
 <button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
 <div id="form-message"></div>
@@ -197,20 +135,20 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-const WEBHOOK_URL = 'YOUR_APPS_SCRIPT_WEBHOOK_URL_HERE';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby0ksFjj6ImAI3wz1FFKjEFLWLfO-k6HihEMUwF8wbO0Oy-BTvLXpjabSq38xR9c-gj/exec';
 
 document.getElementById('scholarship-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('form-message');
-  
   btn.disabled = true;
   btn.textContent = 'Submitting...';
   msg.innerHTML = '';
-  
+
   const data = {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
     company: document.getElementById('company').value,
     q1: document.getElementById('q1').value,
     q2: document.getElementById('q2').value,
@@ -219,16 +157,18 @@ document.getElementById('scholarship-form').addEventListener('submit', async fun
     agree2: document.getElementById('agree2').checked,
     agree3: document.getElementById('agree3').checked,
     agree4: document.getElementById('agree4').checked,
+    agree5: document.getElementById('agree5').checked,
+    agree6: document.getElementById('agree6').checked,
+    agree7: document.getElementById('agree7').checked,
     submitted_at: new Date().toISOString()
   };
-  
+
   try {
     const res = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     });
-    
     if (res.ok) {
       msg.innerHTML = '<div class="success">Thank you! Your application has been submitted. We will review it and get back to you soon.</div>';
       document.getElementById('scholarship-form').reset();
