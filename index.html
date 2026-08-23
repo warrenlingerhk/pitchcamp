@@ -499,22 +499,35 @@ async function saveProgress(){
       note: noteEl ? noteEl.value : '' 
     }); 
   });
-
   try { 
     const res = await fetch('/api/progress', { 
       method:'POST', 
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }, 
+      headers:{ 'Content-Type':'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, 
       body: JSON.stringify({ progress }) 
     }); 
     if (res.ok) { setStatus('All changes saved.', 'save-ok'); } 
     else { setStatus('Error saving!', 'save-err'); }
-  } catch (e) { 
-    console.error(e);
-    setStatus('Error saving!', 'save-err'); 
-  }
+  } catch (e) { console.error(e); setStatus('Error saving!', 'save-err'); }
+}
+
+async function loadProgress(){
+  try { 
+    const res = await fetch('/api/progress', { 
+      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} 
+    }); 
+    if (!res.ok) { setStatus('All changes saved.', 'save-ok'); return; } 
+    const data = await res.json(); 
+    data.forEach(saved => { 
+      const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); 
+      if (item) { 
+        item.querySelector('.check-input').checked = saved.completed === 1; 
+        item.classList.toggle('item-completed', saved.completed === 1); 
+        const noteEl = item.querySelector('.note-input'); 
+        if (noteEl) noteEl.value = saved.note || ''; 
+      } 
+    }); 
+    setStatus('All changes saved.', 'save-ok'); 
+  } catch (e) { console.error(e); setStatus('Error loading!', 'save-err'); }
 }
 
 async function loadProgress(){
@@ -532,41 +545,6 @@ async function loadProgress(){
         item.classList.toggle('item-completed', saved.completed === 1); 
         const noteEl = item.querySelector('.note-input'); 
         if (noteEl) noteEl.value = saved.note || ''; 
-      } 
-    }); 
-    setStatus('All changes saved.', 'save-ok'); 
-  } catch (e) { 
-    console.error(e);
-    setStatus('Error loading!', 'save-err'); 
-  }
-}
-
-async function loadProgress(){
-  const userEmail = localStorage.getItem('pc_email') || '';
-  if (!userEmail) {
-    setStatus('All changes saved.', 'save-ok');
-    return;
-  }
-  
-  try { 
-    const res = await fetch(CMS_ANSWERS_WEBHOOK_URL + '?email=' + encodeURIComponent(userEmail)); 
-    if (!res.ok) { 
-      setStatus('All changes saved.', 'save-ok');
-      return; 
-    } 
-    const data = await res.json(); 
-    if (data.error) {
-      console.error(data.error);
-      setStatus('Error loading!', 'save-err');
-      return;
-    }
-    data.forEach(saved => { 
-      const item = document.querySelector('.mod-item[data-header="' + saved.header_name + '"]'); 
-      if (item) { 
-        item.querySelector('.check-input').checked = saved.completed === 1; 
-        item.classList.toggle('item-completed', saved.completed === 1); 
-        const noteEl = item.querySelector('.note-input'); 
-        if (noteEl && saved.note) noteEl.value = saved.note; 
       } 
     }); 
     setStatus('All changes saved.', 'save-ok'); 
