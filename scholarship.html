@@ -52,7 +52,7 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 <body>
 <header class="site-head"><div class="head-in wrap">
 <a class="brand" href="/">PitchCamp<span class="brand-dot">.live</span></a>
-<a href="/" class="btn small ghost">← Back to site</a>
+<a href="/" class="btn small ghost">← To PitchCamp.Live</a>
 </div></header>
 
 <main class="wrap">
@@ -166,7 +166,7 @@ document.getElementById('scholarship-form').addEventListener('submit', async fun
   try {
     const res = await fetch(WEBHOOK_URL, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify(data)
     });
     if (res.ok) {
