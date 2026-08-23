@@ -16,6 +16,25 @@ async function handleApi(request, env, ctx, url) {
   const method = request.method;
 
   // --- AUTH ---
+
+  // --- SCHOLARSHIP FORM ---
+  if (path === '/api/scholarship' && method === 'POST') {
+    const data = await request.json();
+    if (!env.SCHOLARSHIP_WEBHOOK_URL) return json({ error: 'Webhook not configured' }, 500);
+    
+    try {
+      // Forward the data to Google Sheets
+      await fetch(env.SCHOLARSHIP_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      });
+      return json({ success: true });
+    } catch (e) {
+      return json({ error: 'Failed to forward to sheet' }, 500);
+    }
+  }
+  
   if (path === '/api/signup' && method === 'POST') {
     const { name, email, password } = await request.json();
     if (!email || !password || String(password).length < 6)
