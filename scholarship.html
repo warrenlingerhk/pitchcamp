@@ -137,8 +137,6 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyMb-iy9TaxnHo2eAJNezbfvMyg5n-QdHp-49n8zcTq1-KYXH9rlvp9IpdDl1_9gFkn/exec';
-
 const form = document.getElementById('scholarship-form');
 
 // Remove the red highlight as soon as a field becomes valid
@@ -191,7 +189,7 @@ form.addEventListener('submit', async function(e) {
     submitted_at: new Date().toISOString()
   };
 
-   try {
+  try {
     const res = await fetch('/api/scholarship', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -202,10 +200,14 @@ form.addEventListener('submit', async function(e) {
       msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
       form.reset();
     } else {
-      throw new Error('Submission failed');
+      const errData = await res.json().catch(() => null);
+      throw new Error((errData && errData.error) ? errData.error : 'Submission failed');
     }
   } catch (error) {
-    msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
+    msg.innerHTML = '<div class="error">' + error.message + '<br>If this keeps happening, contact us at warrenlingerhk@gmail.com</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
   }
 });
 </script>
