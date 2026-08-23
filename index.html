@@ -30,7 +30,8 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:26px 0 70px;align-items:start}
+.admin-badge{background:var(--red);color:#fff;border-radius:999px;padding:2px 8px;font-size:.75rem;margin-left:6px;display:inline-block}
+  .layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:26px 0 70px;align-items:start}
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .layout > div{display:contents}
@@ -257,13 +258,26 @@ function renderHeader(){
   const userNumber = localStorage.getItem('pc_user_number');
   const numSuffix = (userNumber && userNumber !== 'null') ? ' ' + userNumber : '';
   if (localStorage.getItem('token')) {
-    host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin</a>' +
+    host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin<span id="admin-badge" class="admin-badge hidden"></span></a>' +
       '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
       '<button class="btn small ghost" onclick="logout()" style="background:#fff">Log out</button>';
+    loadAdminBadge();
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
       '<button class="btn small ghost" onclick="showAuth(\'login\')">Log in</button>';
   }
+}
+
+async function loadAdminBadge(){
+  const el = document.getElementById('admin-badge');
+  if (!el) return;
+  try {
+    const res = await fetch('/api/admin/notifications', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+    if (!res.ok) return;
+    const d = await res.json();
+    const total = (d.pending || 0) + (d.reports || 0);
+    if (total > 0) { el.textContent = total; el.classList.remove('hidden'); }
+  } catch (e) {}
 }
 
 function renderCourses(target){
@@ -282,16 +296,20 @@ function renderCourses(target){
     '</div>').join('');
 }
 
-function handleCourseClick(name, active){
+async function handleCourseClick(name, active){
   if (!localStorage.getItem('token')) { showAuth('login'); return; }
-  if (active && name === 'PitchCamp') { showCourse(); return; }
+  try {
+    const res = await fetch('/api/me', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+    if (res.ok) {
+      const d = await res.json();
+      localStorage.setItem('pc_is_paid', d.is_paid);
+      localStorage.setItem('pc_is_admin', d.is_admin);
+    }
+  } catch (e) {}
+  const isPaid = localStorage.getItem('pc_is_paid') === '1';
+  const isAdmin = localStorage.getItem('pc_is_admin') === '1';
+  if (active && name === 'PitchCamp' && (isPaid || isAdmin)) { showCourse(); return; }
   alert('Talk to DrWarren\'s team to get access to ' + name + '.');
-}
-function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
-function toggleOutcomes(btn) {
-  const container = btn.closest('.course-outcomes');
-  container.querySelector('.outcomes-extra').classList.toggle('hidden');
-  btn.classList.toggle('expanded');
 }
 
 async function login() {
