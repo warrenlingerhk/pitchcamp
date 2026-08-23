@@ -198,7 +198,7 @@ form.addEventListener('submit', async function(e) {
       body: JSON.stringify(data)
     });
     
-   if (res.ok) {
+    if (res.ok) {
       msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
       form.reset();
     } else {
@@ -206,9 +206,6 @@ form.addEventListener('submit', async function(e) {
     }
   } catch (error) {
     msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Submit Application';
   }
 });
 </script>
