@@ -51,7 +51,7 @@ async function handleApi(request, env, ctx, url) {
     const nextUserNumber = Math.max(101, (maxUser.max_num || 0) + 1);
     
     try {
-      await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 1, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();
+      await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 0, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();
     } catch (e) { 
       return json({ error: 'That email is already registered.' }, 409); 
     }
@@ -207,6 +207,35 @@ async function handleApi(request, env, ctx, url) {
       await env.DB.prepare('DELETE FROM likes WHERE post_id = ? AND user_id = ?').bind(post_id, userId).run();
       return json({ liked: false });
     }
+  }
+
+    // --- ME (fresh status) ---
+  if (path === '/api/me' && method === 'GET') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const user = await env.DB.prepare('SELECT name, is_paid, is_admin, user_number FROM users WHERE id = ?').bind(userId).first();
+    return json(user);
+  }
+
+  // --- APPROVALS & NOTIFICATIONS ---
+  if (path === '/api/admin/pending' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const res = await env.DB.prepare('SELECT id, name, email, user_number, created_at FROM users WHERE is_paid = 0 AND banned = 0 ORDER BY created_at ASC').all();
+    return json(res.results);
+  }
+
+  if (path === '/api/admin/approve' && method === 'POST') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const { user_id } = await request.json();
+    await env.DB.prepare('UPDATE users SET is_paid = 1 WHERE id = ?').bind(user_id).run();
+    return json({ success: true });
+  }
+
+  if (path === '/api/admin/notifications' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const pending = await env.DB.prepare('SELECT COUNT(*) as c FROM users WHERE is_paid = 0 AND banned = 0').first();
+    const reports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports WHERE resolved = 0').first();
+    return json({ pending: pending.c, reports: reports.c });
   }
 
   // --- ADMIN DASHBOARD ---
