@@ -5,171 +5,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard - PitchCamp</title>
+<title>PitchCamp — Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --gold:#D4AF37; --red:#C6472E; --green:#2E7D5B; }
+:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; }
 *{box-sizing:border-box}
-body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0}
-h1,h2,h3{font-family:'Poppins',sans-serif}
-.wrap{width:min(1150px,94%);margin-inline:auto;padding:40px 0}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
-.header h1{margin:0;font-size:2rem;color:var(--navy)}
-.btn{background:var(--navy);color:#fff;border:none;padding:10px 20px;border-radius:999px;font-weight:800;cursor:pointer;text-decoration:none;font-size:.9rem}
-.btn:hover{background:#1E2F42}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:40px}
-.stat-card{background:var(--navy);color:#fff;padding:24px;border-radius:16px;box-shadow:0 8px 24px rgba(46,65,86,.15);position:relative;overflow:hidden}
-.stat-card::after{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--gold);border-radius:0 0 0 100%;opacity:0.1}
-.stat-card h3{margin:0 0 8px;font-size:.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
-.stat-card .num{font-size:2.5rem;font-weight:800;color:#fff;margin:0;line-height:1}
-.stat-card .trend{font-size:.8rem;color:var(--gold);margin-top:10px;font-weight:700;display:flex;align-items:center;gap:4px}
-.section{background:#fff;border-radius:16px;padding:24px;margin-bottom:30px;box-shadow:0 4px 12px rgba(46,65,86,.08)}
-.section h2{margin:0 0 20px;font-size:1.4rem;color:var(--navy);border-bottom:2px solid var(--cream);padding-bottom:10px}
-table{width:100%;border-collapse:collapse}
-th{text-align:left;padding:12px;color:var(--slate);font-size:.85rem;text-transform:uppercase;border-bottom:2px solid var(--cream)}
-td{padding:12px;border-bottom:1px solid var(--cream);font-size:.95rem;color:var(--navy)}
-tr:last-child td{border-bottom:none}
-.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.75rem;font-weight:800}
-.badge-banned{background:#fee;color:var(--red)}
-.badge-active{background:#e6f4ea;color:var(--green)}
-.report-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.btn-sm{padding:6px 12px;font-size:.8rem}
-.btn-danger{background:var(--red);color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:800}
-.btn-slate{background:var(--slate);color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:800}
-.announce-box{display:flex;gap:10px;margin-bottom:20px}
-.announce-input{flex:1;padding:12px;border-radius:10px;border:2px solid var(--cream);font-family:inherit;font-size:1rem}
-.announce-input:focus{outline:none;border-color:var(--gold)}
+body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0;font-size:16px}
+h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
+.wrap{width:min(1150px,94%);margin-inline:auto}
+.site-head{position:sticky;top:0;z-index:50;background:var(--cream)}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
+.brand-dot{color:var(--orange)}
+.btn{border-radius:999px;font-weight:800;cursor:pointer;font-family:'Nunito Sans';padding:6px 16px;font-size:.85rem}
+.btn.ghost{background:#fff;border:2px solid var(--navy);color:var(--navy);text-decoration:none;display:inline-block}
+h1{font-size:1.6rem;margin:24px 0 6px}
+h2{font-size:1.2rem;margin:28px 0 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.card{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 5px 0 rgba(46,65,86,.12)}
+.card .num{font-size:1.7rem;font-weight:800;font-family:'Poppins'}
+.card .lbl{font-size:.85rem;font-weight:700;color:var(--slate)}
+.table-wrap{overflow-x:auto;background:#fff;border-radius:14px;box-shadow:0 5px 0 rgba(46,65,86,.12)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:10px 14px;text-align:left;font-size:.9rem;border-bottom:1px solid rgba(46,65,86,.08);white-space:nowrap}
+th{background:var(--navy);color:#fff;font-weight:800}
+.report{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:0 4px 0 rgba(46,65,86,.10)}
+.report .meta{font-size:.85rem;color:var(--slate);font-weight:700;margin-bottom:6px}
+.report .content{margin-bottom:10px;white-space:pre-wrap}
+.report .actions{display:flex;gap:10px;flex-wrap:wrap}
+.report .actions button{border:none;border-radius:999px;padding:6px 14px;font-weight:800;cursor:pointer;font-size:.8rem}
+.resolve{background:var(--green);color:#fff}
+.delete{background:var(--red);color:#fff}
+.resolved-tag{color:var(--green);font-weight:800}
+.empty{color:var(--slate);font-weight:700}
+@media(max-width:600px){ h1{font-size:1.3rem} th,td{padding:8px 10px} }
 </style>
 </head>
 <body>
-
-<div class="wrap">
-  <div class="header">
-    <h1>Admin Dashboard</h1>
-    <a href="/" class="btn">Back to Site</a>
+<header class="site-head">
+  <div class="head-in wrap">
+    <a class="brand" href="/">PitchCamp<span class="brand-dot">.live</span> Admin</a>
+    <a class="btn ghost" href="/">← Back to site</a>
   </div>
+</header>
 
-  <div class="section">
-    <h2>Post Announcement</h2>
-    <p style="color:var(--slate);margin-top:-15px;margin-bottom:15px">This will post to the community feed and pin it to the top automatically.</p>
-    <div class="announce-box">
-      <input type="text" id="announce-input" class="announce-input" placeholder="Type your announcement here...">
-      <button class="btn" onclick="postAnnouncement()">Post & Pin</button>
-    </div>
-  </div>
-
-  <div class="stats-grid" id="stats-grid">
-    <div class="stat-card"><h3>Total Members</h3><p class="num" id="stat-users">-</p><div class="trend">Exclusive Cohort</div></div>
-    <div class="stat-card"><h3>Active Learners</h3><p class="num" id="stat-active">-</p><div class="trend">↑ Engaged</div></div>
-    <div class="stat-card"><h3>Elite Completion</h3><p class="num" id="stat-elite">-%</p><div class="trend">Top Performers</div></div>
-    <div class="stat-card"><h3>Community Health</h3><p class="num" id="stat-health">-</p><div class="trend">Report Ratio</div></div>
-  </div>
-
-  <div class="section">
-    <h2>Recent Reports</h2>
-    <table id="reports-table">
-      <thead><tr><th>Status</th><th>Reporter</th><th>Reported User</th><th>Reason</th><th>Post Content</th><th>Actions</th></tr></thead>
-      <tbody id="reports-body"><tr><td colspan="6">Loading...</td></tr></tbody>
+<main class="wrap">
+  <h1>Admin Dashboard</h1>
+  <div class="cards" id="stats"></div>
+  <h2>Analytics</h2>
+  <div class="cards" id="analytics"></div>
+  <h2>Members</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Paid</th><th>Banned</th><th>Joined</th></tr></thead>
+      <tbody id="users-body"></tbody>
     </table>
   </div>
-
-  <div class="section">
-    <h2>All Users</h2>
-    <table id="users-table">
-      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Status</th><th>Joined</th></tr></thead>
-      <tbody id="users-body"><tr><td colspan="5">Loading...</td></tr></tbody>
-    </table>
-  </div>
-</div>
+  <h2>Reports</h2>
+  <div id="reports"></div>
+</main>
 
 <script>
 const API_URL = '';
-if (localStorage.getItem('pc_is_admin') !== '1') { window.location.href = '/'; }
+const token = localStorage.getItem('token');
 
-async function loadDashboard() {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': 'Bearer ' + token };
+// Guard: only bounce people who are NOT logged-in admins
+if (!token || localStorage.getItem('pc_is_admin') !== '1') {
+  window.location.href = '/';
+}
 
+async function api(path, opts = {}) {
+  opts.headers = Object.assign({}, opts.headers, { 'Authorization': 'Bearer ' + token });
+  if (opts.body) opts.headers['Content-Type'] = 'application/json';
+  const res = await fetch(API_URL + path, opts);
+  if (res.status === 401 || res.status === 403) { window.location.href = '/'; throw new Error('Not authorized'); }
+  if (!res.ok) throw new Error('Request failed');
+  return res.json();
+}
+
+function card(num, lbl) {
+  return '<div class="card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
+}
+
+async function loadStats() {
   try {
-    const statsRes = await fetch(API_URL + '/api/admin/analytics', { headers });
-    if (statsRes.ok) {
-      const stats = await statsRes.json();
-      document.getElementById('stat-users').innerText = stats.totalUsers;
-      document.getElementById('stat-active').innerText = stats.activeLearners;
-      document.getElementById('stat-elite').innerText = stats.eliteRate + '%';
-      document.getElementById('stat-health').innerText = stats.healthRatio;
-    }
-  } catch (e) { console.error(e); }
-
-  try {
-    const repRes = await fetch(API_URL + '/api/admin/reports', { headers });
-    if (repRes.ok) {
-      const reports = await repRes.json();
-      const tbody = document.getElementById('reports-body');
-      if (reports.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--slate)">No reports yet. Great job!</td></tr>'; } 
-      else {
-        tbody.innerHTML = reports.map(r => `
-          <tr style="${r.resolved ? 'opacity:0.5;background:#f9f9f9' : ''}">
-            <td><input type="checkbox" ${r.resolved ? 'checked' : ''} onchange="toggleReportStatus(${r.id}, this.checked)" style="width:20px;height:20px;cursor:pointer"></td>
-            <td>${r.reporter_name}</td><td>${r.reported_user_name}</td>
-            <td>${r.reason || 'No reason given'}</td>
-            <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.post_content}</td>
-            <td class="report-actions">
-              <button class="btn btn-slate btn-sm" onclick="deleteReport(${r.id})">Delete Report</button>
-              <button class="btn btn-danger btn-sm" onclick="deletePost(${r.post_id})">Delete Post</button>
-              ${!r.reported_user_is_admin ? `<button class="btn btn-danger btn-sm" onclick="banUser(${r.user_id})">Ban User</button>` : '<span style="color:var(--slate);font-size:.75rem">Admin</span>'}
-            </td>
-          </tr>
-        `).join('');
-      }
-    }
-  } catch (e) { console.error(e); }
-
-  try {
-    const userRes = await fetch(API_URL + '/api/admin/users', { headers });
-    if (userRes.ok) {
-      const users = await userRes.json();
-      document.getElementById('users-body').innerHTML = users.map(u => `
-        <tr>
-          <td>${u.user_number || '-'}</td><td>${u.name}</td><td>${u.email}</td>
-          <td>${u.banned ? '<span class="badge badge-banned">Banned</span>' : '<span class="badge badge-active">Active</span>'}</td>
-          <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : 'Founding Member'}</td>
-        </tr>
-      `).join('');
-    }
+    const s = await api('/api/admin/stats');
+    document.getElementById('stats').innerHTML =
+      card(s.users, 'Members') + card(s.posts, 'Posts') + card(s.reports, 'Reports') + card(s.mod1, 'Module 1 completed');
   } catch (e) { console.error(e); }
 }
 
-async function postAnnouncement() {
-  const input = document.getElementById('announce-input');
-  const content = input.value.trim();
-  if (!content) return;
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
-  
+async function loadAnalytics() {
   try {
-    // 1. Create the post
-    const postRes = await fetch(API_URL + '/api/posts', { method: 'POST', headers, body: JSON.stringify({ content }) });
-    const postData = await postRes.json();
-    if (postData.id) {
-      // 2. Pin it to the top
-      await fetch(API_URL + '/api/posts/pin', { method: 'POST', headers, body: JSON.stringify({ post_id: postData.id }) });
-      input.value = '';
-      alert('Announcement posted and pinned!');
-    }
-  } catch (e) { alert('Error posting announcement.'); }
+    const a = await api('/api/admin/analytics');
+    document.getElementById('analytics').innerHTML =
+      card(a.totalUsers, 'Total users') + card(a.activeLearners, 'Active learners') +
+      card(a.eliteRate + '%', 'Elite rate') + card(a.engagement, 'Engagement') + card(a.healthRatio, 'Health ratio');
+  } catch (e) { console.error(e); }
 }
 
-async function toggleReportStatus(reportId, resolved) {
-  await fetch(API_URL + '/api/admin/reports/resolve', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ report_id: reportId, resolved: resolved }) });
-  loadDashboard();
+async function loadUsers() {
+  try {
+    const users = await api('/api/admin/users');
+    document.getElementById('users-body').innerHTML = users.map(u =>
+      '<tr><td>' + (u.user_number || '') + '</td><td>' + u.name + '</td><td>' + u.email + '</td><td>' +
+      (u.is_paid ? 'Yes' : 'No') + '</td><td>' + (u.banned ? 'BANNED' : '—') + '</td><td>' +
+      (u.created_at || '').slice(0, 10) + '</td></tr>'
+    ).join('');
+  } catch (e) { console.error(e); }
 }
-async function deleteReport(reportId) { if (!confirm('Delete this report?')) return; await fetch(API_URL + '/api/admin/reports/delete', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ report_id: reportId }) }); loadDashboard(); }
-async function deletePost(postId) { if (!confirm('Delete this post?')) return; await fetch(API_URL + '/api/posts/delete', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ post_id: postId }) }); loadDashboard(); }
-async function banUser(userId) { if (!confirm('Ban this user?')) return; await fetch(API_URL + '/api/users/ban', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify({ user_id: userId }) }); loadDashboard(); }
 
-loadDashboard();
+async function loadReports() {
+  try {
+    const reports = await api('/api/admin/reports');
+    const host = document.getElementById('reports');
+    if (!reports.length) { host.innerHTML = '<p class="empty">No reports. 🎉</p>'; return; }
+    host.innerHTML = reports.map(r =>
+      '<div class="report">' +
+        '<div class="meta">Reported by ' + (r.reporter_name || 'Unknown') + ' → ' + (r.reported_user_name || 'Deleted user') +
+          ' on ' + (r.created_at || '').slice(0, 10) + (r.resolved ? ' <span class="resolved-tag">• RESOLVED</span>' : '') + '</div>' +
+        '<div class="content">' + (r.post_content || '[post deleted]') + '</div>' +
+        (r.reason ? '<div class="meta">Reason: ' + r.reason + '</div>' : '') +
+        '<div class="actions">' +
+          '<button class="resolve" onclick="resolveReport(' + r.id + ', ' + (r.resolved ? 0 : 1) + ')">' + (r.resolved ? 'Unresolve' : 'Resolve') + '</button>' +
+          '<button class="delete" onclick="deleteReport(' + r.id + ')">Delete report</button>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+  } catch (e) { console.error(e); }
+}
+
+async function resolveReport(id, resolved) {
+  await api('/api/admin/reports/resolve', { method: 'POST', body: JSON.stringify({ report_id: id, resolved: !!resolved }) });
+  loadReports();
+}
+async function deleteReport(id) {
+  if (!confirm('Delete this report? The post itself stays.')) return;
+  await api('/api/admin/reports/delete', { method: 'POST', body: JSON.stringify({ report_id: id }) });
+  loadReports();
+}
+
+loadStats();
+loadAnalytics();
+loadUsers();
+loadReports();
 </script>
 </body>
 </html>
