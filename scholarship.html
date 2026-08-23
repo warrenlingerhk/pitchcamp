@@ -43,6 +43,8 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 .submit-btn:disabled{background:var(--slate);cursor:not-allowed;transform:none}
 .success{background:var(--green);color:#fff;padding:20px;border-radius:12px;text-align:center;font-weight:700;margin:20px 0}
 .error{background:var(--red);color:#fff;padding:20px;border-radius:12px;text-align:center;font-weight:700;margin:20px 0}
+.field-error{border-color:var(--red)!important;background:#FDF1EE}
+.form-banner{background:var(--red);color:#fff;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700;margin:20px 0}
 footer{background:var(--navy);color:#fff;padding:30px 0;margin-top:60px;text-align:center;font-size:.9rem}
 footer a{color:#fff;text-decoration:none;font-weight:700}
 .footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px}
@@ -59,7 +61,7 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 <div class="hero">
 <h1>PitchCamp Scholarship</h1>
 <p>Apply for a full scholarship to PitchCamp — our intensive 3-day program that turns nervous presenters into compelling and persuasive storytellers.</p>
-<p class="meta">📅 24–26 September &nbsp;|&nbsp; 💵 Normal tuition: US$3,000</p>
+<p class="meta">📅 24–26 September &nbsp;|&nbsp; 🎓 Normal tuition: US$3,000</p>
 </div>
 
 <div class="section">
@@ -76,7 +78,7 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 
 <div class="section">
 <h2>Scholarship Application</h2>
-<form id="scholarship-form">
+<form id="scholarship-form" novalidate>
 <div class="form-group">
 <label for="name">Full Name *</label>
 <input type="text" id="name" name="name" required>
@@ -109,13 +111,13 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 </div>
 
 <h3 style="margin:30px 0 16px;color:var(--navy)">Agreement Terms</h3>
-<div class="checkbox-group"><label><input type="checkbox" id="agree1" required><span>* I confirm I am an active founder pitching investors in the next 12 months.</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree2" required><span>* I agree to fill out a quick form on my pitch skills and confidence (before & after the event).</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree3" required><span>* I agree to allow PitchCamp to share my comments to promote this event this year and in the future.</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree4" required><span>* I agree to have two short 1-on-1 calls with Dr. Warren (one screening call before, one follow-up call after).</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree5" required><span>* I agree to be contacted via Phone/WhatsApp by Dr. Warren and the PitchCamp team regarding my application and the event.</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree6" required><span>* I understand this scholarship is only open for applications through 30 August, 23:59.</span></label></div>
-<div class="checkbox-group"><label><input type="checkbox" id="agree7" required><span>* I agree to let DrWarren and his team contact me on WhatsApp.</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree1" required><span>I confirm I am an active founder pitching investors in the next 12 months. *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree2" required><span>I agree to fill out a quick form on my pitch skills and confidence (before & after the event). *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree3" required><span>I agree to allow PitchCamp to share my comments to promote this event this year and in the future. *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree4" required><span>I agree to have two short 1-on-1 calls with Dr. Warren (one screening call before, one follow-up call after). *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree5" required><span>I agree to be contacted via Phone/WhatsApp by Dr. Warren and the PitchCamp team regarding my application and the event. *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree6" required><span>I understand this scholarship is only open for applications through 30 August, 23:59. *</span></label></div>
+<div class="checkbox-group"><label><input type="checkbox" id="agree7" required><span>I agree to let DrWarren and his team contact me on WhatsApp. *</span></label></div>
 
 <button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
 <div id="form-message"></div>
@@ -137,13 +139,39 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 <script>
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby0ksFjj6ImAI3wz1FFKjEFLWLfO-k6HihEMUwF8wbO0Oy-BTvLXpjabSq38xR9c-gj/exec';
 
-document.getElementById('scholarship-form').addEventListener('submit', async function(e) {
+const form = document.getElementById('scholarship-form');
+
+// Remove the red highlight as soon as a field becomes valid
+form.querySelectorAll('input, textarea').forEach(el => {
+  const clear = () => { if (el.checkValidity()) el.classList.remove('field-error'); };
+  el.addEventListener('input', clear);
+  el.addEventListener('change', clear);
+});
+
+form.addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('form-message');
+  msg.innerHTML = '';
+
+  // Clear old highlights
+  form.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+
+  // Check EVERY field at once
+  const bad = [];
+  form.querySelectorAll('input, textarea').forEach(el => {
+    if (!el.checkValidity()) { bad.push(el); el.classList.add('field-error'); }
+  });
+
+  if (bad.length) {
+    msg.innerHTML = '<div class="form-banner">Almost there! Please complete the ' + bad.length +
+      ' highlighted field' + (bad.length > 1 ? 's' : '') + ' above.</div>';
+    bad[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = 'Submitting...';
-  msg.innerHTML = '';
 
   const data = {
     name: document.getElementById('name').value,
@@ -170,9 +198,8 @@ document.getElementById('scholarship-form').addEventListener('submit', async fun
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify(data)
     });
-
     msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
-    document.getElementById('scholarship-form').reset();
+    form.reset();
   } catch (error) {
     msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
   } finally {
