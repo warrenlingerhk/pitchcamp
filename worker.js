@@ -17,7 +17,7 @@ async function handleApi(request, env, ctx, url) {
 
   // --- AUTH ---
 
-  // --- SCHOLARSHIP FORM ---
+    // --- SCHOLARSHIP FORM ---
   if (path === '/api/scholarship' && method === 'POST') {
     const data = await request.json();
     if (!env.SCHOLARSHIP_WEBHOOK_URL) return json({ error: 'Webhook not configured' }, 500);
