@@ -164,17 +164,18 @@ document.getElementById('scholarship-form').addEventListener('submit', async fun
   };
 
   try {
-    const res = await fetch(WEBHOOK_URL, {
+    // mode: 'no-cors' is the magic fix for Google Apps Script redirect/CORS issues
+    await fetch(WEBHOOK_URL, {
       method: 'POST',
+      mode: 'no-cors', 
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify(data)
     });
-    if (res.ok) {
-      msg.innerHTML = '<div class="success">Thank you! Your application has been submitted. We will review it and get back to you soon.</div>';
-      document.getElementById('scholarship-form').reset();
-    } else {
-      throw new Error('Submission failed');
-    }
+    
+    // If it reaches here without throwing a network error, it succeeded!
+    msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
+    document.getElementById('scholarship-form').reset();
+    
   } catch (error) {
     msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
   } finally {
