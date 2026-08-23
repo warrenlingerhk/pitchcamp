@@ -48,7 +48,7 @@ async function handleApi(request, env, ctx, url) {
     
     const hash = await hashPassword(password);
     const maxUser = await env.DB.prepare('SELECT MAX(user_number) as max_num FROM users').first();
-    const nextUserNumber = (maxUser.max_num || 0) + 1;
+    const nextUserNumber = Math.max(100, (maxUser.max_num || 0) + 1);
     
     try {
       await env.DB.prepare("INSERT INTO users (email, password, name, is_paid, user_number, created_at) VALUES (?, ?, ?, 1, ?, datetime('now'))").bind(email.toLowerCase(), hash, name, nextUserNumber).run();
