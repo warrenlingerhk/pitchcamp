@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PitchCamp Scholarship Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; --tan:#E8DCC4; }
+*{box-sizing:border-box} body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0;font-size:16px;line-height:1.7}
+h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
+.wrap{width:min(900px,92%);margin-inline:auto}
+.site-head{background:var(--cream);position:sticky;top:0;z-index:50}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
+.brand{font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
+.brand-dot{color:var(--orange)}
+.btn{border-radius:999px;font-weight:800;cursor:pointer;font-family:'Nunito Sans'}
+.btn.small{padding:6px 16px;font-size:.85rem}
+.btn.ghost{background:#fff;border:2px solid var(--navy);color:var(--navy);text-decoration:none}
+.hero{background:linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);color:#fff;padding:60px 30px;text-align:center;border-radius:18px;margin:30px 0}
+.hero h1{font-size:2.5rem;margin:0 0 12px}
+.hero p{font-size:1.2rem;max-width:700px;margin:0 auto}
+.section{background:#fff;border-radius:18px;padding:30px;margin:30px 0;box-shadow:0 5px 0 rgba(46,65,86,.12)}
+.section h2{color:var(--orange);font-size:1.5rem;margin:0 0 16px;border-bottom:3px solid var(--navy);padding-bottom:8px}
+.benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:20px 0}
+.benefit{background:var(--cream);padding:16px;border-radius:12px;border-left:4px solid var(--orange)}
+.benefit h3{margin:0 0 8px;font-size:1.1rem;color:var(--navy)}
+.benefit ul{margin:8px 0 0;padding-left:18px}
+.benefit li{margin-bottom:6px}
+.form-group{margin-bottom:24px}
+.form-group label{display:block;font-weight:700;margin-bottom:8px;font-size:1.05rem}
+.form-group input[type="text"],.form-group input[type="email"],.form-group textarea{width:100%;padding:12px;border:2px solid var(--slate);border-radius:10px;font:inherit;font-size:1rem}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--orange)}
+.form-group textarea{min-height:100px;resize:vertical}
+.checkbox-group{margin-bottom:20px}
+.checkbox-group label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-weight:600;line-height:1.5}
+.checkbox-group input[type="checkbox"]{width:20px;height:20px;margin-top:3px;accent-color:var(--orange);flex-shrink:0}
+.submit-btn{background:var(--orange);color:#fff;border:none;padding:16px 40px;font-size:1.1rem;font-weight:800;border-radius:999px;cursor:pointer;box-shadow:0 4px 0 rgba(46,65,86,.25);margin-top:20px}
+.submit-btn:hover{background:#C96A28;transform:translateY(-2px)}
+.submit-btn:disabled{background:var(--slate);cursor:not-allowed;transform:none}
+.success{background:var(--green);color:#fff;padding:20px;border-radius:12px;text-align:center;font-weight:700;margin:20px 0}
+.error{background:var(--red);color:#fff;padding:20px;border-radius:12px;text-align:center;font-weight:700;margin:20px 0}
+footer{background:var(--navy);color:#fff;padding:30px 0;margin-top:60px;text-align:center;font-size:.9rem}
+footer a{color:#fff;text-decoration:none;font-weight:700}
+.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:600px){.hero h1{font-size:1.8rem}.hero{padding:40px 20px}.section{padding:20px}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="head-in wrap">
+<a class="brand" href="/">PitchCamp<span class="brand-dot">.live</span></a>
+<a href="/" class="btn small ghost">← Back to site</a>
+</div></header>
+
+<main class="wrap">
+<div class="hero">
+<h1>PitchCamp Scholarship</h1>
+<p>Apply for a full scholarship to PitchCamp — our intensive 3-day program that turns nervous presenters into compelling storytellers.</p>
+</div>
+
+<div class="section">
+<h2>What You'll Learn</h2>
+<div class="benefits">
+<div class="benefit">
+<h3>Module 1: Awaken Your Inner Storyteller</h3>
+<ul>
+<li>Forge connections with fellow founders</li>
+<li>Build compelling narratives</li>
+<li>Benchmark your pitch with live feedback</li>
+</ul>
+</div>
+<div class="benefit">
+<h3>Module 2: Unleash Your Inner Storyteller</h3>
+<ul>
+<li>Craft your one-sentence killer message</li>
+<li>Master audience adaptation</li>
+<li>Build compelling story arcs</li>
+</ul>
+</div>
+<div class="benefit">
+<h3>Module 3: Refine & Conquer</h3>
+<ul>
+<li>Sharpen your delivery with expert feedback</li>
+<li>Master frame control</li>
+<li>Keep listeners engaged with social dynamics</li>
+</ul>
+</div>
+<div class="benefit">
+<h3>Module 4: Visual Storytelling & Q&A</h3>
+<ul>
+<li>Create impactful credibility stories</li>
+<li>Handle tough questions with confidence</li>
+<li>Polish your pitch to perfection</li>
+</ul>
+</div>
+<div class="benefit">
+<h3>Module 5: Launch & Lead</h3>
+<ul>
+<li>Create your personalized action plan</li>
+<li>Final pitch preparation</li>
+<li>Preliminary rounds with peer feedback</li>
+</ul>
+</div>
+<div class="benefit">
+<h3>Module 6: Final Showcase</h3>
+<ul>
+<li>Deliver your refined pitch to real investors</li>
+<li>Celebrate your accomplishments</li>
+<li>Connect with fellow founders</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>Scholarship Application</h2>
+<form id="scholarship-form">
+<div class="form-group">
+<label for="name">Full Name *</label>
+<input type="text" id="name" name="name" required>
+</div>
+
+<div class="form-group">
+<label for="email">Email Address *</label>
+<input type="email" id="email" name="email" required>
+</div>
+
+<div class="form-group">
+<label for="company">Company/Startup Name *</label>
+<input type="text" id="company" name="company" required>
+</div>
+
+<h3 style="margin:30px 0 16px;color:var(--navy)">Tell Us Why You Should Win</h3>
+
+<div class="form-group">
+<label for="q1">1. What is the biggest challenge you face when pitching your startup to investors? *</label>
+<textarea id="q1" name="q1" required></textarea>
+</div>
+
+<div class="form-group">
+<label for="q2">2. How will winning this scholarship impact your ability to grow your business in the next 12 months? *</label>
+<textarea id="q2" name="q2" required></textarea>
+</div>
+
+<div class="form-group">
+<label for="q3">3. What specific skills do you hope to develop during PitchCamp that will help you become a better communicator? *</label>
+<textarea id="q3" name="q3" required></textarea>
+</div>
+
+<h3 style="margin:30px 0 16px;color:var(--navy)">Agreement Terms</h3>
+
+<div class="checkbox-group">
+<label>
+<input type="checkbox" id="agree1" required>
+<span>I confirm I am an active founder pitching investors in the next 12 months.</span>
+</label>
+</div>
+
+<div class="checkbox-group">
+<label>
+<input type="checkbox" id="agree2" required>
+<span>I agree to fill out a quick form on my pitch skills and confidence (before & after the event).</span>
+</label>
+</div>
+
+<div class="checkbox-group">
+<label>
+<input type="checkbox" id="agree3" required>
+<span>I agree to allow PitchCamp to share my comments to promote this event this year and in the future.</span>
+</label>
+</div>
+
+<div class="checkbox-group">
+<label>
+<input type="checkbox" id="agree4" required>
+<span>I agree to have two short 1-on-1 calls with Dr. Warren (one screening call before, one follow-up call after).</span>
+</label>
+</div>
+
+<button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
+<div id="form-message"></div>
+</form>
+</div>
+</main>
+
+<footer>
+<p>©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
+<div class="footer-links">
+<a href="/about.html" target="_blank" rel="noopener">About</a>
+<a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+<a href="/terms.html" target="_blank" rel="noopener">Terms & Conditions</a>
+<a href="/data-protection.html" target="_blank" rel="noopener">Data Protection Policy</a>
+<a href="/earnings-disclaimer.html" target="_blank" rel="noopener">Earnings Disclaimer</a>
+</div>
+</footer>
+
+<script>
+const WEBHOOK_URL = 'YOUR_APPS_SCRIPT_WEBHOOK_URL_HERE';
+
+document.getElementById('scholarship-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-message');
+  
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  msg.innerHTML = '';
+  
+  const data = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    company: document.getElementById('company').value,
+    q1: document.getElementById('q1').value,
+    q2: document.getElementById('q2').value,
+    q3: document.getElementById('q3').value,
+    agree1: document.getElementById('agree1').checked,
+    agree2: document.getElementById('agree2').checked,
+    agree3: document.getElementById('agree3').checked,
+    agree4: document.getElementById('agree4').checked,
+    submitted_at: new Date().toISOString()
+  };
+  
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    
+    if (res.ok) {
+      msg.innerHTML = '<div class="success">Thank you! Your application has been submitted. We will review it and get back to you soon.</div>';
+      document.getElementById('scholarship-form').reset();
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch (error) {
+    msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
+  }
+});
+</script>
+</body>
+</html>
