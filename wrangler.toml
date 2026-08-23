@@ -14,4 +14,4 @@ database_id = "83a2a916-1973-43dc-b7f9-250df9a77e5c"
 
 [vars]
 GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyFrxXjx17MfUkoe4DiCCQ9S04HVv-6C0zwBAyHFdxzbJoxfjCvJaWyA8yJDLzUbEcc/exec"
-SCHOLARSHIP_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyMb-iy9TaxnHo2eAJNezbfvMyg5n-QdHp-49n8zcTq1-KYXH9rlvp9IpdDl1_9gFkn/exec"
+SCHOLARSHIP_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbz1lfqCxAl_RlJnYeRj3-ZHXnJ70iqX3F_XSMO1VwewSuICCA-J5Tijl1fJuCw1Ilgi_A/exec"
