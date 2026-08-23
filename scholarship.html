@@ -87,7 +87,7 @@ footer a{color:#fff;text-decoration:none;font-weight:700}
 </div>
 <div class="form-group">
 <label for="phone">Phone / WhatsApp Number * <span style="font-weight:400;color:var(--slate);font-size:.9rem">(include country code, e.g. +852)</span></label>
-<input type="tel" id="phone" name="phone" pattern="\+?[0-9\s\-()]{7,20}" required placeholder="+1 555 123 4567">
+<input type="tel" id="phone" name="phone" pattern="\+?[0-9\s\-\(\)]{7,20}" required placeholder="+1 555 123 4567">
 </div>
 <div class="form-group">
 <label for="company">Company/Startup Name *</label>
@@ -164,18 +164,15 @@ document.getElementById('scholarship-form').addEventListener('submit', async fun
   };
 
   try {
-    // mode: 'no-cors' is the magic fix for Google Apps Script redirect/CORS issues
     await fetch(WEBHOOK_URL, {
       method: 'POST',
-      mode: 'no-cors', 
+      mode: 'no-cors',
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify(data)
     });
-    
-    // If it reaches here without throwing a network error, it succeeded!
+
     msg.innerHTML = '<div class="success">Thank you for your application.<br>DrWarren\'s team will contact you shortly.</div>';
     document.getElementById('scholarship-form').reset();
-    
   } catch (error) {
     msg.innerHTML = '<div class="error">Something went wrong. Please try again or contact us at warrenlingerhk@gmail.com</div>';
   } finally {
