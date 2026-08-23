@@ -495,26 +495,57 @@ async function saveProgress(){
     const noteEl = item.querySelector('.note-input'); 
     progress.push({ 
       item_id: item.dataset.id, 
-      header_name: item.dataset.header,
       completed: item.querySelector('.check-input').checked ? 1 : 0, 
       note: noteEl ? noteEl.value : '' 
     }); 
   });
-  
-  const userEmail = localStorage.getItem('pc_email') || '';
-  const userName = localStorage.getItem('pc_name') || '';
-  const userNumber = localStorage.getItem('pc_user_number') || '';
 
   try { 
-    await fetch(CMS_ANSWERS_WEBHOOK_URL, { 
+    const res = await fetch('/api/progress', { 
       method:'POST', 
-      headers:{'Content-Type':'text/plain;charset=utf-8'}, 
-      body: JSON.stringify({ email: userEmail, name: userName, user_number: userNumber, progress: progress }) 
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }, 
+      body: JSON.stringify({ progress }) 
+    }); 
+    
+    if (res.ok) {
+      setStatus('All changes saved.', 'save-ok'); 
+    } else {
+      setStatus('Error saving!', 'save-err'); 
+    }
+  } catch (e) { 
+    console.error(e);
+    setStatus('Error saving!', 'save-err'); 
+  }
+}
+
+async function loadProgress(){
+  try { 
+    const res = await fetch('/api/progress', { 
+      headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} 
+    }); 
+    
+    if (!res.ok) { 
+      setStatus('All changes saved.', 'save-ok');
+      return; 
+    } 
+    
+    const data = await res.json(); 
+    data.forEach(saved => { 
+      const item = document.querySelector('.mod-item[data-id="' + saved.item_id + '"]'); 
+      if (item) { 
+        item.querySelector('.check-input').checked = saved.completed === 1; 
+        item.classList.toggle('item-completed', saved.completed === 1); 
+        const noteEl = item.querySelector('.note-input'); 
+        if (noteEl) noteEl.value = saved.note || ''; 
+      } 
     }); 
     setStatus('All changes saved.', 'save-ok'); 
   } catch (e) { 
     console.error(e);
-    setStatus('Error saving!', 'save-err'); 
+    setStatus('Error loading!', 'save-err'); 
   }
 }
 
