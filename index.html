@@ -459,8 +459,9 @@ function renderCourse(){
         contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => b.trim()).filter(b => b).map(b => '<li>' + b + '</li>').join('') + '</ul></div>';
       } else if (item.format === 'bold') {
         contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
-      } else if (item.format === 'input_box') {
-        contentHtml = '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
+     } else if (item.format === 'input_box') {
+        contentHtml = (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
+      }
       } else {
         contentHtml = item.content ? '<div class="mod-content">' + item.content + '</div>' : '';
       }
