@@ -147,6 +147,22 @@ h1,h2,h3,h4,.brand,.stat strong{font-family:'Poppins',sans-serif}
     </div>
   </div>
 </footer>
-
+<script>
+(function(){
+  var btns = document.querySelectorAll('.site-head .btn, header .btn');
+  if (!btns.length) return;
+  var host = document.getElementById('head-actions') || btns[0].parentElement;
+  if (!host || host.querySelector('.brand')) return;
+  var token = localStorage.getItem('token');
+  var name = localStorage.getItem('pc_name') || 'Student';
+  if (token) {
+    host.innerHTML =
+      '<span style="background:#fff;border:2px solid #2E4156;border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800">' + name + '</span>' +
+      '<a href="/" class="btn small ghost" style="background:#fff;text-decoration:none">Back to site</a>';
+  } else {
+    host.innerHTML = '<a href="/" class="btn small ghost" style="background:#fff;text-decoration:none">Back to site</a>';
+  }
+})();
+</script>
 </body>
 </html>
