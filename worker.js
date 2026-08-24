@@ -228,6 +228,7 @@ async function handleApi(request, env, ctx, url) {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
     const { user_id } = await request.json();
     await env.DB.prepare('UPDATE users SET is_paid = 1 WHERE id = ?').bind(user_id).run();
+    await env.DB.prepare('INSERT OR IGNORE INTO offer_access (user_id, offer) VALUES (?, ?)').bind(user_id, 'PitchCamp').run();
     return json({ success: true });
   }
 
@@ -237,6 +238,41 @@ async function handleApi(request, env, ctx, url) {
     const reports = await env.DB.prepare('SELECT COUNT(*) as c FROM reports WHERE resolved = 0').first();
     return json({ pending: pending.c, reports: reports.c });
   }
+
+  // --- MY OFFER ACCESS ---
+  if (path === '/api/my-offers' && method === 'GET') {
+    const userId = await auth(request, env);
+    if (!userId) return json({ error: 'Please log in.' }, 401);
+    const res = await env.DB.prepare('SELECT offer FROM offer_access WHERE user_id = ?').bind(userId).all();
+    return json(res.results.map(r => r.offer));
+  }
+
+  // --- ADMIN: OFFER ACCESS & ADMIN STATUS ---
+  if (path === '/api/admin/access' && method === 'GET') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const res = await env.DB.prepare('SELECT user_id, offer FROM offer_access').all();
+    return json(res.results);
+  }
+
+  if (path === '/api/admin/access' && method === 'POST') {
+    if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
+    const { user_id, offer, granted } = await request.json();
+    if (granted) {
+      await env.DB.prepare('INSERT OR IGNORE INTO offer_access (user_id, offer) VALUES (?, ?)').bind(user_id, offer).run();
+    } else {
+      await env.DB.prepare('DELETE FROM offer_access WHERE user_id = ? AND offer = ?').bind(user_id, offer).run();
+    }
+    return json({ success: true });
+  }
+
+  if (path === '/api/admin/set-admin' && method === 'POST') {
+    const adminId = await requireAdmin(request, env);
+    if (!adminId) return json({ error: 'Forbidden' }, 403);
+    const { user_id, is_admin } = await request.json();
+    if (Number(user_id) === Number(adminId) && !is_admin) return json({ error: 'You cannot remove your own admin status.' }, 400);
+    await env.DB.prepare('UPDATE users SET is_admin = ? WHERE id = ?').bind(is_admin ? 1 : 0, user_id).run();
+    return json({ success: true });
+  }  
 
   // --- ADMIN DASHBOARD ---
   if (path === '/api/admin/stats' && method === 'GET') {
