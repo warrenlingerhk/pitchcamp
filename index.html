@@ -10,7 +10,7 @@
 <link rel="manifest" href="/site.webmanifest" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PitchCamp — Master Your Skills With Experts</title>
+<title>PitchCamp — Master New Skills From Expert Teachers</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,19 +31,11 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .btn.cta{background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 4px 0 rgba(46,65,86,.25)}
 .name-chip{background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:800;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .admin-badge{background:var(--red);color:#fff;border-radius:999px;padding:2px 8px;font-size:.75rem;margin-left:6px;display:inline-block}
-  .layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:26px 0 70px;align-items:start}
-@media(max-width:900px){
-  .layout{grid-template-columns:1fr}
-  .layout > div{display:contents}
-  .hero{order:1}
-  .rail{order:2}
-  #community-section,#community-login-prompt{order:3}
-}
+.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:26px 0 70px;align-items:start}
 .card{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(46,65,86,.10)}
 .hero{overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr}
 .hero-media{background:linear-gradient(135deg, #F2B33D 0%, #E07A2F 100%); width:100%; height:100%;}
 .hero-copy{padding:34px 30px 28px}
-@media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
 .hero h1{font-size:clamp(1.5rem,3.8vw,2.3rem);font-weight:800;line-height:1.2;margin:0}
 .hl-orange{color:var(--orange)}
 .hero-bullets{list-style:none;padding:0;margin:16px 0 0}
@@ -90,7 +82,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .module-menu a:hover{background:rgba(255,255,255,.15)}
 .back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px} .back-home:hover{opacity:.85}
 .save-status{color:var(--yellow); font-weight:800; font-size:1rem; margin-left:12px} .save-warn{color:var(--orange)} .save-err{color:var(--red)}
-@media(max-width:700px){.module-menu{top:63px; padding:8px 12px} .module-menu a{font-size:.85rem; padding:5px 10px} .save-status{display:none}}
 .module-section{padding:60px 0; border-bottom:4px solid var(--navy)}
 .bg-mod-1{background:var(--yellow); color:var(--navy)} .bg-mod-2{background:var(--orange); color:#fff} .bg-mod-3{background:var(--red); color:#fff}
 .bg-mod-4{background:var(--navy); color:#fff} .bg-mod-5{background:var(--slate); color:#fff} .bg-mod-6{background:var(--tan); color:var(--navy)}
@@ -105,6 +96,15 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .modal-overlay{position:fixed;inset:0;background:rgba(46,65,86,.6);z-index:100;display:grid;place-items:center;padding:20px}
 .modal-box{background:#fff;border-radius:18px;padding:32px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)} .modal-box h3{margin:0 0 12px;font-size:1.4rem} .modal-box p{margin:0 0 20px;color:var(--slate);font-weight:700} .modal-close{padding:10px 28px;border-radius:999px;border:none;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}
 .page-btn{padding:8px 16px;border:2px solid var(--slate);background:#fff;border-radius:8px;cursor:pointer;font-weight:700;font-size:.9rem;transition:all .2s;} .page-btn:hover:not([disabled]){background:var(--cream);border-color:var(--navy);} .page-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);} .page-btn[disabled]{cursor:not-allowed;opacity:.3;}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .layout > div{display:contents}
+  .hero{order:1}
+  .rail{order:2}
+  #community-section,#community-login-prompt{order:3}
+}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
+@media(max-width:700px){.module-menu{top:63px; padding:8px 12px} .module-menu a{font-size:.85rem; padding:5px 10px} .save-status{display:none}}
 </style>
 </head>
 <body>
@@ -124,7 +124,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
     <div>
       <section class="hero card">
         <div class="hero-copy">
-          <h1>Master Your Skills<br><span class="hl-orange">With Experts</span></h1>
+          <h1>Master New Skills<br><span class="hl-orange">With Experts</span></h1>
           <ul class="hero-bullets">
             <li>Build your Confidence.</li>
             <li>Pitch with Clarity.</li>
@@ -218,11 +218,11 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   <div class="wrap">
     <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700;">
-      <a href="/about.html" target="_blank" rel="noopener" style="color:#fff; text-decoration:none;">About</a>
-      <a href="/privacy.html" target="_blank" rel="noopener" style="color:#fff; text-decoration:none;">Privacy Policy</a>
-      <a href="/terms.html" target="_blank" rel="noopener" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
-      <a href="/data-protection.html" target="_blank" rel="noopener" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
-      <a href="/earnings-disclaimer.html" target="_blank" rel="noopener" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
+      <a href="/about.html" style="color:#fff; text-decoration:none;">About</a>
+      <a href="/privacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
+      <a href="/data-protection.html" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
+      <a href="/earnings-disclaimer.html" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
     </div>
   </div>
 </footer>
@@ -258,10 +258,11 @@ function renderHeader(){
   const userNumber = localStorage.getItem('pc_user_number');
   const numSuffix = (userNumber && userNumber !== 'null') ? ' ' + userNumber : '';
   if (localStorage.getItem('token')) {
-    host.innerHTML = '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin<span id="admin-badge" class="admin-badge hidden"></span></a>' +
+    const isAdmin = localStorage.getItem('pc_is_admin') === '1';
+    host.innerHTML = (isAdmin ? '<a href="/admin.html" class="btn small ghost" style="text-decoration:none;background:#fff">Admin<span id="admin-badge" class="admin-badge hidden"></span></a>' : '') +
       '<span class="name-chip" title="' + (name||'') + '">' + (name || 'Student') + numSuffix + '</span>' +
       '<button class="btn small ghost" onclick="logout()" style="background:#fff">Log out</button>';
-    loadAdminBadge();
+    if (isAdmin) loadAdminBadge();
   } else {
     host.innerHTML = '<button class="btn small cta" onclick="showAuth(\'signup\')">Sign Up</button>' +
       '<button class="btn small ghost" onclick="showAuth(\'login\')">Log in</button>';
@@ -296,21 +297,26 @@ function renderCourses(target){
     '</div>').join('');
 }
 
+function toggleOutcomes(btn) {
+  const container = btn.closest('.course-outcomes');
+  container.querySelector('.outcomes-extra').classList.toggle('hidden');
+  btn.classList.toggle('expanded');
+}
+
 async function handleCourseClick(name, active){
   if (!localStorage.getItem('token')) { showAuth('login'); return; }
-  try {
-    const res = await fetch('/api/me', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
-    if (res.ok) {
-      const d = await res.json();
-      localStorage.setItem('pc_is_paid', d.is_paid);
-      localStorage.setItem('pc_is_admin', d.is_admin);
-    }
-  } catch (e) {}
-  const isPaid = localStorage.getItem('pc_is_paid') === '1';
   const isAdmin = localStorage.getItem('pc_is_admin') === '1';
-  if (active && name === 'PitchCamp' && (isPaid || isAdmin)) { showCourse(); return; }
+  let hasAccess = isAdmin;
+  if (!hasAccess) {
+    try {
+      const res = await fetch('/api/my-offers', { headers:{'Authorization':'Bearer ' + localStorage.getItem('token')} });
+      if (res.ok) hasAccess = (await res.json()).includes(name);
+    } catch (e) {}
+  }
+  if (active && hasAccess && name === 'PitchCamp') { showCourse(); return; }
   alert('Talk to DrWarren\'s team to get access to ' + name + '.');
 }
+function closeModal(e){ if (e.target.id === 'access-modal') e.target.classList.add('hidden'); }
 
 async function login() {
   const errEl = document.getElementById('login-error'); errEl.innerText = '';
@@ -482,11 +488,11 @@ function renderCourse(){
       if (item.format === 'bullets') {
         contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => b.trim()).filter(b => b).map(b => '<li>' + b + '</li>').join('') + '</ul></div>';
       } else if (item.format === 'bold') {
-          contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
-        } else if (item.format === 'input_box') {
-          contentHtml = (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
-        } else {
-          contentHtml = item.content ? '<div class="mod-content">' + item.content + '</div>' : '';
+        contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
+      } else if (item.format === 'input_box') {
+        contentHtml = (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
+      } else {
+        contentHtml = item.content ? '<div class="mod-content">' + item.content + '</div>' : '';
       }
       
       div.innerHTML = '<input type="checkbox" class="check-input"><div style="flex:1"><h3 class="item-title">' + item.title + '</h3>' + contentHtml + '</div>';
