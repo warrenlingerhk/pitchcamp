@@ -30,6 +30,7 @@ h2{font-size:1.2rem;margin:28px 0 12px}
 table{width:100%;border-collapse:collapse;min-width:640px}
 th,td{padding:10px 14px;text-align:left;font-size:.9rem;border-bottom:1px solid rgba(46,65,86,.08);white-space:nowrap}
 th{background:var(--navy);color:#fff;font-weight:800}
+td input[type="checkbox"]{width:18px;height:18px;accent-color:var(--orange);cursor:pointer}
 .report{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:0 4px 0 rgba(46,65,86,.10)}
 .report .meta{font-size:.85rem;color:var(--slate);font-weight:700;margin-bottom:6px}
 .report .content{margin-bottom:10px;white-space:pre-wrap}
@@ -57,10 +58,10 @@ th{background:var(--navy);color:#fff;font-weight:800}
   <div id="pending"></div>
   <h2>Analytics</h2>
   <div class="cards" id="analytics"></div>
-  <h2>Members</h2>
+  <h2>Members (Admin + Offer Access)</h2>
   <div class="table-wrap">
-    <table>
-      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Paid</th><th>Banned</th><th>Joined</th></tr></thead>
+    <table id="users-table">
+      <thead></thead>
       <tbody id="users-body"></tbody>
     </table>
   </div>
@@ -70,23 +71,54 @@ th{background:var(--navy);color:#fff;font-weight:800}
 
 <script>
 const API_URL = '';
+const CMS_OFFERS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNbO7bdDtfEM8sKjPtefHp1I3aauVYhkHlr4ke59phYV2UEjL5dluBhWyydZ1-NmT8SOfzTDSjTOYZ/pub?gid=0&single=true&output=csv';
 const token = localStorage.getItem('token');
 
 if (!token || localStorage.getItem('pc_is_admin') !== '1') {
   window.location.href = '/';
 }
 
+let OFFER_NAMES = [];
+
 async function api(path, opts = {}) {
   opts.headers = Object.assign({}, opts.headers, { 'Authorization': 'Bearer ' + token });
   if (opts.body) opts.headers['Content-Type'] = 'application/json';
   const res = await fetch(API_URL + path, opts);
   if (res.status === 401 || res.status === 403) { window.location.href = '/'; throw new Error('Not authorized'); }
-  if (!res.ok) throw new Error('Request failed');
+  if (!res.ok) {
+    let msg = 'Request failed';
+    try { const d = await res.json(); if (d && d.error) msg = d.error; } catch (e) {}
+    throw new Error(msg);
+  }
   return res.json();
 }
 
 function card(num, lbl) {
   return '<div class="card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
+}
+
+async function parseCSV(text) {
+  const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === '"') { inQuotes = !inQuotes; }
+    else if (char === ',' && !inQuotes) { currentRow.push(currentCell); currentCell = ''; }
+    else if ((char === '\n' || char === '\r') && !inQuotes) { if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); } currentRow = []; currentCell = ''; if (char === '\r' && text[i+1] === '\n') i++; }
+    else { currentCell += char; }
+  }
+  if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); }
+  return rows;
+}
+
+async function loadOfferNames() {
+  try {
+    const text = await (await fetch(CMS_OFFERS_URL)).text();
+    const rows = await parseCSV(text);
+    OFFER_NAMES = [];
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][0] && rows[i][0].trim()) OFFER_NAMES.push(rows[i][0].trim());
+    }
+  } catch (e) { OFFER_NAMES = ['PitchCamp']; }
 }
 
 async function loadStats() {
@@ -127,13 +159,40 @@ async function loadAnalytics() {
 
 async function loadUsers() {
   try {
-    const users = await api('/api/admin/users');
-    document.getElementById('users-body').innerHTML = users.map(u =>
-      '<tr><td>' + (u.user_number || '') + '</td><td>' + u.name + '</td><td>' + u.email + '</td><td>' +
-      (u.is_paid ? 'Yes' : 'No') + '</td><td>' + (u.banned ? 'BANNED' : '—') + '</td><td>' +
-      (u.created_at || '').slice(0, 10) + '</td></tr>'
-    ).join('');
+    const results = await Promise.all([api('/api/admin/users'), api('/api/admin/access')]);
+    const users = results[0];
+    const accessRows = results[1];
+    const access = {};
+    accessRows.forEach(r => { (access[r.user_id] = access[r.user_id] || []).push(r.offer); });
+
+    document.querySelector('#users-table thead').innerHTML =
+      '<tr><th>#</th><th>Name</th><th>Email</th><th>Admin</th><th>Paid</th><th>Joined</th>' +
+      OFFER_NAMES.map(o => '<th>' + o + '</th>').join('') + '</tr>';
+
+    document.getElementById('users-body').innerHTML = users.map(u => {
+      const my = access[u.id] || [];
+      return '<tr><td>' + (u.user_number || '') + '</td><td>' + u.name + '</td><td>' + u.email + '</td>' +
+        '<td><input type="checkbox" ' + (u.is_admin ? 'checked' : '') + ' onchange="setAdmin(' + u.id + ', this.checked)"></td>' +
+        '<td>' + (u.is_paid ? 'Yes' : 'No') + '</td>' +
+        '<td>' + (u.created_at || '').slice(0, 10) + '</td>' +
+        OFFER_NAMES.map(o => '<td><input type="checkbox" ' + (my.indexOf(o) !== -1 ? 'checked' : '') + ' onchange="setAccess(' + u.id + ',\'' + o + '\', this.checked)"></td>').join('') +
+        '</tr>';
+    }).join('');
   } catch (e) { console.error(e); }
+}
+
+async function setAdmin(id, on) {
+  try {
+    await api('/api/admin/set-admin', { method: 'POST', body: JSON.stringify({ user_id: id, is_admin: on }) });
+  } catch (e) { alert(e.message); }
+  loadUsers();
+}
+
+async function setAccess(id, offer, on) {
+  try {
+    await api('/api/admin/access', { method: 'POST', body: JSON.stringify({ user_id: id, offer: offer, granted: on }) });
+  } catch (e) { alert(e.message); }
+  loadUsers();
 }
 
 async function loadReports() {
@@ -166,11 +225,13 @@ async function deleteReport(id) {
   loadReports();
 }
 
-loadStats();
-loadPending();
-loadAnalytics();
-loadUsers();
-loadReports();
+loadOfferNames().then(function(){
+  loadStats();
+  loadPending();
+  loadAnalytics();
+  loadUsers();
+  loadReports();
+});
 </script>
 </body>
 </html>
