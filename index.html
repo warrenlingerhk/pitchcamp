@@ -54,6 +54,17 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 @keyframes fadeSlide{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 .expand-btn{background:none;border:none;cursor:pointer;color:inherit;padding:6px 10px;margin-left:-6px;display:flex;align-items:center;gap:4px;font-weight:800;font-size:.9rem}
 .expand-btn:hover{opacity:.8} .expand-btn svg{transition:transform .3s ease} .expand-btn.expanded svg{transform:rotate(180deg)}
+.pkg-block{margin-top:14px}
+.pkg-block h4{margin:0 0 8px;font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.pkg{margin-bottom:8px;background:rgba(255,255,255,.14);border-radius:10px;overflow:hidden}
+.pkg-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:none;border:none;cursor:pointer;color:inherit;font:inherit;font-weight:800;padding:10px 14px}
+.pkg-btn:hover{background:rgba(255,255,255,.12)}
+.pkg-btn svg{transition:transform .3s;flex-shrink:0}
+.pkg-btn.expanded svg{transform:rotate(180deg)}
+.pkg-items{padding:4px 14px 10px;background:rgba(255,255,255,.92);color:var(--navy)}
+.pkg-item{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed rgba(46,65,86,.25);font-size:.95rem;font-weight:600}
+.pkg-item:last-child{border-bottom:none}
+.pkg-total{font-weight:800}
 .c1{background:var(--yellow);color:var(--navy)} .c2{background:#EC9A38} .c3{background:var(--orange)} .c4{background:#D65F2C} .c5{background:var(--red)}
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
@@ -232,12 +243,14 @@ const API_URL = '';
 // --- GOOGLE SHEETS CMS LINKS (READ-ONLY) ---
 const CMS_OFFERS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNbO7bdDtfEM8sKjPtefHp1I3aauVYhkHlr4ke59phYV2UEjL5dluBhWyydZ1-NmT8SOfzTDSjTOYZ/pub?gid=0&single=true&output=csv';
 const CMS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRTag9HJby281lhVS8nVn_vH_YKRUp7Vu5rIRlICUxzp031OO_uEVevBQNHoMlgu841NzaOt3J6RlBf/pub?gid=0&single=true&output=csv';
-// -------------------------------------------
+const CMS_PACKAGES_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxXLgphiwpR2WsRmZgVHdyb5P9CK3xv-JtgmqOm1KdAPhC49uetn8sWG6xRWdZhnyTX1UQbnQ4drr5/pub?gid=1441853541&single=true&output=csv';
+  // -------------------------------------------
 
 let saveTimeout;
 let currentPage = 1;
 let totalPages = 1;
 let COURSES = []; 
+let PACKAGES = {};
 let COURSE_DATA = []; 
 
 function hideAllViews() { ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v => document.getElementById(v).classList.add('hidden')); }
@@ -285,16 +298,68 @@ function renderCourses(target){
   const hostId = target === 'home' ? 'course-list-home' : 'course-list-module';
   const host = document.getElementById(hostId);
   if (!host || COURSES.length === 0) return;
-  host.innerHTML = COURSES.map(c =>
-    '<div class="course c' + c.tone + '">' +
+  host.innerHTML = COURSES.map(c => {
+    const pkgs = PACKAGES[c.name] || [];
+    let pkgHtml = '';
+    if (pkgs.length) {
+      pkgHtml = '<div class="pkg-block"><h4>Benefit Packages</h4>' + pkgs.map(p =>
+        '<div class="pkg">' +
+          '<button class="pkg-btn" onclick="togglePackage(this)">' + p.name +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+          '</button>' +
+          '<div class="pkg-items hidden">' +
+            p.items.map(it => '<div class="pkg-item"><span>' + it.item + '</span><span>' + it.price + '</span></div>').join('') +
+            (p.totalNum > 0 ? '<div class="pkg-item pkg-total"><span>Total package value</span><span>' + p.total + '</span></div>' : '') +
+          '</div>' +
+        '</div>').join('') + '</div>';
+    }
+    const needsExpand = c.outcomes.length > 2 || pkgs.length > 0;
+    return '<div class="course c' + c.tone + '">' +
       '<h3>' + c.name + '</h3>' +
       '<button class="course-btn" style="margin:10px 0" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>' +
       '<div class="course-outcomes" data-outcomes=\'' + JSON.stringify(c.outcomes) + '\'>' +
         '<div class="outcomes-list">' + c.outcomes.slice(0, 2).map(o => '<li>' + o + '</li>').join('') + '</div>' +
-        '<div class="outcomes-extra hidden">' + c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') + '</div>' +
-        (c.outcomes.length > 2 ? '<button class="expand-btn" onclick="toggleOutcomes(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' : '') +
+        '<div class="outcomes-extra hidden">' + c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') + pkgHtml + '</div>' +
+        (needsExpand ? '<button class="expand-btn" onclick="toggleOutcomes(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' : '') +
       '</div>' +
-    '</div>').join('');
+    '</div>';
+  }).join('');
+}
+
+function toggleOutcomes(btn) {
+  const container = btn.closest('.course-outcomes');
+  container.querySelector('.outcomes-extra').classList.toggle('hidden');
+  btn.classList.toggle('expanded');
+}
+
+function togglePackage(btn) {
+  btn.nextElementSibling.classList.toggle('hidden');
+  btn.classList.toggle('expanded');
+}
+
+async function loadPackagesFromSheet() {
+  try {
+    const response = await fetch(CMS_PACKAGES_URL);
+    const csvText = await response.text();
+    const rows = await parseCSV(csvText);
+    PACKAGES = {};
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length < 4) continue;
+      const offer = row[0].trim(), pkgName = row[1].trim(), item = row[2].trim(), price = row[3].trim();
+      if (!offer || !pkgName) continue;
+      PACKAGES[offer] = PACKAGES[offer] || [];
+      let p = PACKAGES[offer].find(x => x.name === pkgName);
+      if (!p) { p = { name: pkgName, items: [], totalNum: 0, total: '' }; PACKAGES[offer].push(p); }
+      p.items.push({ item: item, price: price });
+      const num = parseFloat(price.replace(/[^0-9.]/g, ''));
+      if (!isNaN(num)) p.totalNum += num;
+      p.total = 'US$' + p.totalNum.toLocaleString();
+    }
+    renderCourses('home');
+  } catch (error) {
+    console.error('CMS Packages Load Error:', error);
+  }
 }
 
 function toggleOutcomes(btn) {
@@ -656,6 +721,7 @@ async function loadCourseContentFromSheet() {
   
 // Initialize
 loadCoursesFromSheet();
+loadPackagesFromSheet();
 loadCourseContentFromSheet();
 renderCourses('home');
 
