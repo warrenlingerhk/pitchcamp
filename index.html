@@ -261,6 +261,9 @@ function showAuth(type) { hideAllViews(); document.getElementById(type === 'sign
 function showCourse(){ 
   hideAllViews(); 
   document.getElementById('view-course').classList.remove('hidden'); 
+  const head = document.querySelector('.site-head');
+  const menu = document.querySelector('.module-menu');
+  if (head && menu) menu.style.top = head.offsetHeight + 'px';
   renderCourse(); 
   history.pushState(null, '', '#course'); 
   window.scrollTo(0,0); 
