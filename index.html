@@ -65,6 +65,9 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .pkg-item{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed rgba(46,65,86,.25);font-size:.95rem;font-weight:600}
 .pkg-item:last-child{border-bottom:none}
 .pkg-total{font-weight:800}
+.pkg-logo{width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:3px;flex-shrink:0}
+.pkg-name{flex:1;text-align:left}
+.content-link{color:var(--orange);font-weight:800;text-decoration:underline}
 .c1{background:var(--yellow);color:var(--navy)} .c2{background:#EC9A38} .c3{background:var(--orange)} .c4{background:#D65F2C} .c5{background:var(--red)}
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
@@ -309,7 +312,9 @@ function renderCourses(target){
     if (pkgs.length) {
       pkgHtml = '<div class="pkg-block"><h4>Benefit Packages</h4>' + pkgs.map(p =>
         '<div class="pkg">' +
-          '<button class="pkg-btn" onclick="togglePackage(this)">' + p.name +
+          '<button class="pkg-btn" onclick="togglePackage(this)">' +
+            (p.logo ? '<img class="pkg-logo" src="' + p.logo + '" alt="">' : '') +
+            '<span class="pkg-name">' + p.name + '</span>' +
             '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
           '</button>' +
           '<div class="pkg-items hidden">' +
@@ -352,10 +357,12 @@ async function loadPackagesFromSheet() {
       const row = rows[i];
       if (row.length < 4) continue;
       const offer = row[0].trim(), pkgName = row[1].trim(), item = row[2].trim(), price = row[3].trim();
+      const logo = row[4] ? row[4].trim() : '';
       if (!offer || !pkgName) continue;
       PACKAGES[offer] = PACKAGES[offer] || [];
       let p = PACKAGES[offer].find(x => x.name === pkgName);
-      if (!p) { p = { name: pkgName, items: [], totalNum: 0, total: '' }; PACKAGES[offer].push(p); }
+      if (!p) { p = { name: pkgName, items: [], totalNum: 0, total: '', logo: '' }; PACKAGES[offer].push(p); }
+      if (logo && !p.logo) p.logo = logo;
       p.items.push({ item: item, price: price });
       const num = parseFloat(price.replace(/[^0-9.]/g, ''));
       if (!isNaN(num)) p.totalNum += num;
@@ -542,6 +549,16 @@ async function submitReply(postId, input) { const content = input.value.trim(); 
 async function toggleLike(postId, btn) { const res = await fetch(API_URL + '/api/likes', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + localStorage.getItem('token')}, body: JSON.stringify({ post_id: postId }) }); const data = await res.json(); btn.classList.toggle('liked', data.liked); loadPosts(); }
 async function pinComment(commentId) { alert('Pin comment feature - to be implemented'); }
 
+function linkify(text){
+  let esc = String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  esc = esc.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="content-link">$1</a>');
+  esc = esc.replace(/(^|[^"'>])(https?:\/\/[^\s|]+|www\.[^\s|]+)/g, function(m, pre, url){
+    const href = url.indexOf('www') === 0 ? 'https://' + url : url;
+    return pre + '<a href="' + href + '" target="_blank" rel="noopener" class="content-link">' + url + '</a>';
+  });
+  return esc;
+}
+
 function renderCourse(){
   const host = document.getElementById('course-content'); host.innerHTML = '';
   if (COURSE_DATA.length === 0) return;
@@ -556,13 +573,13 @@ function renderCourse(){
       
       let contentHtml = '';
       if (item.format === 'bullets') {
-        contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => b.trim()).filter(b => b).map(b => '<li>' + b + '</li>').join('') + '</ul></div>';
+        contentHtml = '<div class="mod-content"><ul>' + item.content.split('|').map(b => b.trim()).filter(b => b).map(b => '<li>' + linkify(b) + '</li>').join('') + '</ul></div>';
       } else if (item.format === 'bold') {
-        contentHtml = '<div class="mod-content"><p><strong>' + item.content + '</strong></p></div>';
+        contentHtml = '<div class="mod-content"><p><strong>' + linkify(item.content) + '</strong></p></div>';
       } else if (item.format === 'input_box') {
-        contentHtml = (item.content ? '<div class="mod-content">' + item.content + '</div>' : '') + '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
+        contentHtml = (item.content ? '<div class="mod-content">' + linkify(item.content) + '</div>' : '') + '<textarea class="note-input" placeholder="Type your answer here…"></textarea>';
       } else {
-        contentHtml = item.content ? '<div class="mod-content">' + item.content + '</div>' : '';
+        contentHtml = item.content ? '<div class="mod-content">' + linkify(item.content) + '</div>' : '';
       }
       
       div.innerHTML = '<input type="checkbox" class="check-input"><div style="flex:1"><h3 class="item-title">' + item.title + '</h3>' + contentHtml + '</div>';
