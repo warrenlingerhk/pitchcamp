@@ -637,7 +637,7 @@ async function loadProgress(){
 
 window.addEventListener('popstate', function() { if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) { if (!document.getElementById('view-course').classList.contains('hidden')) {} else { showCourse(); } } else { showHome(); } });
 
-// --- GOOGLE SHEETS CMS ENGINE ---
+// --- GOOGLE SHEETS CMS ENGINE ----
 async function parseCSV(text) {
   const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
   for (let i = 0; i < text.length; i++) {
