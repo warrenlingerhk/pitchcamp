@@ -549,7 +549,7 @@ function renderCourse(){
     host.appendChild(section);
     const itemsHost = document.getElementById('items-' + mod.id);
     mod.items.forEach(item => {
-      const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id; div.dataset.header = item.header_name;
+        const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id; div.dataset.header = item.header_name; div.dataset.format = item.format;
       
       let contentHtml = '';
       if (item.format === 'bullets') {
@@ -592,6 +592,7 @@ async function saveProgress(){
     progress.push({ 
       item_id: item.dataset.id, 
       header_name: item.dataset.header,
+      format: item.dataset.format || '',
       completed: item.querySelector('.check-input').checked ? 1 : 0, 
       note: noteEl ? noteEl.value : '' 
     }); 
