@@ -87,8 +87,10 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .reply-input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--slate);font:inherit;font-size:.95rem;margin-top:8px}
 .post-menu{position:absolute;right:10px;top:35px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:20;min-width:180px;overflow:hidden}
 .menu-item{padding:10px 16px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--navy)} .menu-item:hover{background:var(--cream)} .menu-item.danger{color:var(--red)} .menu-item.danger:hover{background:#fee}
-.module-menu{position:sticky; top:63px; z-index:40; background:var(--navy); color:#fff; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-bottom:3px solid var(--orange);}
-.module-menu-left, .module-menu-right{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.module-menu{position:sticky; top:63px; z-index:40; background:var(--navy); color:#fff; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:12px 20px; border-bottom:3px solid var(--orange); width:min(1150px,94%); margin-inline:auto;}
+.module-links{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center}
+.module-menu .back-home{justify-self:start}
+.module-menu .save-status{justify-self:end; margin-left:0}
 .module-menu a{color:#fff; text-decoration:none; font-weight:800; font-size:.95rem; padding:6px 14px; border-radius:999px; transition:background .2s;}
 .module-menu a:hover{background:rgba(255,255,255,.15)}
 .back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px} .back-home:hover{opacity:.85}
@@ -115,7 +117,7 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
   #community-section,#community-login-prompt{order:3}
 }
 @media(max-width:700px){.hero{grid-template-columns:1fr}.hero-media{min-height:180px}}
-@media(max-width:700px){.module-menu{top:63px; padding:8px 12px} .module-menu a{font-size:.85rem; padding:5px 10px} .save-status{display:none}}
+@media(max-width:700px){.module-menu{top:63px; padding:8px 12px; grid-template-columns:1fr; justify-items:center; row-gap:6px} .module-menu a{font-size:.85rem; padding:5px 10px} .module-menu .back-home{justify-self:center} .save-status{display:none}}
 </style>
 </head>
 <body>
@@ -206,16 +208,14 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 </div>
 
 <div id="view-course" class="hidden">
-  <nav class="module-menu">
-    <div class="module-menu-left">
-      <a href="#" class="back-home" onclick="showHome();return false">&larr; Back to Home</a>
-      <a href="#mod-1">Module 1</a><a href="#mod-2">Module 2</a><a href="#mod-3">Module 3</a>
-      <a href="#mod-4">Module 4</a><a href="#mod-5">Module 5</a><a href="#mod-6">Module 6</a>
-    </div>
-    <div class="module-menu-right"><span id="save-status" class="save-status">All changes saved.</span></div>
-  </nav>
-  <div id="course-content"></div>
-</div>
+<nav class="module-menu">
+  <a href="#" class="back-home" onclick="showHome();return false;">&larr; Back to Home</a>
+  <div class="module-links">
+    <a href="#mod-1">Module 1</a><a href="#mod-2">Module 2</a><a href="#mod-3">Module 3</a>
+    <a href="#mod-4">Module 4</a><a href="#mod-5">Module 5</a><a href="#mod-6">Module 6</a>
+  </div>
+  <span id="save-status" class="save-status">All changes saved.</span>
+</nav>
 
 <div id="access-modal" class="modal-overlay hidden" onclick="closeModal(event)">
   <div class="modal-box">
