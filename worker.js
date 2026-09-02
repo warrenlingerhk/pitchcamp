@@ -15,9 +15,7 @@ async function handleApi(request, env, ctx, url) {
   const path = url.pathname;
   const method = request.method;
 
-  // --- AUTH ---
-
-    // --- SCHOLARSHIP FORM ---
+  // --- FORMS (WEBHOOKS) ---
   if (path === '/api/scholarship' && method === 'POST') {
     const data = await request.json();
     if (!env.SCHOLARSHIP_WEBHOOK_URL) return json({ error: 'Webhook not configured' }, 500);
@@ -29,27 +27,6 @@ async function handleApi(request, env, ctx, url) {
     });
     const gText = await gRes.text();
 
-  if (path === '/api/moneyback' && request.method === 'POST') {
-    const data = await request.json();
-    const webhookUrl = env.MONEYBACK_WEBHOOK_URL;
-    
-    try {
-      const webhookRes = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
-      
-      if (webhookRes.ok) {
-        return json({success: true});
-      } else {
-        return json({error: 'Failed to submit application'}, 500);
-      }
-    } catch (err) {
-      return json({error: 'Webhook error: ' + err.message}, 500);
-    }
-  }
-    // If Google sent back a login page or an error, surface it instead of faking success
     if (!gRes.ok || gText.indexOf('{') === -1) {
       return json({ error: 'Google rejected the request. In Apps Script, set deployment access to "Anyone".' }, 502);
     }
@@ -60,7 +37,30 @@ async function handleApi(request, env, ctx, url) {
     }
     return json({ success: true });
   }
-  
+
+  if (path === '/api/moneyback' && method === 'POST') {
+    const data = await request.json();
+    if (!env.MONEYBACK_WEBHOOK_URL) return json({ error: 'Webhook not configured' }, 500);
+
+    const gRes = await fetch(env.MONEYBACK_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data)
+    });
+    const gText = await gRes.text();
+
+    if (!gRes.ok || gText.indexOf('{') === -1) {
+      return json({ error: 'Google rejected the request. In Apps Script, set deployment access to "Anyone".' }, 502);
+    }
+    let parsed = null;
+    try { parsed = JSON.parse(gText); } catch (e) {}
+    if (parsed && parsed.result === 'error') {
+      return json({ error: 'Sheet error: ' + parsed.message }, 500);
+    }
+    return json({ success: true });
+  }
+
+  // --- AUTH ---
   if (path === '/api/signup' && method === 'POST') {
     const { name, email, password } = await request.json();
     if (!email || !password || String(password).length < 6)
@@ -229,7 +229,7 @@ async function handleApi(request, env, ctx, url) {
     }
   }
 
-    // --- ME (fresh status) ---
+  // --- ME ---
   if (path === '/api/me' && method === 'GET') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
@@ -259,7 +259,7 @@ async function handleApi(request, env, ctx, url) {
     return json({ pending: pending.c, reports: reports.c });
   }
 
-  // --- MY OFFER ACCESS ---
+  // --- MY OFFER ACCESS & ADMIN STATUS ---
   if (path === '/api/my-offers' && method === 'GET') {
     const userId = await auth(request, env);
     if (!userId) return json({ error: 'Please log in.' }, 401);
@@ -267,7 +267,6 @@ async function handleApi(request, env, ctx, url) {
     return json(res.results.map(r => r.offer));
   }
 
-  // --- ADMIN: OFFER ACCESS & ADMIN STATUS ---
   if (path === '/api/admin/access' && method === 'GET') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
     const res = await env.DB.prepare('SELECT user_id, offer FROM offer_access').all();
@@ -329,7 +328,6 @@ async function handleApi(request, env, ctx, url) {
   if (path === '/api/admin/reports/delete' && method === 'POST') {
     if (!await requireAdmin(request, env)) return json({ error: 'Forbidden' }, 403);
     const { report_id } = await request.json();
-    // ONLY delete from reports table - post remains untouched
     await env.DB.prepare('DELETE FROM reports WHERE id = ?').bind(report_id).run();
     return json({ success: true });
   }
@@ -383,5 +381,11 @@ function json(data, status = 200) {
 }
 
 async function syncSheet(webhookUrl, email, name, user_number, progress) {
-  try { await fetch(webhookUrl, { method: 'POST', body: JSON.stringify({ email, name, user_number, progress }) }); } catch (e) {}
+  try { 
+    await fetch(webhookUrl, { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ email, name, user_number, progress }) 
+    }); 
+  } catch (e) {}
 }
