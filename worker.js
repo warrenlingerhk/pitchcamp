@@ -29,6 +29,26 @@ async function handleApi(request, env, ctx, url) {
     });
     const gText = await gRes.text();
 
+  if (path === '/api/moneyback' && request.method === 'POST') {
+    const data = await request.json();
+    const webhookUrl = env.MONEYBACK_WEBHOOK_URL;
+    
+    try {
+      const webhookRes = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      
+      if (webhookRes.ok) {
+        return json({success: true});
+      } else {
+        return json({error: 'Failed to submit application'}, 500);
+      }
+    } catch (err) {
+      return json({error: 'Webhook error: ' + err.message}, 500);
+    }
+  }
     // If Google sent back a login page or an error, surface it instead of faking success
     if (!gRes.ok || gText.indexOf('{') === -1) {
       return json({ error: 'Google rejected the request. In Apps Script, set deployment access to "Anyone".' }, 502);
