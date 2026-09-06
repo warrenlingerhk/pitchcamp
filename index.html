@@ -83,10 +83,10 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 .module-links a:hover{background:rgba(255,255,255,.15)}
 .save-status{justify-self:end; color:var(--lightBlue); font-weight:800; font-size:1rem; text-align:right;}
 .save-warn{color:var(--pink)}
-.module-section{padding:0; margin-bottom:40px; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.module-section{margin-bottom:40px; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.1)}
 .module-header{padding:40px 30px; text-align:center}
-.module-header h2{font-size:clamp(1.8rem,4vw,2.5rem); font-weight:800; margin:0;}
-.mod-item{background:#fff; color:var(--navy); border-radius:0; padding:24px 26px; margin:0; border-bottom:1px solid rgba(2,62,138,0.1)}
+.module-header h2{font-size:clamp(1.8rem,4vw,2.5rem); font-weight:800; margin:0; color:#fff}
+.mod-item{background:#fff; color:var(--navy); padding:24px 26px; margin:0; border-bottom:1px solid rgba(2,62,138,0.1)}
 .mod-item:last-child{border-bottom:none}
 .item-title{font-size:1.25rem;font-weight:800;margin:0 0 12px; color:var(--navy)}
 .mod-content{font-size:1.05rem;line-height:1.7}
@@ -110,7 +110,7 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 .lesson-title-card h1{margin:0;font-size:clamp(1.8rem,4vw,2.5rem);color:var(--navy)}
 .module-check-container{padding:20px 30px; display:flex; align-items:center; justify-content:center; gap:12px; background:rgba(255,255,255,0.3)}
 .module-check-container input{width:28px; height:28px; accent-color:var(--pink); cursor:pointer}
-.module-check-container label{font-weight:800; font-size:1.1rem; cursor:pointer}
+.module-check-container label{font-weight:800; font-size:1.1rem; cursor:pointer; color:#fff}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 @media(max-width:700px){.hero{grid-template-columns:1fr}.module-menu{grid-template-columns:1fr; justify-items:center; row-gap:8px;} .module-menu .back-home{justify-self:center;} .save-status{justify-self:center; text-align:center;}}
 </style>
@@ -221,11 +221,8 @@ h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
 const API_URL = '';
 const CMS_SHEET_ID = '1qKokdpkUosrOl_2iJM_lYLmynpXigyvlgdN-ajPmGcs';
 const CMS_LESSONS_URL = `https://docs.google.com/spreadsheets/d/${CMS_SHEET_ID}/export?format=csv&sheet=Lessons`;
-// ADD YOUR PUBLISHED CSV URLS HERE FOR EACH LESSON
 const LESSON_CSV_URLS = {
-  'L1': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeIjIJrUEmFEpAVd4X9Z-ovV-kJlhDbp_ZjfJNtbyeXA-WibbLQ9_fp3kmyFRVEUt2qYgAAtUtvXM2/pub?gid=105559072&single=true&output=csvE',
-  'L2': 'PASTE_L2_PUBLISHED_CSV_URL_HERE',
-  // Add all 27 lessons
+  'L1': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeIjIJrUEmFEpAVd4X9Z-ovV-kJlhDbp_ZjfJNtbyeXA-WibbLQ9_fp3kmyFRVEUt2qYgAAtUtvXM2/pub?gid=105559072&single=true&output=csv'
 };
 
 let saveTimeout, LESSONS = [], COURSE_DATA = [], currentLessonId = '';
@@ -318,15 +315,18 @@ async function loadLessonData(id) {
     const lessonInfo = LESSONS.find(l => l.id === id);
     document.getElementById('course-content').innerHTML = '<p style="padding:40px;text-align:center">Loading lesson...</p>';
     
-    // Use published CSV URL if available, otherwise fall back to API
-    const csvUrl = LESSON_CSV_URLS[id] || `/api/lesson?id=${id}`;
-    
     try {
+        const csvUrl = LESSON_CSV_URLS[id];
+        if (!csvUrl) {
+            document.getElementById('course-content').innerHTML = '<p style="color:red;padding:40px;text-align:center">No CSV URL configured for ' + id + '</p>';
+            return;
+        }
+        
         const res = await fetch(csvUrl);
         if (!res.ok) throw new Error('Lesson not found');
         const csv = await res.text();
         const rows = await parseCSV(csv);
-        COURSE_DATA = rows.slice(1); // Skip header row
+        COURSE_DATA = rows.slice(1);
         COURSE_DATA.lessonInfo = lessonInfo;
         renderCourse();
     } catch(e) {
@@ -507,7 +507,6 @@ function renderCourse(){
   const moduleNumbers = new Set();
   const modules = {};
   
-  // Group rows by module
   rows.forEach(row => {
       if (row.length < 4) return;
       const modNum = row[1] ? parseInt(row[1].trim()) : 1;
@@ -519,18 +518,16 @@ function renderCourse(){
       }
   });
 
-  // Render each module
   Array.from(moduleNumbers).sort((a,b) => a-b).forEach(modNum => {
       const section = document.createElement('section');
       section.id = `mod-section-${modNum}`;
       section.className = 'module-section';
-      section.style.background = getGradient(lessonTone);
+      section.style.background = gradient;
       
       const moduleItems = modules[modNum];
-      const moduleTitle = moduleItems.find(r => r[2] && r[2].trim().toLowerCase() === 'module') ? moduleItems.find(r => r[2].trim().toLowerCase() === 'module')[3] : `Module ${modNum}`;
       
       section.innerHTML = `
-        <div class="module-header" style="background:${getGradient(lessonTone)}">
+        <div class="module-header">
           <h2>Module ${modNum}</h2>
         </div>
         <div class="mod-items" id="items-mod-${modNum}"></div>
@@ -546,14 +543,14 @@ function renderCourse(){
       const itemsHost = section.querySelector('.mod-items');
       
       moduleItems.forEach(row => {
-          const id = row[0] ? row[0].trim() : '';
+          const id = row[0] || '';
           const type = row[2] ? row[2].trim().toLowerCase() : 'text';
-          const title = row[3] ? row[3].trim() : '';
-          const content = row[4] ? row[4].trim() : '';
-          const extra1 = row[5] ? row[5].trim() : '';
-          const extra2 = row[6] ? row[6].trim() : '';
+          const title = row[3] || '';
+          const content = row[4] || '';
+          const extra1 = row[5] || '';
+          const extra2 = row[6] || '';
           
-          if (type === 'module') return; // Skip module headers, already rendered
+          if (type === 'module') return;
           
           const div = document.createElement('div');
           div.className = 'mod-item';
