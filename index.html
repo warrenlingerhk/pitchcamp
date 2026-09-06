@@ -234,13 +234,13 @@ function logout(){ localStorage.clear(); showHome(); }
 
 function getGradient(tone) {
     if (tone >= 1 && tone <= 23) {
-        const startHue = 190 + (tone * 3);
-        const endHue = startHue + 20;
-        return `linear-gradient(135deg, hsl(${startHue}, 75%, 55%) 0%, hsl(${endHue}, 80%, 60%) 100%)`;
+        const startHue = 180 + ((tone - 1) * 4);
+        const endHue = startHue + 40;
+        return `linear-gradient(135deg, hsl(${startHue}, 85%, 50%) 0%, hsl(${endHue}, 90%, 45%) 100%)`;
     } else {
-        const startHue = 300 + ((tone - 24) * 8);
-        const endHue = startHue + 30;
-        return `linear-gradient(135deg, hsl(${startHue}, 80%, 55%) 0%, hsl(${endHue}, 85%, 60%) 100%)`;
+        const startHue = 300 + ((tone - 24) * 15);
+        const endHue = startHue + 40;
+        return `linear-gradient(135deg, hsl(${startHue}, 90%, 55%) 0%, hsl(${endHue}, 95%, 50%) 100%)`;
     }
 }
 
