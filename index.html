@@ -317,21 +317,27 @@ async function loadLessonData(id) {
     
     try {
         const csvUrl = LESSON_CSV_URLS[id];
+        console.log('Loading from CSV:', csvUrl); // Debug log
+        
         if (!csvUrl) {
             document.getElementById('course-content').innerHTML = '<p style="color:red;padding:40px;text-align:center">No CSV URL configured for ' + id + '</p>';
             return;
         }
         
         const res = await fetch(csvUrl);
-        if (!res.ok) throw new Error('Lesson not found');
-        const csv = await res.text();
-        const rows = await parseCSV(csv);
-        COURSE_DATA = rows.slice(1);
+        if (!res.ok) throw new Error('Failed to load CSV');
+        const csvText = await res.text();
+        console.log('CSV loaded:', csvText.substring(0, 200)); // Debug log
+        
+        const rows = await parseCSV(csvText);
+        console.log('Parsed rows:', rows.length); // Debug log
+        
+        COURSE_DATA = rows.slice(1); // Skip header row
         COURSE_DATA.lessonInfo = lessonInfo;
         renderCourse();
     } catch(e) {
         console.error('Lesson load error:', e);
-        document.getElementById('course-content').innerHTML = '<p style="color:red;padding:40px;text-align:center">Failed to load lesson data.</p>';
+        document.getElementById('course-content').innerHTML = '<p style="color:red;padding:40px;text-align:center">Failed to load: ' + e.message + '</p>';
     }
 }
 
