@@ -68,6 +68,8 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .pkg-logo{width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:3px;flex-shrink:0}
 .pkg-name{flex:1;text-align:left}
 .content-link{color:var(--orange);font-weight:800;text-decoration:underline}
+.offer-value{margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.92);color:var(--navy);border-radius:10px;font-weight:800;text-align:center;font-size:1rem}
+.offer-value strong{color:var(--orange)}
 .c1{background:var(--yellow);color:var(--navy)} .c2{background:#EC9A38} .c3{background:var(--orange)} .c4{background:#D65F2C} .c5{background:var(--red)}
 .auth-wrap{min-height:80vh;display:grid;place-items:center;padding:50px 0}
 .auth-card{width:min(440px,94%);overflow:hidden}
@@ -94,10 +96,6 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 .module-links{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center}
 .module-menu .back-home{justify-self:start}
 .module-menu .save-status{justify-self:end; margin-left:0}
-.module-menu a{color:#fff; text-decoration:none; font-weight:800; font-size:.95rem; padding:6px 14px; border-radius:999px; transition:background .2s;}
-.module-menu a:hover{background:rgba(255,255,255,.15)}
-.back-home{color:#fff; text-decoration:none; font-weight:800; font-size:1rem; padding:6px 14px} .back-home:hover{opacity:.85}
-.save-status{color:var(--yellow); font-weight:800; font-size:1rem; margin-left:12px} .save-warn{color:var(--orange)} .save-err{color:var(--red)}
 .module-section{padding:60px 0; border-bottom:4px solid var(--navy)}
 .bg-mod-1{background:var(--yellow); color:var(--navy)} .bg-mod-2{background:var(--orange); color:#fff} .bg-mod-3{background:var(--red); color:#fff}
 .bg-mod-4{background:var(--navy); color:#fff} .bg-mod-5{background:var(--slate); color:#fff} .bg-mod-6{background:var(--tan); color:var(--navy)}
@@ -232,13 +230,13 @@ h1,h2,h3,.brand,.stat strong{font-family:'Poppins',sans-serif}
 
 <footer style="background:var(--navy); color:#fff; padding:40px 0 20px; margin-top:60px; text-align:center;">
   <div class="wrap">
-    <p style="margin:0 0 20px; font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
+    <p style="margin:0 0 20px;font-size:.9rem; opacity:.8;">©2026 DrWarren Linger, Certified Innovation Consulting and Training. All rights reserved.</p>
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:.9rem; font-weight:700;">
-      <a href="/about.html" style="color:#fff; text-decoration:none;">About</a>
-      <a href="/privacy.html" style="color:#fff; text-decoration:none;">Privacy Policy</a>
-      <a href="/terms.html" style="color:#fff; text-decoration:none;">Terms & Conditions</a>
-      <a href="/data-protection.html" style="color:#fff; text-decoration:none;">Data Protection Policy</a>
-      <a href="/earnings-disclaimer.html" style="color:#fff; text-decoration:none;">Earnings Disclaimer</a>
+      <a href="/about.html" style="color:#fff;text-decoration:none;">About</a>
+      <a href="/privacy.html" style="color:#fff;text-decoration:none;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#fff;text-decoration:none;">Terms & Conditions</a>
+      <a href="/data-protection.html" style="color:#fff;text-decoration:none;">Data Protection Policy</a>
+      <a href="/earnings-disclaimer.html" style="color:#fff;text-decoration:none;">Earnings Disclaimer</a>
     </div>
   </div>
 </footer>
@@ -249,14 +247,15 @@ const API_URL = '';
 const CMS_OFFERS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNbO7bdDtfEM8sKjPtefHp1I3aauVYhkHlr4ke59phYV2UEjL5dluBhWyydZ1-NmT8SOfzTDSjTOYZ/pub?gid=0&single=true&output=csv';
 const CMS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRTag9HJby281lhVS8nVn_vH_YKRUp7Vu5rIRlICUxzp031OO_uEVevBQNHoMlgu841NzaOt3J6RlBf/pub?gid=0&single=true&output=csv';
 const CMS_PACKAGES_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxXLgphiwpR2WsRmZgVHdyb5P9CK3xv-JtgmqOm1KdAPhC49uetn8sWG6xRWdZhnyTX1UQbnQ4drr5/pub?gid=1441853541&single=true&output=csv';
-  // --------------------------------------------
+// -------------------------------------------
 
 let saveTimeout;
 let currentPage = 1;
 let totalPages = 1;
 let COURSES = []; 
-let PACKAGES = {};
 let COURSE_DATA = []; 
+let PACKAGES = {};
+let OFFER_VALUE = {};
 
 function hideAllViews() { ['view-home','view-auth-signup','view-auth-login','view-course'].forEach(v => document.getElementById(v).classList.add('hidden')); }
 function showHome(){ hideAllViews(); document.getElementById('view-home').classList.remove('hidden'); renderHeader(); renderCourses('home'); toggleCommunityView(); history.pushState(null, '', '/'); window.scrollTo(0,0); }
@@ -309,6 +308,12 @@ function renderCourses(target){
   host.innerHTML = COURSES.map(c => {
     const pkgs = PACKAGES[c.name] || [];
     let pkgHtml = '';
+    let valueHtml = '';
+    const valMap = OFFER_VALUE[c.name];
+    if (valMap) {
+      const valStr = Object.keys(valMap).map(k => k + valMap[k].toLocaleString()).join(' + ');
+      valueHtml = '<div class="offer-value">Value: <strong>' + valStr + '</strong></div>';
+    }
     if (pkgs.length) {
       pkgHtml = '<div class="pkg-block"><h4>Benefit Packages</h4>' + pkgs.map(p =>
         '<div class="pkg">' +
@@ -319,7 +324,7 @@ function renderCourses(target){
           '</button>' +
           '<div class="pkg-items hidden">' +
             p.items.map(it => '<div class="pkg-item"><span>' + it.item + '</span><span>' + it.price + '</span></div>').join('') +
-            (p.totalNum > 0 ? '<div class="pkg-item pkg-total"><span>Total package value</span><span>' + p.total + '</span></div>' : '') +
+            (p.total ? '<div class="pkg-item pkg-total"><span>Total package value</span><span>' + p.total + '</span></div>' : '') +
           '</div>' +
         '</div>').join('') + '</div>';
     }
@@ -329,7 +334,7 @@ function renderCourses(target){
       '<button class="course-btn" style="margin:10px 0" onclick="handleCourseClick(\'' + c.name + '\', ' + c.active + ')">Enter ' + c.name + '</button>' +
       '<div class="course-outcomes" data-outcomes=\'' + JSON.stringify(c.outcomes) + '\'>' +
         '<div class="outcomes-list">' + c.outcomes.slice(0, 2).map(o => '<li>' + o + '</li>').join('') + '</div>' +
-        '<div class="outcomes-extra hidden">' + c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') + pkgHtml + '</div>' +
+        '<div class="outcomes-extra hidden">' + c.outcomes.slice(2).map(o => '<li>' + o + '</li>').join('') + pkgHtml + valueHtml + '</div>' +
         (needsExpand ? '<button class="expand-btn" onclick="toggleOutcomes(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' : '') +
       '</div>' +
     '</div>';
@@ -344,39 +349,6 @@ function toggleOutcomes(btn) {
 
 function togglePackage(btn) {
   btn.nextElementSibling.classList.toggle('hidden');
-  btn.classList.toggle('expanded');
-}
-
-async function loadPackagesFromSheet() {
-  try {
-    const response = await fetch(CMS_PACKAGES_URL);
-    const csvText = await response.text();
-    const rows = await parseCSV(csvText);
-    PACKAGES = {};
-    for (let i = 1; i < rows.length; i++) {
-      const row = rows[i];
-      if (row.length < 4) continue;
-      const offer = row[0].trim(), pkgName = row[1].trim(), item = row[2].trim(), price = row[3].trim();
-      const logo = row[4] ? row[4].trim() : '';
-      if (!offer || !pkgName) continue;
-      PACKAGES[offer] = PACKAGES[offer] || [];
-      let p = PACKAGES[offer].find(x => x.name === pkgName);
-      if (!p) { p = { name: pkgName, items: [], totalNum: 0, total: '', logo: '' }; PACKAGES[offer].push(p); }
-      if (logo && !p.logo) p.logo = logo;
-      p.items.push({ item: item, price: price });
-      const num = parseFloat(price.replace(/[^0-9.]/g, ''));
-      if (!isNaN(num)) p.totalNum += num;
-      p.total = 'US$' + p.totalNum.toLocaleString();
-    }
-    renderCourses('home');
-  } catch (error) {
-    console.error('CMS Packages Load Error:', error);
-  }
-}
-
-function toggleOutcomes(btn) {
-  const container = btn.closest('.course-outcomes');
-  container.querySelector('.outcomes-extra').classList.toggle('hidden');
   btn.classList.toggle('expanded');
 }
 
@@ -569,7 +541,7 @@ function renderCourse(){
     host.appendChild(section);
     const itemsHost = document.getElementById('items-' + mod.id);
     mod.items.forEach(item => {
-        const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id; div.dataset.header = item.header_name; div.dataset.format = item.format;
+      const div = document.createElement('div'); div.className = 'mod-item'; div.dataset.id = item.id; div.dataset.header = item.header_name; div.dataset.format = item.format;
       
       let contentHtml = '';
       if (item.format === 'bullets') {
@@ -628,7 +600,7 @@ async function saveProgress(){
       body: JSON.stringify({ progress }) 
     }); 
     if (res.ok) { setStatus('All changes saved.', 'save-ok'); } 
-    else { setStatus('Error saving!', 'save-err'); }
+    else { setStatus('Error saving!', 'save-err'); } 
   } catch (e) { 
     console.error(e);
     setStatus('Error saving!', 'save-err'); 
@@ -660,7 +632,7 @@ async function loadProgress(){
 
 window.addEventListener('popstate', function() { if (location.pathname === '/pitchcamp' || location.hash.startsWith('#mod')) { if (!document.getElementById('view-course').classList.contains('hidden')) {} else { showCourse(); } } else { showHome(); } });
 
-// --- GOOGLE SHEETS CMS ENGINE ----
+// --- GOOGLE SHEETS CMS ENGINE ---
 async function parseCSV(text) {
   const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
   for (let i = 0; i < text.length; i++) {
@@ -694,6 +666,39 @@ async function loadCoursesFromSheet() {
     renderCourses('home');
   } catch (error) {
     console.error('CMS Course Load Error:', error);
+  }
+}
+
+async function loadPackagesFromSheet() {
+  try {
+    const response = await fetch(CMS_PACKAGES_URL);
+    const csvText = await response.text();
+    const rows = await parseCSV(csvText);
+    PACKAGES = {};
+    OFFER_VALUE = {};
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length < 4) continue;
+      const offer = row[0].trim(), pkgName = row[1].trim(), item = row[2].trim(), price = row[3].trim();
+      const logo = row[4] ? row[4].trim() : '';
+      if (!offer || !pkgName) continue;
+      PACKAGES[offer] = PACKAGES[offer] || [];
+      let p = PACKAGES[offer].find(x => x.name === pkgName);
+      if (!p) { p = { name: pkgName, items: [], sums: {}, total: '', logo: '' }; PACKAGES[offer].push(p); }
+      if (logo && !p.logo) p.logo = logo;
+      p.items.push({ item: item, price: price });
+      const cur = (price.match(/^[^\d]+/) || [''])[0].trim() || 'US$';
+      const num = parseFloat(price.replace(/[^0-9.]/g, ''));
+      if (!isNaN(num)) {
+        p.sums[cur] = (p.sums[cur] || 0) + num;
+        OFFER_VALUE[offer] = OFFER_VALUE[offer] || {};
+        OFFER_VALUE[offer][cur] = (OFFER_VALUE[offer][cur] || 0) + num;
+      }
+      p.total = Object.keys(p.sums).map(k => k + p.sums[k].toLocaleString()).join(' + ');
+    }
+    renderCourses('home');
+  } catch (error) {
+    console.error('CMS Packages Load Error:', error);
   }
 }
 
@@ -744,8 +749,8 @@ async function loadCourseContentFromSheet() {
   
 // Initialize
 loadCoursesFromSheet();
-loadPackagesFromSheet();
 loadCourseContentFromSheet();
+loadPackagesFromSheet();
 renderCourses('home');
 
 // Check URL on load
@@ -754,245 +759,6 @@ if (location.hash.startsWith('#mod') || location.hash === '#course') {
 } else {
   showHome();
 }
-</script>
-</body>
-</html>
-
-
-admin.html
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PitchCamp — Admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{ --cream:#F7EFDE; --navy:#2E4156; --slate:#7E93A6; --yellow:#F2B33D; --orange:#E07A2F; --red:#C6472E; --green:#2E7D5B; }
-*{box-sizing:border-box}
-body{background:var(--cream);color:var(--navy);font-family:'Nunito Sans',sans-serif;margin:0;font-size:16px}
-h1,h2,h3,.brand{font-family:'Poppins',sans-serif}
-.wrap{width:min(1150px,94%);margin-inline:auto}
-.site-head{position:sticky;top:0;z-index:50;background:var(--cream)}
-.head-in{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px;border-bottom:3px solid var(--navy)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none}
-.brand-dot{color:var(--orange)}
-.btn{border-radius:999px;font-weight:800;cursor:pointer;font-family:'Nunito Sans';padding:6px 16px;font-size:.85rem}
-.btn.ghost{background:#fff;border:2px solid var(--navy);color:var(--navy);text-decoration:none;display:inline-block}
-h1{font-size:1.6rem;margin:24px 0 6px}
-h2{font-size:1.2rem;margin:28px 0 12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-.card{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 5px 0 rgba(46,65,86,.12)}
-.card .num{font-size:1.7rem;font-weight:800;font-family:'Poppins'}
-.card .lbl{font-size:.85rem;font-weight:700;color:var(--slate)}
-.table-wrap{overflow-x:auto;background:#fff;border-radius:14px;box-shadow:0 5px 0 rgba(46,65,86,.12)}
-table{width:100%;border-collapse:collapse;min-width:640px}
-th,td{padding:10px 14px;text-align:left;font-size:.9rem;border-bottom:1px solid rgba(46,65,86,.08);white-space:nowrap}
-th{background:var(--navy);color:#fff;font-weight:800}
-td input[type="checkbox"]{width:18px;height:18px;accent-color:var(--orange);cursor:pointer}
-.report{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:0 4px 0 rgba(46,65,86,.10)}
-.report .meta{font-size:.85rem;color:var(--slate);font-weight:700;margin-bottom:6px}
-.report .content{margin-bottom:10px;white-space:pre-wrap}
-.report .actions{display:flex;gap:10px;flex-wrap:wrap}
-.report .actions button{border:none;border-radius:999px;padding:6px 14px;font-weight:800;cursor:pointer;font-size:.8rem}
-.resolve{background:var(--green);color:#fff}
-.delete{background:var(--red);color:#fff}
-.resolved-tag{color:var(--green);font-weight:800}
-.empty{color:var(--slate);font-weight:700}
-@media(max-width:600px){ h1{font-size:1.3rem} th,td{padding:8px 10px} }
-</style>
-</head>
-<body>
-<header class="site-head">
-  <div class="head-in wrap">
-   <a class="brand" href="/"><span>PitchCamp<span class="brand-dot">.live</span> Admin</span></a>
-    <a class="btn ghost" href="/">← Back to site</a>
-  </div>
-</header>
-
-<main class="wrap">
-  <h1>Admin Dashboard</h1>
-  <div class="cards" id="stats"></div>
-  <h2>Pending Approvals</h2>
-  <div id="pending"></div>
-  <h2>Analytics</h2>
-  <div class="cards" id="analytics"></div>
-  <h2>Members (Admin + Offer Access)</h2>
-  <div class="table-wrap">
-    <table id="users-table">
-      <thead></thead>
-      <tbody id="users-body"></tbody>
-    </table>
-  </div>
-  <h2>Reports</h2>
-  <div id="reports"></div>
-</main>
-
-<script>
-const API_URL = '';
-const CMS_OFFERS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNbO7bdDtfEM8sKjPtefHp1I3aauVYhkHlr4ke59phYV2UEjL5dluBhWyydZ1-NmT8SOfzTDSjTOYZ/pub?gid=0&single=true&output=csv';
-const token = localStorage.getItem('token');
-
-if (!token || localStorage.getItem('pc_is_admin') !== '1') {
-  window.location.href = '/';
-}
-
-let OFFER_NAMES = [];
-
-async function api(path, opts = {}) {
-  opts.headers = Object.assign({}, opts.headers, { 'Authorization': 'Bearer ' + token });
-  if (opts.body) opts.headers['Content-Type'] = 'application/json';
-  const res = await fetch(API_URL + path, opts);
-  if (res.status === 401 || res.status === 403) { window.location.href = '/'; throw new Error('Not authorized'); }
-  if (!res.ok) {
-    let msg = 'Request failed';
-    try { const d = await res.json(); if (d && d.error) msg = d.error; } catch (e) {}
-    throw new Error(msg);
-  }
-  return res.json();
-}
-
-function card(num, lbl) {
-  return '<div class="card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
-}
-
-async function parseCSV(text) {
-  const rows = []; let currentRow = []; let currentCell = ''; let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === '"') { inQuotes = !inQuotes; }
-    else if (char === ',' && !inQuotes) { currentRow.push(currentCell); currentCell = ''; }
-    else if ((char === '\n' || char === '\r') && !inQuotes) { if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); } currentRow = []; currentCell = ''; if (char === '\r' && text[i+1] === '\n') i++; }
-    else { currentCell += char; }
-  }
-  if (currentCell !== '' || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); }
-  return rows;
-}
-
-async function loadOfferNames() {
-  try {
-    const text = await (await fetch(CMS_OFFERS_URL)).text();
-    const rows = await parseCSV(text);
-    OFFER_NAMES = [];
-    for (let i = 1; i < rows.length; i++) {
-      if (rows[i][0] && rows[i][0].trim()) OFFER_NAMES.push(rows[i][0].trim());
-    }
-  } catch (e) { OFFER_NAMES = ['PitchCamp']; }
-}
-
-async function loadStats() {
-  try {
-    const s = await api('/api/admin/stats');
-    document.getElementById('stats').innerHTML =
-      card(s.users, 'Members') + card(s.posts, 'Posts') + card(s.reports, 'Reports') + card(s.mod1, 'Module 1 completed');
-  } catch (e) { console.error(e); }
-}
-
-async function loadPending() {
-  try {
-    const list = await api('/api/admin/pending');
-    const host = document.getElementById('pending');
-    if (!list.length) { host.innerHTML = '<p class="empty">No pending applications. 🎉</p>'; return; }
-    host.innerHTML = list.map(u =>
-      '<div class="report">' +
-        '<div class="meta">#' + (u.user_number || '—') + ' ' + u.name + ' — ' + u.email + ' (signed up ' + (u.created_at || '').slice(0, 10) + ')</div>' +
-        '<div class="actions"><button class="resolve" onclick="approveUser(' + u.id + ')">Approve (sold)</button></div>' +
-      '</div>'
-    ).join('');
-  } catch (e) { console.error(e); }
-}
-
-async function approveUser(id) {
-  await api('/api/admin/approve', { method: 'POST', body: JSON.stringify({ user_id: id }) });
-  loadPending(); loadUsers(); loadStats();
-}
-
-async function loadAnalytics() {
-  try {
-    const a = await api('/api/admin/analytics');
-    document.getElementById('analytics').innerHTML =
-      card(a.totalUsers, 'Total users') + card(a.activeLearners, 'Active learners') +
-      card(a.eliteRate + '%', 'Elite rate') + card(a.engagement, 'Engagement') + card(a.healthRatio, 'Health ratio');
-  } catch (e) { console.error(e); }
-}
-
-async function loadUsers() {
-  try {
-    const results = await Promise.all([api('/api/admin/users'), api('/api/admin/access')]);
-    const users = results[0];
-    const accessRows = results[1];
-    const access = {};
-    accessRows.forEach(r => { (access[r.user_id] = access[r.user_id] || []).push(r.offer); });
-
-    document.querySelector('#users-table thead').innerHTML =
-      '<tr><th>#</th><th>Name</th><th>Email</th><th>Admin</th><th>Paid</th><th>Joined</th>' +
-      OFFER_NAMES.map(o => '<th>' + o + '</th>').join('') + '</tr>';
-
-    document.getElementById('users-body').innerHTML = users.map(u => {
-      const my = access[u.id] || [];
-      return '<tr><td>' + (u.user_number || '') + '</td><td>' + u.name + '</td><td>' + u.email + '</td>' +
-        '<td><input type="checkbox" ' + (u.is_admin ? 'checked' : '') + ' onchange="setAdmin(' + u.id + ', this.checked)"></td>' +
-        '<td>' + (u.is_paid ? 'Yes' : 'No') + '</td>' +
-        '<td>' + (u.created_at || '').slice(0, 10) + '</td>' +
-        OFFER_NAMES.map(o => '<td><input type="checkbox" ' + (my.indexOf(o) !== -1 ? 'checked' : '') + ' onchange="setAccess(' + u.id + ',\'' + o + '\', this.checked)"></td>').join('') +
-        '</tr>';
-    }).join('');
-  } catch (e) { console.error(e); }
-}
-
-async function setAdmin(id, on) {
-  try {
-    await api('/api/admin/set-admin', { method: 'POST', body: JSON.stringify({ user_id: id, is_admin: on }) });
-  } catch (e) { alert(e.message); }
-  loadUsers();
-}
-
-async function setAccess(id, offer, on) {
-  try {
-    await api('/api/admin/access', { method: 'POST', body: JSON.stringify({ user_id: id, offer: offer, granted: on }) });
-  } catch (e) { alert(e.message); }
-  loadUsers();
-}
-
-async function loadReports() {
-  try {
-    const reports = await api('/api/admin/reports');
-    const host = document.getElementById('reports');
-    if (!reports.length) { host.innerHTML = '<p class="empty">No reports. 🎉</p>'; return; }
-    host.innerHTML = reports.map(r =>
-      '<div class="report">' +
-        '<div class="meta">Reported by ' + (r.reporter_name || 'Unknown') + ' → ' + (r.reported_user_name || 'Deleted user') +
-          ' on ' + (r.created_at || '').slice(0, 10) + (r.resolved ? ' <span class="resolved-tag">• RESOLVED</span>' : '') + '</div>' +
-        '<div class="content">' + (r.post_content || '[post deleted]') + '</div>' +
-        (r.reason ? '<div class="meta">Reason: ' + r.reason + '</div>' : '') +
-        '<div class="actions">' +
-          '<button class="resolve" onclick="resolveReport(' + r.id + ', ' + (r.resolved ? 0 : 1) + ')">' + (r.resolved ? 'Unresolve' : 'Resolve') + '</button>' +
-          '<button class="delete" onclick="deleteReport(' + r.id + ')">Delete report</button>' +
-        '</div>' +
-      '</div>'
-    ).join('');
-  } catch (e) { console.error(e); }
-}
-
-async function resolveReport(id, resolved) {
-  await api('/api/admin/reports/resolve', { method: 'POST', body: JSON.stringify({ report_id: id, resolved: !!resolved }) });
-  loadReports();
-}
-async function deleteReport(id) {
-  if (!confirm('Delete this report? The post itself stays.')) return;
-  await api('/api/admin/reports/delete', { method: 'POST', body: JSON.stringify({ report_id: id }) });
-  loadReports();
-}
-
-loadOfferNames().then(function(){
-  loadStats();
-  loadPending();
-  loadAnalytics();
-  loadUsers();
-  loadReports();
-});
 </script>
 </body>
 </html>
